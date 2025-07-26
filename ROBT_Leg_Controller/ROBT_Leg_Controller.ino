@@ -32,18 +32,18 @@ void setup() {
     while (true);
   }
 
-for (const auto& cfg : leg_pin_init_table) {
-    switch (cfg.mode) {
-        case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
-        case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
-        case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
-        case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
-    }
-}
+  for (const auto& cfg : leg_pin_init_table) {
+      switch (cfg.mode) {
+          case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
+          case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
+          case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
+          case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
+      }
+  }
 
 
-initADC(adc_cfg, &adcComplete);
-delay(100); // Delay for servo stability
+  initADC(adc_cfg, &adcComplete);
+  delay(100); // Delay for servo stability
 }
 
 void loop() {
