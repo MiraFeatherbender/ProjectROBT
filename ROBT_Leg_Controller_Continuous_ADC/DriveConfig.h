@@ -3,18 +3,18 @@
 #ifndef DRIVE_CONFIG_H
 #define DRIVE_CONFIG_H
 
-//Main loop state machine enum
+// Main loop state machine enum
 enum BootState {
   WAITING_FOR_ADC,       // ADC not yet returned a valid sample
   BOOT_ANGLE_CAPTURED,   // Angle has been inferred and injected into servo
   RUNNING                // Normal operation mode
 };
 
-//ADC continuous mode configuration parameters
+// ADC continuous mode configuration parameters
 struct ADCConfig {
     // Pin list for conversion targets
-    uint8_t pins[1] = {1};            // GPIO1 for reading servo position directly from internal potentiometer
-    size_t pin_count = sizeof(pins);  // auto-sized
+    uint8_t pins[1] = {1};            // GPIO1 reads servo potentiometer
+    size_t pin_count = sizeof(pins);  // Auto-sized
 
     // Conversion settings
     uint16_t conversions_per_pin = 1000;
@@ -28,7 +28,7 @@ struct ADCConfig {
     adc_continuous_data_t* result = nullptr;
 };
 
-//Pin modes for use in switch:case statement of setup
+// Pin modes for use in switch:case statement of setup
 enum PinModeType {
     PINMODE_INPUT,
     PINMODE_INPUT_PULLUP,
@@ -82,10 +82,9 @@ struct ServoConfig {
     float motion_window_max = 225.0f;
 
     float magnet_spacing_deg = 30.0f;
-    int startup_magnet_number = 3;  //center magnet in range 0 -> 6
+    int startup_magnet_number = 3;  // Center magnet in range 0 -> 6
 
     float max_deg_per_sec = 90.0f;
-
 };
 
 // Stepper-specific configuration
