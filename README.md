@@ -1,4 +1,4 @@
-# ROBT Leg Controller (Continuous ADC)
+# ROBT Leg Controller
 
 Firmware for the ESP32-C3-based robotic wheeled leg, designed for use in a 6-legged disability aid rover.  
 Provides robust, safe, and precise steering and drive control with automatic calibration and feedback.
