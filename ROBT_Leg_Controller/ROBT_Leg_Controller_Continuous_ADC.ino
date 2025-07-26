@@ -1,7 +1,7 @@
 #include "DriveConfig.h"
 #include "LegSupervisor.h"
 
-ADCConfig adc_cfg;  // from DriveConfig.h
+ADCConfig adc_cfg;  // From DriveConfig.h
 
 void ARDUINO_ISR_ATTR adcComplete() {
   adc_cfg.conversion_done = true;
@@ -14,7 +14,6 @@ ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
 
 void printAngle(uint16_t mv) {
-//   float angle = (mv / 3.0);
   float angle = -(mv / 3.0) + 302.0;
   Serial.printf("%.1f\n",angle);  // Tab-separated for plotter
 }
@@ -44,7 +43,7 @@ for (const auto& cfg : leg_pin_init_table) {
 
 
 initADC(adc_cfg, &adcComplete);
-delay(100); //delay for servo stability
+delay(100); // Delay for servo stability
 }
 
 void loop() {
