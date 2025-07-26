@@ -33,7 +33,7 @@ void ServoController::setAngleRaw(float angle_deg) {
 
 void ServoController::initializeAngle(float angle){
     int target_duty = angleToDuty(angle);
-    ledcFade(cfg_.ledc.pin, target_duty, target_duty, 1); //initialize LEDC PWM to known value to allow setAngleRaw to fade properly
+    ledcFade(cfg_.ledc.pin, target_duty, target_duty, 1); // Initialize PWM for proper fade
 }
 
 int ServoController::angleToDuty(float angle) const {

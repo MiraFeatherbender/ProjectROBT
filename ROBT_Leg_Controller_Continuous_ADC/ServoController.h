@@ -13,7 +13,7 @@ public:
     void initializeAngle(float angle);  // Stabilizes initial servo angle PWM
     float getAngle() const;             // Returns last commanded angle
     void setBootAngle(float angle);     // Sets internal angle without PWM fade
-    float getAngleMin() const;   // Optional helper for supervisor sanity check
+    float getAngleMin() const;          // Optional helper for supervisor sanity check
     float getAngleMax() const;
 
     const LEDCConfig& getLEDCConfig() const { // Returns config needed to setup LEDC hardware
