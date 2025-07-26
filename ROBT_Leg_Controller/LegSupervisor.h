@@ -13,6 +13,7 @@ public:
     float getCurrentAngle() const;             // Returns current angle from servo
     void setSteeringAngle(float angle);
     void setRawSteeringAngle(float angle);
+    void initADC(ADCConfig& cfg, void (*callback)());
 private:
     ServoController servo_;
 

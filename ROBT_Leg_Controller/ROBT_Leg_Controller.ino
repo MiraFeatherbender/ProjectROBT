@@ -18,31 +18,31 @@ void printAngle(uint16_t mv) {
   Serial.printf("%.1f\n",angle);  // Tab-separated for plotter
 }
 
-void initADC(ADCConfig& cfg, void (*callback)()) {
-    analogContinuousSetWidth(cfg.width_bits);
-    analogContinuousSetAtten(cfg.attenuation);
-    analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
-    analogContinuousStart();
-}
+// void initADC(ADCConfig& cfg, void (*callback)()) {
+//     analogContinuousSetWidth(cfg.width_bits);
+//     analogContinuousSetAtten(cfg.attenuation);
+//     analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
+//     analogContinuousStart();
+// }
 
 void setup() {
-  Serial.begin(115200);
-  if (!supervisor.begin()) {
-    Serial.println("Failed to attach LEDC");
-    while (true);
-  }
+   Serial.begin(115200);
 
-  for (const auto& cfg : leg_pin_init_table) {
+   for (const auto& cfg : leg_pin_init_table) {
       switch (cfg.mode) {
           case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
           case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
           case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
           case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
       }
+   }
+
+  if (!supervisor.begin()) {
+    Serial.println("Failed to attach LEDC");
+    while (true);
   }
 
-
-  initADC(adc_cfg, &adcComplete);
+  supervisor.initADC(adc_cfg, &adcComplete);
   delay(100); // Delay for servo stability
 }
 

@@ -34,3 +34,10 @@ void LegSupervisor::setSteeringAngle(float angle) {
 void LegSupervisor::setRawSteeringAngle(float angle){
     servo_.setAngleRaw(angle);
 }
+
+void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
+    analogContinuousSetWidth(cfg.width_bits);
+    analogContinuousSetAtten(cfg.attenuation);
+    analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
+    analogContinuousStart();
+}
