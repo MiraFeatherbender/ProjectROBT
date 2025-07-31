@@ -3,9 +3,12 @@
 #include <esp32-hal-ledc.h>
 
 LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
-    : servo_(ServoCFG) {}
+    : servo_(ServoCFG),
+      hallSensor_(),
+      servoCal_(servo_, ServoCFG){}
 
 bool LegSupervisor::begin() {
+    servo_.begin();
     if (!attachLEDC(servo_.getLEDCConfig())) return false;
     return true;
 }
@@ -40,4 +43,9 @@ void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
     analogContinuousSetAtten(cfg.attenuation);
     analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
     analogContinuousStart();
+}
+
+bool LegSupervisor::saveSweepSummary(){
+    SweepSummary summary = servoCal_.getSweepSummary();
+    return NVSManager::storeSweepSummary(summary);
 }

@@ -12,13 +12,12 @@ public:
     void setAngleRaw(float angle_deg);  // Moves to target angle via PWM fade without clamping
     void initializeAngle(float angle);  // Stabilizes initial servo angle PWM
     float getAngle() const;             // Returns last commanded angle
+    uint32_t getPulseUS() const;        // Returns active pulse width in uS
     void setBootAngle(float angle);     // Sets internal angle without PWM fade
-    float getAngleMin() const;          // Optional helper for supervisor sanity check
-    float getAngleMax() const;
 
     const LEDCConfig& getLEDCConfig() const { // Returns config needed to setup LEDC hardware
-        return cfg_.ledc;
-}
+        return cfg_.ledc;}
+
 private:
     ServoConfig cfg_;
     float current_angle_;
@@ -26,4 +25,4 @@ private:
     int angleToDuty(float angle) const; // Converts angle to PWM duty cycle
 };
 
-#endif //SERVO_CONTROLLER_H
+#endif // SERVO_CONTROLLER_H

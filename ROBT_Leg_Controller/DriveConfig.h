@@ -43,14 +43,17 @@ struct PinInitConfig {
     PinModeType mode;         // Desired mode / initial level
 };
 
+constexpr uint8_t PIN_HALL_NORTH = 5;
+constexpr uint8_t PIN_HALL_SOUTH = 6;
+
 // Pin assignment and initialization lookup table
 static const PinInitConfig leg_pin_init_table[] = {
-    {"Hall_North",    5, PINMODE_INPUT_PULLUP},
-    {"Hall_South",    6, PINMODE_INPUT_PULLUP},
-    {"Hall_Module_Indicator",    7, PINMODE_OUTPUT_HIGH},
-    {"Hall_Module_PWR",     4, PINMODE_OUTPUT_HIGH},
-    {"Stepper_STEP",   3, PINMODE_OUTPUT_LOW},
-    {"Stepper_DIR",  2, PINMODE_OUTPUT_LOW}
+    {"Hall_North",    PIN_HALL_NORTH, PINMODE_INPUT_PULLUP},
+    {"Hall_South",    PIN_HALL_SOUTH, PINMODE_INPUT_PULLUP},
+    {"Hall_Module_Indicator",      7, PINMODE_OUTPUT_HIGH},
+    {"Hall_Module_PWR",            4, PINMODE_OUTPUT_HIGH},
+    {"Stepper_STEP",               3, PINMODE_OUTPUT_LOW},
+    {"Stepper_DIR",                2, PINMODE_OUTPUT_LOW}
 };
 
 // Shared LEDC config — used by both servos and steppers
@@ -82,7 +85,7 @@ struct ServoConfig {
     float motion_window_max = 225.0f;
 
     float magnet_spacing_deg = 30.0f;
-    int startup_magnet_number = 3;  // Center magnet in range 0 -> 6
+    static constexpr int kTotalMagnets = 7;  
 
     float max_deg_per_sec = 90.0f;
 };

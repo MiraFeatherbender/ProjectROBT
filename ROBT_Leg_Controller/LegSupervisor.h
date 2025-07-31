@@ -3,6 +3,9 @@
 
 #include "DriveConfig.h"
 #include "ServoController.h"
+#include "HallSensorHandler.h"
+#include "ServoCalibration.h"
+#include "FlashStorageTypes.h"
 
 class LegSupervisor {
 public:
@@ -16,8 +19,11 @@ public:
     void initADC(ADCConfig& cfg, void (*callback)());
 private:
     ServoController servo_;
+    HallSensorHandler hallSensor_;
+    ServoCalibration servoCal_;
 
     bool attachLEDC(const LEDCConfig& cfg);
+    bool saveSweepSummary();
 };
 
 #endif //LEG_SUPERVISOR_H

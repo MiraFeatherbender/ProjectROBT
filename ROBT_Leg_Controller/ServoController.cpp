@@ -6,7 +6,7 @@ ServoController::ServoController(const ServoConfig& config)
     : cfg_(config) {}
 
 void ServoController::begin() {
-    setAngle(225.0f);
+    setAngle(135.0f);
 }
 
 // Public API — safe for general motion control
@@ -33,7 +33,7 @@ void ServoController::setAngleRaw(float angle_deg) {
 
 void ServoController::initializeAngle(float angle){
     int target_duty = angleToDuty(angle);
-    ledcFade(cfg_.ledc.pin, target_duty, target_duty, 1); // Initialize PWM for proper fade
+    ledcFade(cfg_.ledc.pin, target_duty, target_duty, 1); // Initialize LEDC PWM to known value for setAngleRaw fade
 }
 
 int ServoController::angleToDuty(float angle) const {
@@ -55,14 +55,14 @@ float ServoController::getAngle() const {
     return current_angle_;
 }
 
+uint32_t ServoController::getPulseUS() const {
+    int raw_duty = ledcRead(cfg_.ledc.pin);
+    uint32_t period_us = static_cast<uint32_t>(1e6 / cfg_.ledc.frequency);
+    int max_duty = (1 << cfg_.ledc.resolution_bits) - 1;
+
+    return static_cast<uint32_t>((raw_duty / static_cast<float>(max_duty)) * period_us);
+}
+
 void ServoController::setBootAngle(float angle) {
     current_angle_ = angle;
-}
-
-float ServoController::getAngleMin() const {
-    return cfg_.angle_min_deg;
-}
-
-float ServoController::getAngleMax() const {
-    return cfg_.angle_max_deg;
 }

@@ -13,18 +13,6 @@ bool adc_ready = false;
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
 
-void printAngle(uint16_t mv) {
-  float angle = -(mv / 3.0) + 302.0;
-  Serial.printf("%.1f\n",angle);  // Tab-separated for plotter
-}
-
-// void initADC(ADCConfig& cfg, void (*callback)()) {
-//     analogContinuousSetWidth(cfg.width_bits);
-//     analogContinuousSetAtten(cfg.attenuation);
-//     analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
-//     analogContinuousStart();
-// }
-
 void setup() {
    Serial.begin(115200);
 
@@ -72,6 +60,4 @@ void loop() {
 
       break;
   }
-
-  // Disabled while not using plotter // delay(10);  // Smooth Serial Plotter
 }
