@@ -15,6 +15,6 @@ extern SendCompleteCallback_t sendCompleteCallback;
 void initEspNow(const uint8_t *centralMAC);
 bool sendEspNowResponse(const char* response, int maxRetries = 3, int delayMs = 10);
 void onDataRecv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int data_len);
-void onDataSent(const uint8_t *mac_addr, esp_now_send_status_t status);
+void onDataSent(const wifi_tx_info_t *tx_info, esp_now_send_status_t status);
 
 #endif  // ESP_NOW_HANDLER_H

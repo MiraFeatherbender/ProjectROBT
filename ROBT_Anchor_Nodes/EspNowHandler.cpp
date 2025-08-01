@@ -72,10 +72,11 @@ void onDataRecv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int d
 }
 
 // --- OnDataSent: ESP-NOW send callback ---
-void onDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+void onDataSent(const wifi_tx_info_t *tx_info, esp_now_send_status_t status) {
   Serial.print("ESP-NOW send callback: ");
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "SUCCESS" : "FAIL");
-  
+  // If you need the MAC address:
+  // const uint8_t* mac_addr = tx_info ? tx_info->dest_addr : nullptr;
   if (sendCompleteCallback != nullptr) {
     sendCompleteCallback(status);
     sendCompleteCallback = nullptr;
