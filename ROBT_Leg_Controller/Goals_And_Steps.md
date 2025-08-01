@@ -37,8 +37,8 @@
 - [x] Move "SweepProfile" to independent "FlashStorageTypes.h"
 - [ ] Implement SweepProfile transfer flow:
     - [⏳] ServoCalibration creates SweepSummary
-    - [⏳] LegSupervisor relays SweepSummary via its own getter
-    - [⏳] NVSManager pulls SweepSummary from LegSupervisor to store in flash
-- [ ] Draft NVSManager.cpp
+    - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter
+    - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash
+- [x] Draft NVSManager.cpp
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
