@@ -48,7 +48,7 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 1. **Clone this repository**
 2. **Install dependencies:**
     - [ESP32 Arduino core](https://github.com/espressif/arduino-esp32) (for Arduino IDE)
-3. **Open `ROBT_Leg_Controller_Continuous_ADC.ino` in Arduino IDE**
+3. **Open `ROBT_Leg_Controller.ino` in Arduino IDE**
 4. **Select the ESP32-C3 board and correct port**
 5. **Build and upload the code**
 
