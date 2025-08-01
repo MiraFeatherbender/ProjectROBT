@@ -32,14 +32,14 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 
 | Function                | GPIO Pin | Notes                                 |
 |-------------------------|----------|---------------------------------------|
+| Servo PWM Output        | 0        | LEDC PWM output to servo signal wire  |
+| Servo potentiometer     | 1        | ADC input                             |
+| Stepper_DIR             | 2        | Output, low                           |
+| Stepper_STEP            | 3        | Output, low                           |
+| Hall_Module_PWR         | 4        | Output, high                          |
 | Hall_North              | 5        | Input, pull-up                        |
 | Hall_South              | 6        | Input, pull-up                        |
 | Hall_Module_Indicator   | 7        | Output, high                          |
-| Hall_Module_PWR         | 4        | Output, high                          |
-| Stepper_STEP            | 3        | Output, low                           |
-| Stepper_DIR             | 2        | Output, low                           |
-| Servo potentiometer     | 1        | ADC input                             |
-| **Servo PWM Output**    | 0        | LEDC PWM output to servo signal wire  |
 
 ---
 
@@ -73,11 +73,14 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 
 ## File Overview
 
+- `ROBT_Leg_Controller.ino` – Main sketch and state machine
 - `DriveConfig.h` – Hardware and configuration structs
-- `ServoController.*` – Servo control logic
-- `LegSupervisor.*` – High-level leg/servo management
-- `ROBT_Leg_Controller_Continuous_ADC.ino` – Main sketch and state machine
-- `HallReference.ino` – Hall sensor and magnet sweep logic
+- `LegSupervisor.cpp/h` – High-level leg/servo management
+- `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
+- `ServoController.cpp/h` – Servo control logic
+- `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
+- `FlashStorageTypes.h` – Data structures for flash storage
+- `NVSManager.cpp/h` – Flash storage and calibration data management
 
 ---
 
