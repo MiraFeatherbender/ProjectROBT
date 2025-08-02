@@ -5,7 +5,7 @@
 #include <string>
 
 struct CommandSourceContext {
-    enum SourceType { SERIAL, ESP_NOW } source;
+    enum SourceType { serial_, esp_now_ } source;
     std::function<void(const String&)> respond;
 };
 

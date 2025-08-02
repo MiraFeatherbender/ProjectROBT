@@ -8,6 +8,7 @@
 #include "FlashStorageTypes.h"
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
+#include "NVSManager.h"
 
 class LegSupervisor {
 public:

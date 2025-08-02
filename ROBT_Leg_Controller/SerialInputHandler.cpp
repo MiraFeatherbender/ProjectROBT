@@ -16,7 +16,7 @@ void SerialInputHandler::update() {
         line.trim(); // Removes leading/trailing whitespace, including '\r'
         if (line.length() > 0 && lineCallback) {
             CommandSourceContext ctx;
-            ctx.source = CommandSourceContext::SERIAL;
+            ctx.source = CommandSourceContext::serial_;
             ctx.respond = [](const String& resp) { Serial.println(resp); };
             lineCallback(line, ctx);
         }
