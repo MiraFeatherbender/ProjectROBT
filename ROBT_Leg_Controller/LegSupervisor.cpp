@@ -38,6 +38,19 @@ void LegSupervisor::setRawSteeringAngle(float angle){
     servo_.setAngleRaw(angle);
 }
 
+void LegSupervisor::handleParsedCommand(const ParsedCommand& cmd) {
+    String response = "+ACK: node=" + String(cmd.nodeNumber) + ", cmd='" + cmd.command + "'";
+    if (!cmd.params.empty()) {
+        response += ", params=";
+        for (size_t i = 0; i < cmd.params.size(); ++i) {
+            response += cmd.params[i];
+            if (i < cmd.params.size() - 1) response += ",";
+        }
+    }
+    if (cmd.isOTA) response += ", OTA=1";
+    cmd.context.respond(response); // Send response back to source
+}
+
 void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
     analogContinuousSetWidth(cfg.width_bits);
     analogContinuousSetAtten(cfg.attenuation);

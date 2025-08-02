@@ -1,5 +1,7 @@
 #include "DriveConfig.h"
 #include "LegSupervisor.h"
+#include "SerialInputHandler.h"
+#include "CommandParser.h"
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
@@ -10,11 +12,21 @@ void ARDUINO_ISR_ATTR adcComplete() {
 BootState boot_state = WAITING_FOR_ADC;
 bool adc_ready = false;
 
+SerialInputHandler serialHandler;
+CommandParser parser(11); // Set this node's number
+
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
 
 void setup() {
-   Serial.begin(115200);
+    serialHandler.begin();
+    // Wire up the pipeline: Serial -> Parser -> Supervisor
+    serialHandler.setLineCallback([&](const String& line, const CommandSourceContext& ctx) {
+        parser.parseAndDispatch(line, ctx);
+    });
+    parser.setDispatchCallback([&](const ParsedCommand& cmd) {
+        supervisor.handleParsedCommand(cmd);
+    });
 
    for (const auto& cfg : leg_pin_init_table) {
       switch (cfg.mode) {
@@ -57,7 +69,7 @@ void loop() {
       break;
 
     case RUNNING:
-
+      serialHandler.update();
       break;
   }
 }

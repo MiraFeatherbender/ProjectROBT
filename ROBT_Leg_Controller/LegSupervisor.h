@@ -6,6 +6,8 @@
 #include "HallSensorHandler.h"
 #include "ServoCalibration.h"
 #include "FlashStorageTypes.h"
+#include "SerialInputHandler.h"
+#include "CommandParser.h"
 
 class LegSupervisor {
 public:
@@ -17,6 +19,8 @@ public:
     void setSteeringAngle(float angle);
     void setRawSteeringAngle(float angle);
     void initADC(ADCConfig& cfg, void (*callback)());
+    void handleParsedCommand(const ParsedCommand& cmd);
+    
 private:
     ServoController servo_;
     HallSensorHandler hallSensor_;
