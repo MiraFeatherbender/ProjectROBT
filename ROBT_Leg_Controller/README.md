@@ -73,14 +73,16 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 
 ## File Overview
 
-- `ROBT_Leg_Controller.ino` – Main sketch and state machine
-- `DriveConfig.h` – Hardware and configuration structs
-- `LegSupervisor.cpp/h` – High-level leg/servo management
-- `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
-- `ServoController.cpp/h` – Servo control logic
-- `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
-- `FlashStorageTypes.h` – Data structures for flash storage
-- `NVSManager.cpp/h` – Flash storage and calibration data management
+ - `ROBT_Leg_Controller.ino` – Main sketch and state machine
+ - `DriveConfig.h` – Hardware and configuration structs
+ - `LegSupervisor.cpp/h` – High-level leg/servo management
+ - `SerialInputHandler.cpp/h` – Serial input buffering and callback pipeline
+ - `CommandParser.cpp/h` – Serial/ESP-NOW AT command parsing and dispatch
+ - `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
+ - `ServoController.cpp/h` – Servo control logic
+ - `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
+ - `FlashStorageTypes.h` – Data structures for flash storage
+ - `NVSManager.cpp/h` – Flash storage and calibration data management
 
 ---
 
