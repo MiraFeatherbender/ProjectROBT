@@ -20,7 +20,9 @@
 
 
 ## Goals
-
+- [ ] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
+- [ ] Document and maintain example formats for AT command payloads (unicast and broadcast)
+- [ ] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [ ] Integrate servo calibration triggers into custom AT command interface
 - [ ] Integrate servo and stepper motion into custom AT command interface
     - [ ] Include target servo angle, target stepper velocity, transition time
@@ -33,6 +35,13 @@
 ---
 
 ## Next Steps
+- [ ] Test and validate broadcast message parsing for:
+    - [ ] Per-node payloads (e.g., `N11,42,99,|`)
+    - [ ] All-node payloads (no node tags)
+    - [ ] Edge cases (missing node, empty payload, malformed input)
+- [ ] Add or update unit tests for `parseParams` and `filterNodeParams`
+- [ ] Document AT command and broadcast payload formats in code and docs
+- [ ] Review and refactor other modules (e.g., LegSupervisor, NVSManager) for compatibility with new command parser logic
 
 - [ ] Implement flash write and read routines for calibration data
     - [ ] NVS based. Use "SweepProfile"
@@ -44,4 +53,4 @@
 - [x] Draft NVSManager.cpp
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
-- [⏳] Implement and test serial AT command input and parsing pipeline
+    - [⏳] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
