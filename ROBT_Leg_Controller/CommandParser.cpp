@@ -7,27 +7,32 @@ void CommandParser::setDispatchCallback(CommandDispatchCallback cb) {
 }
 
 void CommandParser::parseAndDispatch(const String& inputLine, const CommandSourceContext& context) {
-    String line = inputLine;
-    line.trim();
-    int spaceIndex = line.indexOf(' ');
-    if (spaceIndex == -1) return; // Invalid format
-    String nodeNumStr = line.substring(0, spaceIndex);
-    String cmd = line.substring(spaceIndex + 1);
+    String cmd = inputLine;
     cmd.trim();
-    if (nodeNumStr.length() == 0 || cmd.length() == 0) return;
-    uint8_t nodeNum = nodeNumStr.toInt();
-    bool isBroadcast = (nodeNum == 0);
+    if (cmd.length() == 0) return;
+    uint8_t nodeNum = myNodeNumber;
+    bool isBroadcast = false;
+    if (cmd.startsWith("0 ")) {
+        isBroadcast = true;
+        int spaceIndex = cmd.indexOf(' ');
+        if (spaceIndex == -1) return; // Invalid format
+        cmd = cmd.substring(spaceIndex + 1);
+        nodeNum = 0;
+    }
+    if (cmd.length() == 0) return;
     bool isOTA = cmd.equalsIgnoreCase("OTA");
     std::vector<String> params;
     if (!isOTA) parseParams(cmd, params);
-    // Only dispatch if this node or broadcast
-    if (isBroadcast || nodeNum == myNodeNumber) {
-        ParsedCommand parsed{nodeNum, cmd, isOTA, params, context};
-        if (dispatchCallback) dispatchCallback(parsed);
+    if (isBroadcast) {
+        filterNodeParams(params, "N" + String(myNodeNumber));
+        if (params.empty()) return; // No payload for this node
     }
+    if (!(isBroadcast || nodeNum == myNodeNumber)) return;
+    ParsedCommand parsed{nodeNum, cmd, isOTA, params, context};
+    if (dispatchCallback) dispatchCallback(parsed);
 }
 
-void CommandParser::parseParams(const String& cmd, std::vector<String>& params) {
+void CommandParser::parseParams(String& cmd, std::vector<String>& params) {
     int eqIdx = cmd.indexOf('=');
     if (eqIdx == -1) return;
     String paramString = cmd.substring(eqIdx + 1);
@@ -39,5 +44,43 @@ void CommandParser::parseParams(const String& cmd, std::vector<String>& params) 
         }
         params.push_back(paramString.substring(0, commaIdx));
         paramString = paramString.substring(commaIdx + 1);
+    }
+    // Now truncate cmd to include trailing '='
+    cmd = cmd.substring(0, eqIdx + 1);
+}
+
+/*
+Example broadcast message for node 11:
+  0 CMD=N5,100,200,|,N11,42,99,|,N7,77,88,|
+
+After parseParams, params = ["N5", "100", "200", "|", "N11", "42", "99", "|", "N7", "77", "88", "|"]
+Calling filterNodeParams(params, "N11") will result in params = ["42", "99"]
+All other node blocks (N5, N7) are ignored for node 11.
+*/
+// Extracts only the parameters for this node from a broadcast params vector.
+// Each node block starts with its tag (e.g., "N2") and ends with a standalone "|".
+void CommandParser::filterNodeParams(std::vector<String>& params, const String& nodeTag) {
+    std::vector<String> filtered;
+    bool found = false;
+    bool anyNodeTag = false;
+    for (size_t i = 0; i < params.size(); ++i) {
+        const String& p = params[i];
+        if (p.length() > 1 && p[0] == 'N' && isdigit(p[1])) {
+            anyNodeTag = true;
+            if (p == nodeTag) {
+                found = true;
+                continue;
+            } else if (found) {
+                // If we were collecting and hit another node tag, stop
+                break;
+            }
+        }
+        if (found) {
+            if (p == "|") break;
+            filtered.push_back(p);
+        }
+    }
+    if (anyNodeTag) {
+        params = filtered; // Only replace if node tags were present
     }
 }
