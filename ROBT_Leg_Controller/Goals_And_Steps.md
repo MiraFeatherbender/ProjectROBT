@@ -28,7 +28,7 @@
     - [ ] Add "SweepProfile" struct to calibration for storage
 - [ ] Ensure boot-time retrieval of calibration data from flash
 - [ ] Replace static LEDC fade time calculation with parameterized slew time
-- [⏳] Migrate custom command interface, ESP-NOW, and OTAUpdater from anchor node codebase ([see migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
+- [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
 
 ---
 
@@ -44,3 +44,4 @@
 - [x] Draft NVSManager.cpp
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
+- [⏳] Implement and test serial AT command input and parsing pipeline
