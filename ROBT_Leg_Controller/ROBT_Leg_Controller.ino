@@ -2,6 +2,8 @@
 #include "LegSupervisor.h"
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
+#include "CommandDispatcher.h"
+#include "LegControllerCommandMap.h"
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
@@ -17,6 +19,7 @@ CommandParser parser(11); // Set this node's number
 
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
+CommandDispatcher dispatcher;
 
 void setup() {
     serialHandler.begin();
@@ -44,6 +47,7 @@ void setup() {
 
   supervisor.initADC(adc_cfg, &adcComplete);
   delay(100); // Delay for servo stability
+  registerAllCommands(dispatcher, supervisor);
 }
 
 void loop() {

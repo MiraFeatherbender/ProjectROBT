@@ -4,14 +4,7 @@
 #include <vector>
 #include <functional>
 #include "SerialInputHandler.h" // For CommandSourceContext
-
-struct ParsedCommand {
-    uint8_t nodeNumber;
-    String command;
-    bool isOTA;
-    std::vector<String> params;
-    CommandSourceContext context; // Source and response callback
-};
+#include "ParsedCommand.h" // For ParsedCommand
 
 // Callback type for dispatching parsed commands
 using CommandDispatchCallback = std::function<void(const ParsedCommand&)>;
