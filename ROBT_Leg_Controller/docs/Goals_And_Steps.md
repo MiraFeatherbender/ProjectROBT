@@ -3,17 +3,20 @@
 
 **Project Progress Overview**
 
+
+
+
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 32% | In Progress: 28% | Not Started: 40%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜
+Complete: 43% | In Progress: 24% | Not Started: 33%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 13% | In Progress: 33% | Not Started: 53%
+🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+Complete: 22% | In Progress: 33% | Not Started: 44%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
-Complete: 60% | In Progress: 20% | Not Started: 20%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 56% | In Progress: 22% | Not Started: 22%
 
 **See also:** [Project Context Reference](./Project_Context.md)
 
@@ -37,7 +40,7 @@ Complete: 60% | In Progress: 20% | Not Started: 20%
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
 - [⏳] Document and maintain example formats for AT command payloads (unicast and broadcast)
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
-- [ ] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
+- [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
 - [ ] Add unit tests for command dispatcher and registration logic
 - [ ] Add diagnostic/test commands for hardware and storage modules
 - [ ] Add support for dynamic command registration (future extensibility)
