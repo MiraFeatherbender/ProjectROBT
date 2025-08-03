@@ -9,27 +9,27 @@
 // Centralized registration of all AT commands
 inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& supervisor /*, ... */) {
     dispatcher.registerCommand("MOVE", [&](const ParsedCommand& cmd) {
-        supervisor.move(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     dispatcher.registerCommand("SMOOTH_STOP", [&](const ParsedCommand& cmd) {
-        supervisor.smoothStop(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     dispatcher.registerCommand("E_STOP", [&](const ParsedCommand& cmd) {
-        supervisor.emergencyStop(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     dispatcher.registerCommand("SERVO_CAL", [&](const ParsedCommand& cmd) {
-        supervisor.calibrateServo(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     dispatcher.registerCommand("VERIFY_NVS", [&](const ParsedCommand& cmd) {
-        supervisor.verifyNVS(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     dispatcher.registerCommand("PARK", [&](const ParsedCommand& cmd) {
-        supervisor.park(cmd.params);
+        supervisor.handleParsedCommand(cmd.params);
     });
     // Example diagnostic command
-    dispatcher.registerCommand("NVSDIAG", [&](const ParsedCommand& cmd) {
-        NVSManager::diagnostic(cmd.params);
-    });
+    // dispatcher.registerCommand("NVSDIAG", [&](const ParsedCommand& cmd) {
+    //     NVSManager::diagnostic(cmd.params);
+    // });
     // Add more commands as needed
 }
 
