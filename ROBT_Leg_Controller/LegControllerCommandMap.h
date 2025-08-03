@@ -26,6 +26,11 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
     dispatcher.registerCommand("PARK", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
+    dispatcher.registerCommand("NODE", [](const ParsedCommand& cmd){
+        // This command can be used to query or set the node number
+        // Implementation can be added as needed
+        cmd.context.respond("+OK:Node number is " + String(cmd.nodeNumber));
+    });
     // Example diagnostic command
     // dispatcher.registerCommand("AT+NVSDIAG=", [&](const ParsedCommand& cmd) {
     //     NVSManager::diagnostic(cmd.params);
