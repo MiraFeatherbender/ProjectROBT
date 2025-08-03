@@ -6,13 +6,16 @@
 
 
 
+
+
+
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 43% | In Progress: 24% | Not Started: 33%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜
+Complete: 57% | In Progress: 21% | Not Started: 21%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 22% | In Progress: 33% | Not Started: 44%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
+Complete: 39% | In Progress: 28% | Not Started: 33%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
@@ -37,11 +40,12 @@ Complete: 56% | In Progress: 22% | Not Started: 22%
 
 
 ## Goals
+- [x] Implement hardware-based node addressing via address pins (unified firmware for all legs)
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
 - [⏳] Document and maintain example formats for AT command payloads (unicast and broadcast)
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
-- [ ] Add unit tests for command dispatcher and registration logic
+ -[ ] Add unit tests for command dispatcher and registration logic
 - [ ] Add diagnostic/test commands for hardware and storage modules
 - [ ] Add support for dynamic command registration (future extensibility)
 - [ ] Add mock modules for test builds

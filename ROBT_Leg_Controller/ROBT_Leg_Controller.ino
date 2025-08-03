@@ -15,7 +15,7 @@ BootState boot_state = WAITING_FOR_ADC;
 bool adc_ready = false;
 
 SerialInputHandler serialHandler;
-CommandParser parser(11); // Set this node's number
+
 
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
@@ -42,6 +42,10 @@ void setup() {
           case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
       }
    }
+
+  uint16_t gpioState = GPIO.in.val;
+  uint8_t NodeNumber = (gpioState >> PIN_ADDR_MSB) & 0x07; // 0x07 == 0b111
+  CommandParser parser(NodeNumber); // Set this node's number
 
   if (!supervisor.begin()) {
     Serial.println("Failed to attach LEDC");

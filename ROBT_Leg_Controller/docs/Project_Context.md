@@ -31,6 +31,11 @@ This document provides a comprehensive reference for the environment, hardware, 
   - NVSManager: Handles non-volatile memory read/write
   - ServoCalibration: Manages servo calibration using hall sensor feedback
   - ServoController: Commands and tracks servo position
+  - CommandDispatcher: Centralized dispatcher for mapping command strings to handlers
+  - LegControllerCommandMap: Centralized registration of AT command handlers
+  - CommandParser: Parses input lines into ParsedCommand, strips AT+ and classifies type
+  - ParsedCommand: Struct representing a parsed AT command, including command, type, params, and context
+  - SerialInputHandler: Handles serial input and provides CommandSourceContext for responses
   - (Planned) StepperController: Will manage NEMA23 stepper motor
 - **File Organization:** All logic is in .cpp/.h files, with configuration and hardware abstraction separated for clarity.
 
