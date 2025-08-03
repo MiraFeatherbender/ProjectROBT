@@ -17,7 +17,7 @@ public:
     // Dispatch a parsed command to the appropriate handler
     // Returns true if a handler was found and called, false otherwise
     bool dispatch(const ParsedCommand& cmd) const {
-        auto it = handlers_.find(cmd.command);
+        auto it = handlers_.find(std::string(cmd.command.c_str()));
         if (it != handlers_.end()) {
             it->second(cmd);
             return true;
