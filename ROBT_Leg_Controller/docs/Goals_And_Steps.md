@@ -37,7 +37,7 @@ Complete: 60% | In Progress: 20% | Not Started: 20%
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
 - [⏳] Document and maintain example formats for AT command payloads (unicast and broadcast)
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
-- [ ] Add comments for each command in the registry
+- [ ] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
 - [ ] Add unit tests for command dispatcher and registration logic
 - [ ] Add diagnostic/test commands for hardware and storage modules
 - [ ] Add support for dynamic command registration (future extensibility)
