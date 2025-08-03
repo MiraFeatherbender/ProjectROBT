@@ -28,7 +28,10 @@ void setup() {
         parser.parseAndDispatch(line, ctx);
     });
     parser.setDispatchCallback([&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
+        if (!dispatcher.dispatch(cmd)) {
+            // Handle unknown command here, e.g.:
+            cmd.context.respond("+ERR:UNKNOWN_COMMAND");
+        }
     });
 
    for (const auto& cfg : leg_pin_init_table) {
