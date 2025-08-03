@@ -22,20 +22,38 @@ void CommandParser::parseAndDispatch(const String& inputLine, const CommandSourc
     if (cmd.length() == 0) return;
     bool isOTA = cmd.equalsIgnoreCase("OTA");
     std::vector<String> params;
-    if (!isOTA) parseParams(cmd, params);
+    CommandType type = CommandType::None;
+    if (!isOTA) parseParams(cmd, type, params);
     if (isBroadcast) {
         filterNodeParams(params, "N" + String(myNodeNumber));
         if (params.empty()) return; // No payload for this node
     }
     if (!(isBroadcast || nodeNum == myNodeNumber)) return;
-    ParsedCommand parsed{nodeNum, cmd, isOTA, params, context};
+    ParsedCommand parsed{nodeNum, cmd, type, isOTA, params, context};
     if (dispatchCallback) dispatchCallback(parsed);
 }
 
-void CommandParser::parseParams(String& cmd, std::vector<String>& params) {
+void CommandParser::parseParams(String& cmd, CommandType& type, std::vector<String>& params) {
+    int plusIdx = cmd.indexOf('+');
+    if (plusIdx != -1) {
+        cmd = cmd.substring(plusIdx + 1);
+    }
     int eqIdx = cmd.indexOf('=');
-    if (eqIdx == -1) return;
-    String paramString = cmd.substring(eqIdx + 1);
+    int qIdx = cmd.indexOf('?');
+    int tokenIdx = -1;
+
+    if (eqIdx != -1 && (qIdx == -1 || eqIdx < qIdx)) {
+        tokenIdx = eqIdx;
+        type = CommandType::Set;
+    } else if (qIdx != -1) {
+        tokenIdx = qIdx;
+        type = CommandType::Query;
+    } else {
+        // No valid command token found
+        return;
+    }
+
+    String paramString = cmd.substring(tokenIdx + 1);
     while (paramString.length() > 0) {
         int commaIdx = paramString.indexOf(',');
         if (commaIdx == -1) {
@@ -45,8 +63,8 @@ void CommandParser::parseParams(String& cmd, std::vector<String>& params) {
         params.push_back(paramString.substring(0, commaIdx));
         paramString = paramString.substring(commaIdx + 1);
     }
-    // Now truncate cmd to include trailing '='
-    cmd = cmd.substring(0, eqIdx + 1);
+    // Now truncate cmd without token
+    cmd = cmd.substring(0, tokenIdx);
 }
 
 /*

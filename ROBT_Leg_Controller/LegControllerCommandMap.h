@@ -8,22 +8,22 @@
 
 // Centralized registration of all AT commands
 inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& supervisor /*, ... */) {
-    dispatcher.registerCommand("AT+MOVE=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("MOVE", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
-    dispatcher.registerCommand("AT+SMOOTH_STOP=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("SMOOTH_STOP", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
-    dispatcher.registerCommand("AT+E_STOP=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("E_STOP", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
-    dispatcher.registerCommand("AT+SERVO_CAL=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("SERVO_CAL", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
-    dispatcher.registerCommand("AT+VERIFY_NVS=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("VERIFY_NVS", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
-    dispatcher.registerCommand("AT+PARK=", [&](const ParsedCommand& cmd) {
+    dispatcher.registerCommand("PARK", [&](const ParsedCommand& cmd) {
         supervisor.handleParsedCommand(cmd);
     });
     // Example diagnostic command
