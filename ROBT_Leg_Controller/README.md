@@ -40,8 +40,9 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 | Hall_North              | 5        | Input, pull-up                        |
 | Hall_South              | 6        | Input, pull-up                        |
 | Hall_Module_Indicator   | 7        | Output, high                          |
-| Address 1               | 20       | Input  (MSB)  (L/R)                   |
-| Address 2               | 21       | ADC input (F/C/R)                     |
+| Address 1               | 8        | Input, pull-up (MSB)                  |
+| Address 2               | 9        | Input, pull-up                        |
+| Address 3               | 10       | Input, pull-up (LSB)                  |
 
 ---
 

@@ -42,6 +42,9 @@ void setup() {
     }
   }
 
+  analogSetPinAttenuation(21, ADC_11db); // or whatever you need
+  int addr_adc = analogRead(21);
+
 
 
   if (!supervisor.begin()) {
@@ -71,12 +74,15 @@ void loop() {
       break;
 
     case BOOT_ANGLE_CAPTURED:
-      analogContinuousStop();
+      //analogContinuousStop();
       supervisor.setRawSteeringAngle(135.0f);
       boot_state = RUNNING;
       break;
 
     case RUNNING:
+      analogSetPinAttenuation(21, ADC_11db); // or whatever you need
+      int addr_adc = analogRead(21);
+      Serial.println(addr_adc);
       serialHandler.update();
       break;
   }

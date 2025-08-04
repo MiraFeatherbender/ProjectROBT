@@ -45,6 +45,7 @@ struct PinInitConfig {
 
 constexpr uint8_t PIN_HALL_NORTH = 5;
 constexpr uint8_t PIN_HALL_SOUTH = 6;
+//constexpr uint8_t PIN_ADDR_MSB = 8;
 
 // Pin assignment and initialization lookup table
 static const PinInitConfig leg_pin_init_table[] = {
