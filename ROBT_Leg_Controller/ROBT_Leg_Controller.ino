@@ -15,37 +15,34 @@ BootState boot_state = WAITING_FOR_ADC;
 bool adc_ready = false;
 
 SerialInputHandler serialHandler;
-
-
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
 CommandDispatcher dispatcher;
+CommandParser parser(11); // Set this node's number
 
 void setup() {
-    serialHandler.begin();
-    // Wire up the pipeline: Serial -> Parser -> Supervisor
-    serialHandler.setLineCallback([&](const String& line, const CommandSourceContext& ctx) {
-        parser.parseAndDispatch(line, ctx);
-    });
-    parser.setDispatchCallback([&](const ParsedCommand& cmd) {
-        if (!dispatcher.dispatch(cmd)) {
-            // Handle unknown command here, e.g.:
-            cmd.context.respond("+ERR:UNKNOWN_COMMAND");
-        }
-    });
-
-   for (const auto& cfg : leg_pin_init_table) {
-      switch (cfg.mode) {
-          case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
-          case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
-          case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
-          case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
+  serialHandler.begin();
+  // Wire up the pipeline: Serial -> Parser -> Supervisor
+  serialHandler.setLineCallback([&](const String& line, const CommandSourceContext& ctx) {
+      parser.parseAndDispatch(line, ctx);
+  });
+  parser.setDispatchCallback([&](const ParsedCommand& cmd) {
+      if (!dispatcher.dispatch(cmd)) {
+          // Handle unknown command here, e.g.:
+          cmd.context.respond("+ERR:UNKNOWN_COMMAND");
       }
-   }
+  });
 
-  uint16_t gpioState = GPIO.in.val;
-  uint8_t NodeNumber = (gpioState >> PIN_ADDR_MSB) & 0x07; // 0x07 == 0b111
-  CommandParser parser(NodeNumber); // Set this node's number
+  for (const auto& cfg : leg_pin_init_table) {
+     switch (cfg.mode) {
+        case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
+        case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
+        case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
+        case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
+    }
+  }
+
+
 
   if (!supervisor.begin()) {
     Serial.println("Failed to attach LEDC");

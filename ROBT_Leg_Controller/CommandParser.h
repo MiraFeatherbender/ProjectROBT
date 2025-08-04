@@ -17,7 +17,7 @@ public:
 private:
     uint8_t myNodeNumber;
     CommandDispatchCallback dispatchCallback;
-    void parseParams(String& cmd, std::vector<String>& params);
+    void parseParams(String& cmd, CommandType& type, std::vector<String>& params);
     void filterNodeParams(std::vector<String>& params, const String& nodeTag);
 
 };

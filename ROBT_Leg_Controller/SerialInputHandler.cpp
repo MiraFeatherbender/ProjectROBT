@@ -4,6 +4,7 @@ SerialInputHandler::SerialInputHandler() : buffer("") {}
 
 void SerialInputHandler::begin(unsigned long baud) {
     Serial.begin(baud);
+    Serial.println("Test");
 }
 
 void SerialInputHandler::setLineCallback(SerialLineCallback cb) {
