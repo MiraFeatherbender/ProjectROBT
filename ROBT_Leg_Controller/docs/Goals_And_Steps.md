@@ -1,24 +1,19 @@
-
 # Project Goals and Next Steps
 
 **Project Progress Overview**
 
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 57% | In Progress: 21% | Not Started: 21%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 36% | In Progress: 20% | Not Started: 44%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 39% | In Progress: 28% | Not Started: 33%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 25% | In Progress: 21% | Not Started: 54%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 56% | In Progress: 22% | Not Started: 22%
-
-**See also:** [Project Context Reference](./Project_Context.md)
-
----
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 50% | In Progress: 18% | Not Started: 32%
 
 ## Task State Legend
 
@@ -52,6 +47,14 @@ Complete: 56% | In Progress: 22% | Not Started: 22%
 - [ ] Ensure boot-time retrieval of calibration data from flash
 - [ ] Replace static LEDC fade time calculation with parameterized slew time
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
+- [ ] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
+- [ ] Restrict access to critical commands in maintenance mode
+    - [ ] Only allow entering maintenance mode when safely parked
+- [ ] Ensure all command responses are terse, consistent, and include error codes
+    - [ ] Ensure query responses are always in a consistent, parseable format
+- [ ] Define and document a `LegControllerCommandMap` for all supported commands
+    - [ ] Ensure all commands use consistent parameter mapping and error code conventions
+    - [ ] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
 
 ---
 
@@ -75,3 +78,5 @@ Complete: 56% | In Progress: 22% | Not Started: 22%
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
     - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
+- [ ] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
+    - [ ] Update documentation and code comments for new/changed commands and error codes
