@@ -5,6 +5,9 @@
       "label": "Update Progress Bars",
       "type": "shell",
       "command": "./update_progress",
+      "options": {
+        "cwd": "${workspaceFolder}/ROBT_Leg_Controller/docs"
+      },
       "group": {
         "kind": "build",
         "isDefault": true
