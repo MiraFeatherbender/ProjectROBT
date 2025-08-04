@@ -9,20 +9,23 @@ This document outlines the step-by-step plan to migrate the serial AT command in
 
 ### AT Command Migration & Design Summary
 
+
 **1. Command Structure & Syntax**
-- Use the command factory pattern for extensibility.
-- Set commands: `AT+COMMAND=param1,param2,...` → `+OK` or `+ERR:<reason>`
-- Query commands: `AT+COMMAND?` → `+<data>` or `+ERR:<reason>`
-- All responses are terse and machine-parseable; errors always include a reason code.
+~~- Use the command factory pattern for extensibility.~~
+~~- Set commands: `AT+COMMAND=param1,param2,...` → `+OK` or `+ERR:<reason>`~~
+~~- Query commands: `AT+COMMAND?` → `+<data>` or `+ERR:<reason>`~~
+~~- All responses are terse and machine-parseable; errors always include a reason code.~~
+
 
 **2. Command Set**
-- Drop anchor node–specific commands.
-- Implement leg controller–specific commands (e.g., `AT+MOVE`, `AT+SMOOTH_STOP`, `AT+E_STOP`, `AT+SERVO_CAL`, `AT+VERIFY_NVS`, `AT+PARK`).
-- Support both set and query forms where appropriate.
+~~- Drop anchor node–specific commands.~~
+~~- Implement leg controller–specific commands (e.g., `AT+MOVE`, `AT+SMOOTH_STOP`, `AT+E_STOP`, `AT+SERVO_CAL`, `AT+VERIFY_NVS`, `AT+PARK`).~~
+~~- Support both set and query forms where appropriate.~~
+
 
 **3. Hardware & State Integration**
-- Route all command actions and queries through `LegSupervisor`.
-- Let `LegSupervisor` manage state transitions and command validity.
+~~- Route all command actions and queries through `LegSupervisor`.~~
+~~- Let `LegSupervisor` manage state transitions and command validity.~~
 - Use interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes.
 
 **4. Security & Access**
@@ -37,16 +40,16 @@ This document outlines the step-by-step plan to migrate the serial AT command in
 - Query responses are always in a consistent, parseable format.
 
 **6. Extensibility & Future-Proofing**
-- Retain the command factory for easy addition of new commands.
-- Design the system to support both serial and ESP-NOW command sources.
-- Document standards for new commands (naming, parameters, error codes).
-- Plan for group/batch operations: commands include leg IDs, and each leg parses its own section from group messages.
+~~- Retain the command factory for easy addition of new commands.~~
+~~- Design the system to support both serial and ESP-NOW command sources.~~
+~~- Document standards for new commands (naming, parameters, error codes).~~
+~~- Plan for group/batch operations: commands include leg IDs, and each leg parses its own section from group messages.~~
 
 **7. Additional Refinements (from Coordinator Reference)**
 - **Explicit Command Map:** Define a `LegControllerCommandMap` (similar to `UWBDefaults`/`UWBCustom`) for all supported commands, including parameter mappings and default values.
 - **Parameter Mapping & Error Codes:** Ensure all commands use consistent parameter mapping and error code conventions, as in the coordinator.
-- **Group/Batch Command Parsing:** Implement parsing logic so each leg controller can extract and execute only its relevant section from a group/batch command using its own leg ID.
-- **Command Source Abstraction:** Abstract the command input system to support both serial and ESP-NOW (and future sources) with minimal changes.
+~~- **Group/Batch Command Parsing:** Implement parsing logic so each leg controller can extract and execute only its relevant section from a group/batch command using its own leg ID.
+- **Command Source Abstraction:** Abstract the command input system to support both serial and ESP-NOW (and future sources) with minimal changes.~~
 - **Command Documentation Standard:** Maintain a central documentation standard for each command (name, parameters, responses, error codes) to ensure consistency and ease of maintenance.
 
 
