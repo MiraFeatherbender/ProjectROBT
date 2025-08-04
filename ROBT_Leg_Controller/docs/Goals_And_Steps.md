@@ -4,12 +4,12 @@
 
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 30% | In Progress: 23% | Not Started: 48%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 30% | In Progress: 25% | Not Started: 45%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 17% | In Progress: 21% | Not Started: 63%
+🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 17% | In Progress: 25% | Not Started: 58%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
@@ -42,7 +42,7 @@ Complete: 45% | In Progress: 25% | Not Started: 30%
 - [ ] Integrate servo calibration triggers into custom AT command interface
 - [⏳] Integrate servo and stepper motion into custom AT command interface
     - [⏳] Include target servo angle, target stepper velocity, transition time
-- [ ] Add flash storage for calibration data, including center pulse time and backlash offset
+- [⏳] Add flash storage for calibration data, including center pulse time and backlash offset
     - [⏳] Add "SweepProfile" struct to calibration for storage
 - [ ] Ensure boot-time retrieval of calibration data from flash
 - [ ] Replace static LEDC fade time calculation with parameterized slew time
