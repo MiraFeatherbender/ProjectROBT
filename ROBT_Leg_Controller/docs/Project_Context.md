@@ -19,6 +19,8 @@ This document provides a comprehensive reference for the environment, hardware, 
   - 1x NEMA23 stepper motor with driver
   - 1x custom dual edge detection hall sensor circuit (for servo direction calibration)
 - **Pin Assignments:** Defined in DriveConfig.h and README.md
+- **Node Addressing:** Node address is set via three digital input pins (see DriveConfig.h and ROBT_Leg_Controller.ino), read at startup and used to set the node number in CommandParser.
+- **ADC Usage:** ADC is used for servo potentiometer at boot, then deinitialized; address selection uses digital pins only.
 
 ---
 
@@ -33,7 +35,7 @@ This document provides a comprehensive reference for the environment, hardware, 
   - ServoController: Commands and tracks servo position
   - CommandDispatcher: Centralized dispatcher for mapping command strings to handlers
   - LegControllerCommandMap: Centralized registration of AT command handlers
-  - CommandParser: Parses input lines into ParsedCommand, strips AT+ and classifies type
+  - CommandParser: Parses input lines into ParsedCommand, strips AT+ and classifies type. Now supports setting the node number after construction, allowing address pins to be read after pin initialization.
   - ParsedCommand: Struct representing a parsed AT command, including command, type, params, and context
   - SerialInputHandler: Handles serial input and provides CommandSourceContext for responses
   - (Planned) StepperController: Will manage NEMA23 stepper motor
