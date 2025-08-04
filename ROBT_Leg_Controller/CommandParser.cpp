@@ -1,6 +1,11 @@
+#include <sys/_stdint.h>
 #include "CommandParser.h"
 
-CommandParser::CommandParser(uint8_t myNodeNumber) : myNodeNumber(myNodeNumber) {}
+CommandParser::CommandParser() {}
+
+void CommandParser::setNodeNumber(uint8_t NodeNumber){
+    myNodeNumber = NodeNumber;
+}
 
 void CommandParser::setDispatchCallback(CommandDispatchCallback cb) {
     dispatchCallback = cb;

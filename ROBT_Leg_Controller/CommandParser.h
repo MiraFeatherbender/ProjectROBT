@@ -11,7 +11,8 @@ using CommandDispatchCallback = std::function<void(const ParsedCommand&)>;
 
 class CommandParser {
 public:
-    CommandParser(uint8_t myNodeNumber);
+    CommandParser();
+    void setNodeNumber(uint8_t NodeNumber);
     void setDispatchCallback(CommandDispatchCallback cb);
     void parseAndDispatch(const String& inputLine, const CommandSourceContext& context);
 private:

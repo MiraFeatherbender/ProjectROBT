@@ -18,20 +18,11 @@ SerialInputHandler serialHandler;
 ServoConfig ServoCFG;
 LegSupervisor supervisor(ServoCFG);
 CommandDispatcher dispatcher;
-CommandParser parser(11); // Set this node's number
+CommandParser parser; // Set this node's number
 
 void setup() {
   serialHandler.begin();
   // Wire up the pipeline: Serial -> Parser -> Supervisor
-  serialHandler.setLineCallback([&](const String& line, const CommandSourceContext& ctx) {
-      parser.parseAndDispatch(line, ctx);
-  });
-  parser.setDispatchCallback([&](const ParsedCommand& cmd) {
-      if (!dispatcher.dispatch(cmd)) {
-          // Handle unknown command here, e.g.:
-          cmd.context.respond("+ERR:UNKNOWN_COMMAND");
-      }
-  });
 
   for (const auto& cfg : leg_pin_init_table) {
      switch (cfg.mode) {
@@ -42,10 +33,18 @@ void setup() {
     }
   }
 
-  analogSetPinAttenuation(21, ADC_11db); // or whatever you need
-  int addr_adc = analogRead(21);
+  uint8_t Address = digitalRead(PIN_ADDR_1) << 2 | digitalRead(PIN_ADDR_2) << 1 | digitalRead(PIN_ADDR_3);
+  parser.setNodeNumber(Address);
 
-
+  serialHandler.setLineCallback([&](const String& line, const CommandSourceContext& ctx) {
+      parser.parseAndDispatch(line, ctx);
+  });
+  parser.setDispatchCallback([&](const ParsedCommand& cmd) {
+      if (!dispatcher.dispatch(cmd)) {
+          // Handle unknown command here, e.g.:
+          cmd.context.respond("+ERR:UNKNOWN_COMMAND");
+      }
+  });
 
   if (!supervisor.begin()) {
     Serial.println("Failed to attach LEDC");
@@ -74,15 +73,14 @@ void loop() {
       break;
 
     case BOOT_ANGLE_CAPTURED:
-      //analogContinuousStop();
+      analogContinuousStop();
+      analogContinuousDeinit();
       supervisor.setRawSteeringAngle(135.0f);
       boot_state = RUNNING;
       break;
 
     case RUNNING:
-      analogSetPinAttenuation(21, ADC_11db); // or whatever you need
-      int addr_adc = analogRead(21);
-      Serial.println(addr_adc);
+      
       serialHandler.update();
       break;
   }

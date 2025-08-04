@@ -45,7 +45,9 @@ struct PinInitConfig {
 
 constexpr uint8_t PIN_HALL_NORTH = 5;
 constexpr uint8_t PIN_HALL_SOUTH = 6;
-//constexpr uint8_t PIN_ADDR_MSB = 8;
+constexpr uint8_t PIN_ADDR_1 = 10;
+constexpr uint8_t PIN_ADDR_2 = 20;
+constexpr uint8_t PIN_ADDR_3 = 21;
 
 // Pin assignment and initialization lookup table
 static const PinInitConfig leg_pin_init_table[] = {
@@ -55,8 +57,9 @@ static const PinInitConfig leg_pin_init_table[] = {
     {"Hall_North",    PIN_HALL_NORTH, PINMODE_INPUT_PULLUP},
     {"Hall_South",    PIN_HALL_SOUTH, PINMODE_INPUT_PULLUP},
     {"Hall_Module_Indicator",      7, PINMODE_OUTPUT_HIGH},
-    {"Address 1",                 20, PINMODE_INPUT}, //(Left/Right)
-    {"Address 2",                 21, PINMODE_INPUT} //(Forward/Center/Rear)
+    {"Address 1",         PIN_ADDR_1, PINMODE_INPUT_PULLUP}, 
+    {"Address 2",         PIN_ADDR_2, PINMODE_INPUT_PULLUP}, //(Left/Right)
+    {"Address 3",         PIN_ADDR_3, PINMODE_INPUT_PULLUP} //(Forward/Center/Rear)
 };
 
 // Shared LEDC config — used by both servos and steppers
