@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <locale>
 
 int count_matches(const std::string& text, const std::regex& re) {
     return std::distance(
@@ -17,7 +18,11 @@ std::string make_bar(int complete, int in_progress, int not_started, int total_b
     int c = std::round((double)complete / total * total_bars);
     int i = std::round((double)in_progress / total * total_bars);
     int n = total_bars - c - i;
-    return std::string(c, '🟩') + std::string(i, '🟨') + std::string(n, '⬜');
+    std::string bar;
+    for (int j = 0; j < c; ++j) bar += "🟩";
+    for (int j = 0; j < i; ++j) bar += "🟨";
+    for (int j = 0; j < n; ++j) bar += "⬜";
+    return bar;
 }
 
 std::string percent(int part, int total) {
@@ -25,6 +30,8 @@ std::string percent(int part, int total) {
 }
 
 int main() {
+    std::locale::global(std::locale("en_US.UTF-8")); // Set global locale to UTF-8
+
     std::ifstream in("Goals_And_Steps.md");
     if (!in) {
         std::cerr << "Could not open Goals_And_Steps.md\n";
@@ -75,7 +82,7 @@ int main() {
     content = std::regex_replace(content, goals_rebar, "$1" + goals_bar + "  \n" + goals_stats + "\n");
     content = std::regex_replace(content, next_rebar, "$1" + next_bar + "  \n" + next_stats + "\n");
 
-    std::ofstream out("Goals_And_Steps.md");
+    std::ofstream out("Goals_And_Steps.md", std::ios::binary); // Open in binary mode
     out << content;
     out.close();
 
