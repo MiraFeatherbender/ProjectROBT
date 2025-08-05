@@ -1,11 +1,3 @@
 {
     "C_Cpp.errorSquiggles": "disabled",
-    "taskButtons.tasks": [
-        {
-            "label": "Update Progress Bars",
-            "icon": "tasklist",
-            "tooltip": "Update the progress bars in Goals_And_Steps.md",
-            "priority": 10
-        }
-    ]
 }
