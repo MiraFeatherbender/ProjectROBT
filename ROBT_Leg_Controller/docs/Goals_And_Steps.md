@@ -4,12 +4,12 @@
 
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 36% | In Progress: 30% | Not Started: 34%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
+Complete: 39% | In Progress: 39% | Not Started: 23%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 25% | In Progress: 33% | Not Started: 42%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
+Complete: 29% | In Progress: 50% | Not Started: 21%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
@@ -47,14 +47,14 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [ ] Ensure boot-time retrieval of calibration data from flash
 - [⏳] Replace static LEDC fade time calculation with parameterized slew time
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
-- [⏳] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
+- [x] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
 - [x] Restrict access to critical commands in maintenance mode
     - [x] Only allow entering maintenance mode when safely parked
-- [ ] Ensure all command responses are terse, consistent, and include error codes
-    - [ ] Ensure query responses are always in a consistent, parseable format
-- [ ] Define and document a `LegControllerCommandMap` for all supported commands
-    - [ ] Ensure all commands use consistent parameter mapping and error code conventions
-    - [ ] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
+- [⏳] Ensure all command responses are terse, consistent, and include error codes
+    - [⏳] Ensure query responses are always in a consistent, parseable format
+- [⏳] Define and document a `LegControllerCommandMap` for all supported commands
+    - [⏳] Ensure all commands use consistent parameter mapping and error code conventions
+    - [⏳] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
 
 ---
 
@@ -77,6 +77,6 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [x] Draft NVSManager.cpp
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
-    - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
+- [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
 - [x] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
     - [ ] Update documentation and code comments for new/changed commands and error codes

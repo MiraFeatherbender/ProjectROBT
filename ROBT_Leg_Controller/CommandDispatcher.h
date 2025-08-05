@@ -20,12 +20,24 @@ public:
         commands_[cmd] = RegisteredCommand{handler, info};
     }
 
+    // Add this method to check if a command is allowed
+    bool isAllowed(const CommandInfo& info, SystemState currentState, CommandPriority currentPriority) const {
+        if (info.priority == CommandPriority::CRITICAL) return true; // Always allow CRITICAL
+        for (auto allowed : info.allowedStates) {
+            if (allowed == currentState) {
+                return info.priority >= currentPriority;
+            }
+        }
+        return false;
+    }
+
+    // Refactored dispatch method to include gating logic
     // Dispatch a parsed command to the appropriate handler
     // Returns true if a handler was found and called, false otherwise
-    bool dispatch(const ParsedCommand& cmd) const {
-        auto it = commands_.find(std::string(cmd.command.c_str()));
-        if (it != commands_.end()) {
-            it->second.handler(cmd);
+    bool dispatch(const ParsedCommand& cmd, SystemState currentState, CommandPriority currentPriority) const {
+        const auto& reg = commands_.at(std::string(cmd.command.c_str()));
+        if (isAllowed(reg.info, currentState, currentPriority)) {
+            reg.handler(cmd);
             return true;
         }
         return false;

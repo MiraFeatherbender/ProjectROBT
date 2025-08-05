@@ -40,10 +40,17 @@ void setup() {
       parser.parseAndDispatch(line, ctx);
   });
   parser.setDispatchCallback([&](const ParsedCommand& cmd) {
-      if (!dispatcher.dispatch(cmd)) {
-          // Handle unknown command here, e.g.:
-          cmd.context.respond("+ERR:UNKNOWN_COMMAND");
-      }
+    // Early gate: unknown command
+    if (!dispatcher.getCommandInfo(cmd.command.c_str())) {
+        cmd.context.respond("+ERR:UNKNOWN_COMMAND");
+        return;
+    }
+    // Gating: command not allowed in current state/priority
+    if (!dispatcher.dispatch(cmd, supervisor.getCurrentState(), supervisor.getCurrentPriority())) {
+        cmd.context.respond("+ERR:COMMAND_NOT_ALLOWED");
+        return;
+    }
+    // If allowed and dispatched, handler will respond as needed
   });
 
   if (!supervisor.begin()) {
