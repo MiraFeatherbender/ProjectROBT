@@ -5,11 +5,11 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 30% | In Progress: 25% | Not Started: 45%
+Complete: 30% | In Progress: 27% | Not Started: 43%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 17% | In Progress: 25% | Not Started: 58%
+🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 17% | In Progress: 29% | Not Started: 54%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
@@ -45,7 +45,7 @@ Complete: 45% | In Progress: 25% | Not Started: 30%
 - [⏳] Add flash storage for calibration data, including center pulse time and backlash offset
     - [⏳] Add "SweepProfile" struct to calibration for storage
 - [ ] Ensure boot-time retrieval of calibration data from flash
-- [ ] Replace static LEDC fade time calculation with parameterized slew time
+- [⏳] Replace static LEDC fade time calculation with parameterized slew time
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
 - [ ] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
 - [ ] Restrict access to critical commands in maintenance mode
