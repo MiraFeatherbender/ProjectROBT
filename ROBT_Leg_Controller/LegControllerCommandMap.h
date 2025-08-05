@@ -4,37 +4,46 @@
 #include "CommandDispatcher.h"
 #include "LegSupervisor.h"
 #include "NVSManager.h"
-// Add other module headers as needed
+#include "CommandInfo.h"
 
-// Centralized registration of all AT commands
-inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& supervisor /*, ... */) {
-    dispatcher.registerCommand("MOVE", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("SMOOTH_STOP", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("E_STOP", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("SERVO_CAL", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("VERIFY_NVS", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("PARK", [&](const ParsedCommand& cmd) {
-        supervisor.handleParsedCommand(cmd);
-    });
-    dispatcher.registerCommand("NODE", [](const ParsedCommand& cmd){
-        // This command can be used to query or set the node number
-        // Implementation can be added as needed
-        cmd.context.respond("+OK:Node number is " + String(cmd.nodeNumber));
-    });
-    // Example diagnostic command
-    // dispatcher.registerCommand("AT+NVSDIAG=", [&](const ParsedCommand& cmd) {
-    //     NVSManager::diagnostic(cmd.params);
-    // });
+inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& supervisor) {
+    dispatcher.registerCommand(
+        "MOVE",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped, SystemState::Moving}}
+    );
+    dispatcher.registerCommand(
+        "SMOOTH_STOP",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::HIGH, {SystemState::Moving}}
+    );
+    dispatcher.registerCommand(
+        "E_STOP",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::CRITICAL, {SystemState::Booting, SystemState::Parked, SystemState::Stopped, SystemState::Moving, SystemState::EStop, SystemState::Maintenance, SystemState::Updating}}
+    );
+    dispatcher.registerCommand(
+        "SERVO_CAL",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::HIGH, {SystemState::Stopped, SystemState::Maintenance}}
+    );
+    dispatcher.registerCommand(
+        "VERIFY_NVS",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked}}
+    );
+    dispatcher.registerCommand(
+        "PARK",
+        [&](const ParsedCommand& cmd) { supervisor.handleParsedCommand(cmd); },
+        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped}}
+    );
+    dispatcher.registerCommand(
+        "NODE",
+        [](const ParsedCommand& cmd){
+            cmd.context.respond("+OK:Node number is " + String(cmd.nodeNumber));
+        },
+        CommandInfo{CommandPriority::LOW, {SystemState::Booting, SystemState::Parked, SystemState::Stopped, SystemState::Moving, SystemState::EStop, SystemState::Maintenance, SystemState::Updating}}
+    );
     // Add more commands as needed
 }
 

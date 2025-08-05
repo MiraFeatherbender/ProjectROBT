@@ -4,16 +4,16 @@
 
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 30% | In Progress: 27% | Not Started: 43%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 36% | In Progress: 30% | Not Started: 34%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 17% | In Progress: 29% | Not Started: 54%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 25% | In Progress: 33% | Not Started: 42%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 45% | In Progress: 25% | Not Started: 30%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 50% | In Progress: 25% | Not Started: 25%
 
 ## Task State Legend
 
@@ -47,9 +47,9 @@ Complete: 45% | In Progress: 25% | Not Started: 30%
 - [ ] Ensure boot-time retrieval of calibration data from flash
 - [⏳] Replace static LEDC fade time calculation with parameterized slew time
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
-- [ ] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
-- [ ] Restrict access to critical commands in maintenance mode
-    - [ ] Only allow entering maintenance mode when safely parked
+- [⏳] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
+- [x] Restrict access to critical commands in maintenance mode
+    - [x] Only allow entering maintenance mode when safely parked
 - [ ] Ensure all command responses are terse, consistent, and include error codes
     - [ ] Ensure query responses are always in a consistent, parseable format
 - [ ] Define and document a `LegControllerCommandMap` for all supported commands
@@ -78,5 +78,5 @@ Complete: 45% | In Progress: 25% | Not Started: 30%
 - [ ] Test boot-time retrieval of calibration data
 - [ ] Prototype optional "calibrating" state in bootstate machine
     - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
-- [ ] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
+- [x] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
     - [ ] Update documentation and code comments for new/changed commands and error codes
