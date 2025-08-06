@@ -96,7 +96,7 @@ Complete: 28% | In Progress: 43% | Not Started: 30%
 - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
 
 - [x] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
-    - [ ] Update documentation and code comments for new/changed commands and error codes
+    - [x] Update documentation and code comments for new/changed commands and error codes
     - [ ] Add diagnostic/test commands for hardware and storage modules
     - [ ] Integrate servo calibration triggers into custom AT command interface
 
