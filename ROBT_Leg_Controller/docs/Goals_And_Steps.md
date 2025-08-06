@@ -3,16 +3,16 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 33% | In Progress: 31% | Not Started: 37%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 31% | In Progress: 29% | Not Started: 39%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨  
 Complete: 41% | In Progress: 59% | Not Started: 0%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 28% | In Progress: 16% | Not Started: 56%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 26% | In Progress: 15% | Not Started: 59%
 
 ## Task State Legend
 
@@ -63,6 +63,9 @@ Complete: 28% | In Progress: 16% | Not Started: 56%
         - [⏳] ServoCalibration creates SweepSummary
         - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter
         - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash
+
+- [ ] Add physical reset switch for E-Stop state
+    - [ ] Measure pins 8 and 9 for boot state
 
 - [ ] Prototype SystemState state machine in LegSupervisor
     - [ ] Implement Booting state

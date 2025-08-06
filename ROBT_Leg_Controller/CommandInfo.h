@@ -11,10 +11,12 @@ enum class CommandPriority {
 enum class SystemState {
     Booting,
     Parked,
+    Homed,
     Stopped,
     Moving,
     EStop,
     Maintenance,
+    Calibrating,
     Updating
 };
 
