@@ -89,6 +89,7 @@ void loop() {
     case RUNNING:
       
       serialHandler.update();
+      supervisor.update();
       break;
   }
 }

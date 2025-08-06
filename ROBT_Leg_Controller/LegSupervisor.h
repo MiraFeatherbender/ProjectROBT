@@ -16,6 +16,8 @@ public:
     explicit LegSupervisor(const ServoConfig& ServoCFG);
 
     bool begin();  // Initializes the servo LEDC
+    void queueTransitions(const std::vector<StateTransition>& transitions);
+    void update(); // Processes state transitions and acts on hardware
     void captureInitialAngle(uint16_t raw_mv);  // Converts voltage to angle and injects it
     float getCurrentAngle() const;             // Returns current angle from servo
     void setSteeringAngle(float angle);
@@ -24,8 +26,6 @@ public:
     void handleParsedCommand(const ParsedCommand& cmd);
     CommandPriority getCurrentPriority() const { return currentPriority_; }
     SystemState getCurrentState() const { return currentState_; }
-    void setCurrentPriority(CommandPriority priority) { currentPriority_ = priority; }
-    void setCurrentState(SystemState state) { currentState_ = state; }
     
 private:
     ServoController servo_;
@@ -35,6 +35,7 @@ private:
     SystemState currentState_ = SystemState::Booting;
     bool attachLEDC(const LEDCConfig& cfg);
     bool saveSweepSummary();
+    std::vector<StateTransition> transitionQueue_;
 };
 
 #endif //LEG_SUPERVISOR_H

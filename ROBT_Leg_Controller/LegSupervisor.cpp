@@ -5,7 +5,7 @@
 LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
     : servo_(ServoCFG),
       hallSensor_(),
-      servoCal_(servo_, ServoCFG){}
+      servoCal_(servo_, ServoCFG) {}
 
 bool LegSupervisor::begin() {
     servo_.begin();
@@ -61,4 +61,69 @@ void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
 bool LegSupervisor::saveSweepSummary(){
     SweepSummary summary = servoCal_.getSweepSummary();
     return NVSManager::storeSweepSummary(summary);
+}
+
+void LegSupervisor::queueTransitions(const std::vector<StateTransition>& transitions) {
+    for (const auto& t : transitions) {
+        transitionQueue_.push_back(t);
+    }
+}
+
+void LegSupervisor::update() {
+    if (!transitionQueue_.empty()) {
+        auto& transition = transitionQueue_.front();
+        switch (transition.nextState) {
+            case SystemState::Booting:
+                // TODO: Booting state logic
+                currentState_ = SystemState::Booting;
+                break;
+            case SystemState::Parked:
+                // TODO: Parked state logic
+                currentState_ = SystemState::Parked;
+                break;
+            case SystemState::Homed:
+                // TODO: Homed state logic
+                currentState_ = SystemState::Homed;
+                break;
+            case SystemState::Stopped:
+                // TODO: Stopped state logic
+                currentState_ = SystemState::Stopped;
+                break;
+            case SystemState::ProcessMoveCmd:
+                // TODO: ProcessMoveCmd logic
+                if (transition.params.size() >= 3) {
+                    float steering = transition.params[0];
+                    float velocity = transition.params[1];
+                    float slew = transition.params[2];
+                    setSteeringAngle(steering); // TODO: add slew support
+                    // TODO: setDriveVelocity(velocity, slew); // Placeholder for future stepper logic
+                }
+                currentState_ = SystemState::Moving;
+                break;
+            case SystemState::Moving:
+                // Maintain moving state, or handle completion logic if needed
+                currentState_ = SystemState::Moving;
+                break;
+            case SystemState::EStop:
+                // TODO: EStop state logic
+                currentState_ = SystemState::EStop;
+                break;
+            case SystemState::Maintenance:
+                // TODO: Maintenance state logic
+                currentState_ = SystemState::Maintenance;
+                break;
+            case SystemState::Calibrating:
+                // TODO: Calibrating state logic
+                currentState_ = SystemState::Calibrating;
+                break;
+            case SystemState::Updating:
+                // TODO: Updating state logic
+                currentState_ = SystemState::Updating;
+                break;
+            default:
+                currentState_ = transition.nextState;
+                break;
+        }
+        transitionQueue_.erase(transitionQueue_.begin());
+    }
 }

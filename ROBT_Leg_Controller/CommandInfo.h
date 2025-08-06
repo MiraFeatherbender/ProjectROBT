@@ -13,6 +13,7 @@ enum class SystemState {
     Parked,
     Homed,
     Stopped,
+    ProcessMoveCmd,
     Moving,
     EStop,
     Maintenance,

@@ -3,16 +3,16 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 31% | In Progress: 29% | Not Started: 39%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 31% | In Progress: 47% | Not Started: 22%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨  
 Complete: 41% | In Progress: 59% | Not Started: 0%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 26% | In Progress: 15% | Not Started: 59%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 28% | In Progress: 43% | Not Started: 30%
 
 ## Task State Legend
 
@@ -67,15 +67,31 @@ Complete: 26% | In Progress: 15% | Not Started: 59%
 - [ ] Add physical reset switch for E-Stop state
     - [ ] Measure pins 8 and 9 for boot state
 
-- [ ] Prototype SystemState state machine in LegSupervisor
-    - [ ] Implement Booting state
-    - [ ] Implement Parked state
-    - [ ] Implement Stopped state
-    - [ ] Implement Moving state
-    - [ ] Implement Calibrating state
-    - [ ] Implement EStop state
-    - [ ] Implement Maintenance state
-    - [ ] Implement Updating state
+- [⏳] Implement AT command handlers
+    - [x] MOVE command handler
+    - [⏳] SMOOTH_STOP command handler
+    - [⏳] E_STOP command handler
+    - [⏳] SERVO_CAL command handler
+    - [⏳] VERIFY_NVS command handler
+    - [⏳] PARK command handler
+    - [⏳] NODE command handler
+    - [⏳] OTA command handler
+
+- [ ] Refactor boot logic from *begin() to state machine
+    - [ ] Servo startup position belongs in homing state
+
+- [ ] Implement HOME command for external use and internal self injection
+
+- [x] Prototype SystemState state machine in LegSupervisor
+    - [⏳] Implement Booting state
+    - [⏳] Implement Parked state
+    - [⏳] Implement Stopped state
+    - [x] Implement ProcessMoveCMD state
+    - [x] Implement Moving state
+    - [⏳] Implement Calibrating state
+    - [⏳] Implement EStop state
+    - [⏳] Implement Maintenance state
+    - [⏳] Implement Updating state
 
 - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
 
