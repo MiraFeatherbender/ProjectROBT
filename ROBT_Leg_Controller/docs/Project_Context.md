@@ -1,3 +1,12 @@
+## Copilot Onboarding
+Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits. Key context:
+- Main entry: `ROBT_Leg_Controller.ino` (Arduino sketch)
+- All hardware, config, and logic are separated into .cpp/.h modules
+- AT command interface is documented below; see Command Reference
+- Node addressing, calibration, and state machine logic are central to operation
+- See 'Recent Changes & Current Focus' for what’s actively being developed
+- If you need more context, check linked migration and goals docs
+
 # Project Context Reference
 
 This document provides a comprehensive reference for the environment, hardware, structure, and preferences of the ROBT_Leg_Controller project. Use this as a quick guide for Copilot, collaborators, or future development.
