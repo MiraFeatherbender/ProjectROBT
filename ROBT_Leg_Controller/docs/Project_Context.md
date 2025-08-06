@@ -92,3 +92,43 @@ This document provides a comprehensive reference for the environment, hardware, 
 - Prefers writing custom libraries for core logic; uses manufacturer or hardware-specific libraries only when necessary (e.g., LCD, SD card)
 - Avoids generic libraries (e.g., “servo”) in favor of custom implementations
 - No major “gotchas” identified, but design is focused on determinism, maintainability, and hardware efficiency
+
+---
+
+## Recent Changes & Current Focus
+- Refactored command handler and dispatcher logic for modularity and priority gating
+- Implemented non-blocking slew time logic for ProcessMoveCmd
+- Ensured queue clearing resets timers and lockout state
+- Codebase reviewed for syntax errors and leftovers; clean and ready for expansion
+- Next: Expand handler logic and state machine transitions (see Goals_And_Steps.md)
+
+---
+
+## How to Run / Build
+- Open `ROBT_Leg_Controller.ino` in the Arduino IDE
+- Select ESP32-C3 board and correct port
+- Upload via USB (OTA update planned)
+- Serial monitor at 115200 baud for debugging
+
+---
+
+## Command Reference (AT Commands)
+| Command         | Parameters                 | Description                        | Response                |
+|-----------------|----------------------------|------------------------------------|-------------------------|
+| AT+MOVE         | steering, velocity, slew   | Move leg with given params         | +ACK / +ERR             |
+| AT+SMOOTH_STOP  |                            | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP queued |
+| AT+E_STOP       |                            | Immediate emergency stop           | +ACK:E_STOP queued      |
+| AT+SERVO_CAL    |                            | Start servo calibration            | +ACK:SERVO_CAL queued   |
+| AT+VERIFY_NVS   |                            | Verify NVS calibration data        | +ACK:VERIFY_NVS queued  |
+| AT+PARK         |                            | Move to park position              | +ACK:PARK queued        |
+| AT+NODE         |                            | Responds with assigned node number | +NODE:<node_number>     |
+| AT+OTA          |                            | Begin OTA update                   | +ACK:OTA queued         |
+| AT+HOME         |                            | Move to neutral/home position      | +ACK:HOME queued        |
+
+---
+
+## Migration & Goals Reference
+- See [Goals_And_Steps.md](Goals_And_Steps.md) for current development priorities
+- See [AT-Command_Migration_Plan.md](AT-Command_Migration_Plan.md) and [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
+
+---
