@@ -7,14 +7,14 @@ This document outlines the steps and considerations for migrating the custom com
 
 ## 1. Custom Command Interface
 - **Files to Adapt:**
-  - `CustomCommandClasses.cpp/h`
-  - `CustomCommandFactory.cpp/h`
+  - ~~`CustomCommandClasses.cpp/h`~~
+  - ~~`CustomCommandFactory.cpp/h`~~
 - **Actions:**
-  - Copy the command base class and factory pattern.
-  - Remove anchor-specific commands; implement leg-controller-specific commands (e.g., servo calibration, diagnostics).
-  - Register new commands in the factory.
+  - ~~Copy the command base class and factory pattern.~~
+  - ~~Remove anchor-specific commands; implement leg-controller-specific commands (e.g., servo calibration, diagnostics).~~
+  - ~~Register new commands in the factory.~~
 
-**See also:** [AT-Command_Migration_Plan.md](AT-Command_Migration_Plan.md) for a detailed step-by-step plan to migrate the serial AT command input and processing system.
+**See also:** ~~[AT-Command_Migration_Plan.md](AT-Command_Migration_Plan.md) for a detailed step-by-step plan to migrate the serial AT command input and processing system.~~
 
 ## 2. ESP-NOW Communication
 - **Files to Adapt:**
