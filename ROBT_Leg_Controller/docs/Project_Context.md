@@ -102,6 +102,17 @@ This document provides a comprehensive reference for the environment, hardware, 
 - Avoids generic libraries (e.g., “servo”) in favor of custom implementations
 - No major “gotchas” identified, but design is focused on determinism, maintainability, and hardware efficiency
 
+
+### Common Compiler Error Patterns & Prevention Checklist
+- **Enum macro conflicts:** Avoid using names like LOW/HIGH in enums; these may collide with Arduino macros. Always choose unique, descriptive enum values.
+- **Missing includes:** If you see 'type not recognized' or 'not declared in this scope' errors, check that all required headers are included in every file that uses those types.
+- **Forward declaration issues:** When passing objects between modules, ensure the full class definition is available (not just a forward declaration) in headers where needed.
+- **Struct/class definition errors:** Define all structs/classes before use, and keep their definitions in a logical order. If you get 'does not name a type' or brace-enclosed initializer errors, check struct/class visibility and order.
+- **Function prototype errors:** Always declare function prototypes in headers for any function used in lambdas, callbacks, or other files. This prevents 'not declared in this scope' errors.
+- **Pre-commit hook integration:** If your workflow auto-edits files before commit, make sure your hook stages those changes (e.g., with `git add`) so they're included in the same commit.
+
+Refer to this checklist when adding new features or refactoring code to avoid common build and integration issues.
+
 ---
 
 ## Recent Changes & Current Focus
