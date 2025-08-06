@@ -3,16 +3,16 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
-Complete: 33% | In Progress: 47% | Not Started: 20%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 31% | In Progress: 47% | Not Started: 22%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨  
 Complete: 41% | In Progress: 59% | Not Started: 0%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 30% | In Progress: 43% | Not Started: 28%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 28% | In Progress: 43% | Not Started: 30%
 
 ## Task State Legend
 
@@ -96,7 +96,7 @@ Complete: 30% | In Progress: 43% | Not Started: 28%
 - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
 
 - [x] Add or adapt commands specific to leg controller functionality (e.g., calibration, diagnostics)
-    - [x] Update documentation and code comments for new/changed commands and error codes
+    - [ ] Update documentation and code comments for new/changed commands and error codes
     - [ ] Add diagnostic/test commands for hardware and storage modules
     - [ ] Integrate servo calibration triggers into custom AT command interface
 
