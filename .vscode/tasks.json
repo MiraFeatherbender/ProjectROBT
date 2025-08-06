@@ -4,7 +4,7 @@
     {
       "label": "Update Progress Bars",
       "type": "shell",
-      "command": "./update_progress",
+      "command": "py update_progress.py",
       "options": {
         "cwd": "${workspaceFolder}/ROBT_Leg_Controller/docs"
       },
