@@ -1,9 +1,11 @@
+
 #pragma once
 #include <map>
 #include <functional>
 #include <string>
 #include "ParsedCommand.h"
 #include "CommandInfo.h" // <-- Include your new metadata struct
+#include "LegSupervisor.h" // <-- Fix: Add missing declaration for LegSupervisor
 
 // Flexible dispatcher for AT commands
 class CommandDispatcher {
@@ -23,7 +25,7 @@ public:
     // Add this method to check if a command is allowed
     bool isAllowed(const CommandInfo& info, SystemState currentState, CommandPriority currentPriority) const {
         // CRITICAL commands are always allowed and should trigger queue override
-        if (info.priority == CommandPriority::CRITICAL) {
+        if (info.priority == CommandPriority::PriorityCritical) {
             // In your main dispatch logic, you should clear the transition queue before handling
             return true;
         }

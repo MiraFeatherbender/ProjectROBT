@@ -42,7 +42,7 @@ private:
     ServoController servo_;
     HallSensorHandler hallSensor_;
     ServoCalibration servoCal_;
-    CommandPriority currentPriority_ = CommandPriority::NORMAL;
+    CommandPriority currentPriority_ = CommandPriority::PriorityNormal;
     SystemState currentState_ = SystemState::Booting;
     bool attachLEDC(const LEDCConfig& cfg);
     bool saveSweepSummary();
@@ -51,6 +51,11 @@ private:
     // Member variables for slew/park only
     float defaultSlewTime_ = 1.0f; // Default value, can be changed
     float parkSteeringAngle_ = 0.0f; // Default value, can be changed
+
+    // Members for ProcessMoveCmd state machine
+    bool moveCmdActive_ = false;
+    unsigned long moveCmdStartTime_ = 0;
+    float moveCmdSlewTime_ = 0.0f;
 };
 
 #endif //LEG_SUPERVISOR_H

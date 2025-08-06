@@ -14,6 +14,7 @@ void handleServoCalCommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
 void handleVerifyNVSCommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
 void handleParkCommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
 void handleNodeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
+void handleOTACommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
 void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor);
 
 inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& supervisor) {
@@ -21,19 +22,19 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "MOVE",
         [&](const ParsedCommand& cmd) { handleMoveCommand(cmd, supervisor); },
         // Allowed only from Stopped or Moving (for smooth chaining)
-        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped, SystemState::Moving}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Moving}}
     );
     dispatcher.registerCommand(
         "SMOOTH_STOP",
         [&](const ParsedCommand& cmd) { handleSmoothStopCommand(cmd, supervisor); },
         // Only allowed during Moving
-        CommandInfo{CommandPriority::HIGH, {SystemState::Moving}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Moving}}
     );
     dispatcher.registerCommand(
         "E_STOP",
         [&](const ParsedCommand& cmd) { handleEStopCommand(cmd, supervisor); },
         // Allowed from any state except Booting (but Booting included for safety)
-        CommandInfo{CommandPriority::CRITICAL, {
+        CommandInfo{CommandPriority::PriorityCritical, {
             SystemState::Booting, SystemState::Parked, SystemState::Stopped, SystemState::ProcessMoveCmd,
             SystemState::Moving, SystemState::EStop, SystemState::Maintenance, SystemState::Updating
         }}
@@ -42,25 +43,25 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "SERVO_CAL",
         [&](const ParsedCommand& cmd) { handleServoCalCommand(cmd, supervisor); },
         // Allowed from Stopped or Maintenance
-        CommandInfo{CommandPriority::HIGH, {SystemState::Stopped, SystemState::Maintenance}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance}}
     );
     dispatcher.registerCommand(
         "VERIFY_NVS",
         [&](const ParsedCommand& cmd) { handleVerifyNVSCommand(cmd, supervisor); },
         // Allowed from Stopped, Maintenance, or Parked
-        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked}}
     );
     dispatcher.registerCommand(
         "PARK",
         [&](const ParsedCommand& cmd) { handleParkCommand(cmd, supervisor); },
         // Only allowed from Stopped
-        CommandInfo{CommandPriority::NORMAL, {SystemState::Stopped}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped}}
     );
     dispatcher.registerCommand(
         "NODE",
         [&](const ParsedCommand& cmd) { handleNodeCommand(cmd, supervisor); },
         // Allowed in all states except Booting
-        CommandInfo{CommandPriority::LOW, {
+        CommandInfo{CommandPriority::PriorityLow, {
             SystemState::Parked, SystemState::Stopped, SystemState::Moving, SystemState::ProcessMoveCmd,
             SystemState::EStop, SystemState::Maintenance, SystemState::Updating
         }}
@@ -69,13 +70,13 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "OTA",
         [&](const ParsedCommand& cmd) { handleOTACommand(cmd, supervisor); },
         // Allowed only from Maintenance
-        CommandInfo{CommandPriority::HIGH, {SystemState::Maintenance}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Maintenance}}
     );
     dispatcher.registerCommand(
         "HOME",
         [&](const ParsedCommand& cmd) { handleHomeCommand(cmd, supervisor); },
         // Allowed from Booting, Stopped, and Moving
-        CommandInfo{CommandPriority::HIGH, {SystemState::Booting, SystemState::Stopped, SystemState::Moving}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Moving}}
     );
     // Add more commands as needed
 }

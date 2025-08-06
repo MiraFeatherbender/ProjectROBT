@@ -1,3 +1,10 @@
+// Required includes for type definitions
+#include "LegControllerCommandMap.h"
+#include "ParsedCommand.h"
+#include "LegSupervisor.h"
+#include "CommandInfo.h"
+#include <vector>
+
 void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // HOME: Move to neutral steering angle, 0 velocity, default slew time, then transition to Stopped
     float neutralSteering = 0.0f; // Define neutral as 0.0f, or use a config value if available
