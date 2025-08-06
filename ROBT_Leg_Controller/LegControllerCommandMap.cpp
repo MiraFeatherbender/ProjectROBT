@@ -1,3 +1,14 @@
+void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
+    // HOME: Move to neutral steering angle, 0 velocity, default slew time, then transition to Stopped
+    float neutralSteering = 0.0f; // Define neutral as 0.0f, or use a config value if available
+    float slewTime = supervisor.getDefaultSlewTime();
+    std::vector<StateTransition> transitions = {
+        {SystemState::ProcessMoveCmd, {neutralSteering, 0.0f, slewTime}},
+        {SystemState::Stopped, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:HOME queued");
+}
 #include "LegControllerCommandMap.h"
 
 void handleMoveCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
@@ -28,29 +39,73 @@ void handleMoveCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
 }
 
 void handleSmoothStopCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement SMOOTH_STOP command logic
+    // SMOOTH_STOP: Use ProcessMoveCmd to ramp velocity to 0, keep steering steady, then transition to Stopped
+    float currentSteering = supervisor.getCurrentAngle();
+    float slewTime = supervisor.getDefaultSlewTime();
+    std::vector<StateTransition> transitions = {
+        {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, slewTime}},
+        {SystemState::Stopped, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:SMOOTH_STOP queued");
 }
 
 void handleEStopCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement E_STOP command logic
+    // E_STOP: Use ProcessMoveCmd to immediately set velocity to 0, then transition to EStop
+    float currentSteering = supervisor.getCurrentAngle();
+    float immediateSlew = 0.0f; // Immediate stop
+    std::vector<StateTransition> transitions = {
+        {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, immediateSlew}},
+        {SystemState::EStop, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:E_STOP queued");
 }
 
 void handleServoCalCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement SERVO_CAL command logic
+    // SERVO_CAL command: no parameters required
+    std::vector<StateTransition> transitions = {
+        {SystemState::Calibrating, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:SERVO_CAL queued");
 }
 
 void handleVerifyNVSCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement VERIFY_NVS command logic
+    // VERIFY_NVS command: no parameters required
+    std::vector<StateTransition> transitions = {
+        {SystemState::Maintenance, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:VERIFY_NVS queued");
 }
 
 void handleParkCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement PARK command logic
+    // PARK: Use ProcessMoveCmd to set steering angle for parking, velocity 0, then transition to Parked
+    float parkSteering = supervisor.getParkSteeringAngle();
+    float slewTime = supervisor.getDefaultSlewTime();
+    std::vector<StateTransition> transitions = {
+        {SystemState::ProcessMoveCmd, {parkSteering, 0.0f, slewTime}},
+        {SystemState::Parked, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:PARK queued");
 }
 
 void handleNodeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement NODE command logic
+    // NODE command: no parameters required
+    std::vector<StateTransition> transitions = {
+        {SystemState::Stopped, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:NODE queued");
 }
 
 void handleOTACommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    // TODO: Implement OTA command logic
+    // OTA command: no parameters required
+    std::vector<StateTransition> transitions = {
+        {SystemState::Updating, {}}
+    };
+    supervisor.queueTransitions(transitions);
+    cmd.context.respond("+ACK:OTA queued");
 }

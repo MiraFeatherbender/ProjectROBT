@@ -13,6 +13,9 @@
 
 class LegSupervisor {
 public:
+    // Clear the transition queue (for dispatcher override)
+    void clearTransitionQueue();
+public:
     explicit LegSupervisor(const ServoConfig& ServoCFG);
 
     bool begin();  // Initializes the servo LEDC
@@ -26,7 +29,15 @@ public:
     void handleParsedCommand(const ParsedCommand& cmd);
     CommandPriority getCurrentPriority() const { return currentPriority_; }
     SystemState getCurrentState() const { return currentState_; }
-    
+
+    // Removed getCurrentSteeringAngle(), use getCurrentAngle() instead
+    float getDefaultSlewTime() const { return defaultSlewTime_; }
+    float getParkSteeringAngle() const { return parkSteeringAngle_; }
+
+    // Removed setCurrentSteeringAngle()
+    void setDefaultSlewTime(float slew) { defaultSlewTime_ = slew; }
+    void setParkSteeringAngle(float angle) { parkSteeringAngle_ = angle; }
+
 private:
     ServoController servo_;
     HallSensorHandler hallSensor_;
@@ -36,6 +47,10 @@ private:
     bool attachLEDC(const LEDCConfig& cfg);
     bool saveSweepSummary();
     std::vector<StateTransition> transitionQueue_;
+
+    // Member variables for slew/park only
+    float defaultSlewTime_ = 1.0f; // Default value, can be changed
+    float parkSteeringAngle_ = 0.0f; // Default value, can be changed
 };
 
 #endif //LEG_SUPERVISOR_H

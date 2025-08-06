@@ -46,7 +46,7 @@ void setup() {
         return;
     }
     // Gating: command not allowed in current state/priority
-    if (!dispatcher.dispatch(cmd, supervisor.getCurrentState(), supervisor.getCurrentPriority())) {
+    if (!dispatcher.dispatch(cmd, supervisor)) {
         cmd.context.respond("+ERR:COMMAND_NOT_ALLOWED");
         return;
     }

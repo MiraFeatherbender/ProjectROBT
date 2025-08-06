@@ -22,7 +22,11 @@ public:
 
     // Add this method to check if a command is allowed
     bool isAllowed(const CommandInfo& info, SystemState currentState, CommandPriority currentPriority) const {
-        if (info.priority == CommandPriority::CRITICAL) return true; // Always allow CRITICAL
+        // CRITICAL commands are always allowed and should trigger queue override
+        if (info.priority == CommandPriority::CRITICAL) {
+            // In your main dispatch logic, you should clear the transition queue before handling
+            return true;
+        }
         for (auto allowed : info.allowedStates) {
             if (allowed == currentState) {
                 return info.priority >= currentPriority;
@@ -31,12 +35,17 @@ public:
         return false;
     }
 
-    // Refactored dispatch method to include gating logic
-    // Dispatch a parsed command to the appropriate handler
+    // Refactored dispatch method to use LegSupervisor for state, priority, and queue clearing
     // Returns true if a handler was found and called, false otherwise
-    bool dispatch(const ParsedCommand& cmd, SystemState currentState, CommandPriority currentPriority) const {
+    bool dispatch(const ParsedCommand& cmd, LegSupervisor& supervisor) const {
         const auto& reg = commands_.at(std::string(cmd.command.c_str()));
+        SystemState currentState = supervisor.getCurrentState();
+        CommandPriority currentPriority = supervisor.getCurrentPriority();
         if (isAllowed(reg.info, currentState, currentPriority)) {
+            // Clear transition queue for equal or higher priority commands
+            if (reg.info.priority >= currentPriority) {
+                supervisor.clearTransitionQueue();
+            }
             reg.handler(cmd);
             return true;
         }
@@ -54,6 +63,23 @@ public:
 
     // Optional: clear all handlers (for test or re-init)
     void clear() { commands_.clear(); }
+
+/*
+Example usage:
+
+CommandDispatcher dispatcher;
+dispatcher.registerCommand("MOVE", [&](const ParsedCommand& cmd) {
+    supervisor.move(cmd.params);
+}, CommandInfo{"Move the device", "param1,param2"});
+dispatcher.registerCommand("NVSDIAG", [&](const ParsedCommand& cmd) {
+    nvsManager.diagnostic(cmd.params);
+}, CommandInfo{"Diagnostic information", "param1"});
+
+// In your parser's dispatch callback:
+if (!dispatcher.dispatch(cmd, supervisor)) {
+    // Handle unknown command
+}
+*/
 
 private:
     std::map<std::string, RegisteredCommand> commands_;

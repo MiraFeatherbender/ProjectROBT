@@ -1,11 +1,22 @@
+
 #include "LegSupervisor.h"
 #include <cmath>
 #include <esp32-hal-ledc.h>
 
+// Clear the transition queue and reset ProcessMoveCmd timer/lockout
+void LegSupervisor::clearTransitionQueue() {
+    transitionQueue_.clear();
+    moveCmdActive_ = false;
+    moveCmdStartTime_ = 0;
+    moveCmdSlewTime_ = 0.0f;
+}
+
 LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
     : servo_(ServoCFG),
       hallSensor_(),
-      servoCal_(servo_, ServoCFG) {}
+      servoCal_(servo_, ServoCFG),
+      defaultSlewTime_(1.0f),
+      parkSteeringAngle_(0.0f) {}
 
 bool LegSupervisor::begin() {
     servo_.begin();
@@ -74,56 +85,69 @@ void LegSupervisor::update() {
         auto& transition = transitionQueue_.front();
         switch (transition.nextState) {
             case SystemState::Booting:
-                // TODO: Booting state logic
                 currentState_ = SystemState::Booting;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Parked:
-                // TODO: Parked state logic
                 currentState_ = SystemState::Parked;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Homed:
-                // TODO: Homed state logic
                 currentState_ = SystemState::Homed;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Stopped:
-                // TODO: Stopped state logic
                 currentState_ = SystemState::Stopped;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::ProcessMoveCmd:
-                // TODO: ProcessMoveCmd logic
-                if (transition.params.size() >= 3) {
-                    float steering = transition.params[0];
-                    float velocity = transition.params[1];
-                    float slew = transition.params[2];
-                    setSteeringAngle(steering); // TODO: add slew support
-                    // TODO: setDriveVelocity(velocity, slew); // Placeholder for future stepper logic
+                // Timer-based non-blocking slew enforcement
+                if (!moveCmdActive_) {
+                    if (transition.params.size() >= 3) {
+                        float steering = transition.params[0];
+                        float velocity = transition.params[1];
+                        float slew = transition.params[2];
+                        setSteeringAngle(steering); // TODO: add slew support
+                        // TODO: setDriveVelocity(velocity, slew); // Placeholder for future stepper logic
+                        moveCmdActive_ = true;
+                        moveCmdStartTime_ = millis();
+                        moveCmdSlewTime_ = slew;
+                    }
                 }
-                currentState_ = SystemState::Moving;
+                // Only advance if slew time has elapsed
+                if (moveCmdActive_ && (millis() - moveCmdStartTime_ >= (unsigned long)(moveCmdSlewTime_ * 1000.0f))) {
+                    moveCmdActive_ = false;
+                    moveCmdStartTime_ = 0;
+                    moveCmdSlewTime_ = 0.0f;
+                    // Advance to next state in queue (if any)
+                    transitionQueue_.erase(transitionQueue_.begin());
+                }
+                // Otherwise, stay in ProcessMoveCmd until timer expires
                 break;
             case SystemState::Moving:
-                // Maintain moving state, or handle completion logic if needed
                 currentState_ = SystemState::Moving;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::EStop:
-                // TODO: EStop state logic
                 currentState_ = SystemState::EStop;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Maintenance:
-                // TODO: Maintenance state logic
                 currentState_ = SystemState::Maintenance;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Calibrating:
-                // TODO: Calibrating state logic
                 currentState_ = SystemState::Calibrating;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Updating:
-                // TODO: Updating state logic
                 currentState_ = SystemState::Updating;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
             default:
                 currentState_ = transition.nextState;
+                transitionQueue_.erase(transitionQueue_.begin());
                 break;
         }
-        transitionQueue_.erase(transitionQueue_.begin());
     }
 }
