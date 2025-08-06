@@ -1,4 +1,6 @@
 # AT Command Migration Plan
+This plan has been completed.
+
 
 This document outlines the step-by-step plan to migrate the serial AT command input and processing system from the ROBT_Anchor_Nodes codebase to the ROBT_Leg_Controller codebase. The goal is to enable robust, extensible serial command handling in the leg controller, similar to the anchor nodes, and to lay the groundwork for future integration with ESP-NOW and OTA features.
 
