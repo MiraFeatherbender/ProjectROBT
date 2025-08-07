@@ -1,6 +1,13 @@
+import os
 import re
-import math
 import sys
+
+def get_goals_path():
+    cwd = os.getcwd()
+    if os.path.basename(cwd).lower() == "docs":
+        return "Goals_And_Steps.md"
+    else:
+        return os.path.join("docs", "Goals_And_Steps.md")
 
 # Helper functions
 def count_matches(text, pattern):
@@ -22,11 +29,12 @@ def percent(part, total):
 
 # Main logic
 def main():
+    goals_path = get_goals_path()
     try:
-        with open('Goals_And_Steps.md', encoding='utf-8') as f:
+        with open(goals_path, encoding='utf-8') as f:
             content = f.read()
     except Exception as e:
-        print(f"Could not open Goals_And_Steps.md: {e}", file=sys.stderr)
+        print(f"Could not open {goals_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
     # Extract Goals and Next Steps sections
@@ -72,10 +80,10 @@ def main():
     content = next_rebar.sub(rf'\1{next_bar}  \n{next_stats}\n', content)
 
     try:
-        with open('Goals_And_Steps.md', 'w', encoding='utf-8') as f:
+        with open(goals_path, 'w', encoding='utf-8') as f:
             f.write(content)
     except Exception as e:
-        print(f"Could not write Goals_And_Steps.md: {e}", file=sys.stderr)
+        print(f"Could not write {goals_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
     print("Progress bars and stats updated!")

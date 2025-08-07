@@ -6,12 +6,37 @@
       "type": "shell",
       "command": "py update_progress.py",
       "options": {
-        "cwd": "${workspaceFolder}/ROBT_Leg_Controller/docs"
+        "cwd": "${fileDirname}"
       },
       "group": {
         "kind": "build",
         "isDefault": true
       },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Firmware Bin (Active File)",
+      "type": "shell",
+      "command": "arduino-cli compile --export-binaries --fqbn esp32:esp32:nologo_esp32c3_super_mini ${file}",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Upgrade Arduino CLI",
+      "type": "shell",
+      "command": "arduino-cli upgrade",
       "presentation": {
         "echo": true,
         "reveal": "always",
