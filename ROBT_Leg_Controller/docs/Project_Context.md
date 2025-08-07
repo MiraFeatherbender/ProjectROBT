@@ -149,6 +149,6 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 
 ## Migration & Goals Reference
 - See [Goals_And_Steps.md](Goals_And_Steps.md) for current development priorities
-- See [AT-Command_Migration_Plan.md](AT-Command_Migration_Plan.md) and [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
+- See [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
 
 ---

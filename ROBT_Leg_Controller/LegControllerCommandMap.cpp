@@ -7,7 +7,7 @@
 
 void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // HOME: Move to neutral steering angle, 0 velocity, default slew time, then transition to Stopped
-    float neutralSteering = 0.0f; // Define neutral as 0.0f, or use a config value if available
+    float neutralSteering = 135.0f; // Define neutral as 135.0f, or use a config value if available
     float slewTime = supervisor.getDefaultSlewTime();
     std::vector<StateTransition> transitions = {
         {SystemState::ProcessMoveCmd, {neutralSteering, 0.0f, slewTime}},

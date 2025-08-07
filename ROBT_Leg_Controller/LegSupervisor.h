@@ -49,8 +49,8 @@ private:
     std::vector<StateTransition> transitionQueue_;
 
     // Member variables for slew/park only
-    float defaultSlewTime_ = 1.0f; // Default value, can be changed
-    float parkSteeringAngle_ = 0.0f; // Default value, can be changed
+    float defaultSlewTime_;
+    float parkSteeringAngle_;
 
     // Members for ProcessMoveCmd state machine
     bool moveCmdActive_ = false;

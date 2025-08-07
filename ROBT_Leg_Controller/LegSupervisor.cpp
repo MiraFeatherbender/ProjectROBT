@@ -15,8 +15,8 @@ LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
     : servo_(ServoCFG),
       hallSensor_(),
       servoCal_(servo_, ServoCFG),
-      defaultSlewTime_(1.0f),
-      parkSteeringAngle_(0.0f) {}
+      defaultSlewTime_(2.0f),
+      parkSteeringAngle_(135.0f) {}
 
 bool LegSupervisor::begin() {
     servo_.begin();

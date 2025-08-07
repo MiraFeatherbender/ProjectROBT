@@ -3,12 +3,12 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 31% | In Progress: 47% | Not Started: 22%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
+Complete: 32% | In Progress: 45% | Not Started: 23%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨  
-Complete: 41% | In Progress: 59% | Not Started: 0%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜  
+Complete: 42% | In Progress: 53% | Not Started: 5%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
@@ -34,6 +34,8 @@ Complete: 28% | In Progress: 43% | Not Started: 30%
 - [⏳] Integrate servo and stepper motion into custom AT command interface
 - [⏳] Add flash storage for calibration data, including center pulse time and backlash offset
 - [⏳] Replace static LEDC fade time calculation with parameterized slew time
+    - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
+    - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks to prevent unsafe servo
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
 - [x] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
 - [x] Restrict access to critical commands in maintenance mode

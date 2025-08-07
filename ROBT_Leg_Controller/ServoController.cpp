@@ -6,29 +6,34 @@ ServoController::ServoController(const ServoConfig& config)
     : cfg_(config) {}
 
 void ServoController::begin() {
-    setAngle(135.0f);
+    //setAngle(135.0f);
 }
 
 // Public API — safe for general motion control
-void ServoController::setAngle(float angle_deg) {
+void ServoController::setAngle(float angle_deg, uint32_t fade_time_ms) {
     float clamped = std::min(std::max(angle_deg, cfg_.motion_window_min), cfg_.motion_window_max);
-    setAngleRaw(clamped);
+    setAngleRaw(clamped, fade_time_ms);
 }
 
 // Internal / calibration use — bypasses logic window
-void ServoController::setAngleRaw(float angle_deg) {
-    float delta_deg = std::abs(angle_deg - current_angle_);
-
-    float seconds = (cfg_.max_deg_per_sec > 0.0f)
-                      ? (delta_deg / cfg_.max_deg_per_sec)
-                      : 0.0f;
-
-    uint32_t fade_time_ms = static_cast<uint32_t>(seconds * 1000.0f);
+void ServoController::setAngleRaw(float angle_deg, uint32_t fade_time_ms) {
+    if (fade_time_ms == 0) {
+        fade_time_ms = calculateFadeTimeMs(angle_deg, current_angle_);
+    }
     int target_duty = angleToDuty(angle_deg);
     int current_duty = ledcRead(cfg_.ledc.pin);
 
     ledcFade(cfg_.ledc.pin, current_duty, target_duty, fade_time_ms);
     current_angle_ = angle_deg;
+}
+
+// Public utility for fade time calculation based on angular velocity
+uint32_t ServoController::calculateFadeTimeMs(float target_angle, float current_angle) const {
+    float delta_deg = std::abs(target_angle - current_angle);
+    float seconds = (cfg_.max_deg_per_sec > 0.0f)
+                      ? (delta_deg / cfg_.max_deg_per_sec)
+                      : 0.0f;
+    return static_cast<uint32_t>(seconds * 1000.0f);
 }
 
 void ServoController::initializeAngle(float angle){
