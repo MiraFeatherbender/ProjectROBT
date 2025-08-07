@@ -118,19 +118,30 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 ---
 
 ## Recent Changes & Current Focus
-- Refactored command handler and dispatcher logic for modularity and priority gating
-- Implemented non-blocking slew time logic for ProcessMoveCmd
-- Ensured queue clearing resets timers and lockout state
-- Codebase reviewed for syntax errors and leftovers; clean and ready for expansion
-- Next: Expand handler logic and state machine transitions (see Goals_And_Steps.md)
+Last reviewed by Copilot: August 7, 2025
+
+- Major refactor of command handler, dispatcher, and modular AT command mapping
+- Address pin reading and node assignment now fully dynamic
+- Homing logic implemented: AT+HOME command, neutral position handling, and state machine integration
+- Homing routines now support safe movement to neutral/home position on startup and via command
+- Project structure and onboarding documentation reviewed and clarified
+- Roadmap and progress tracking system reorganized for automation compatibility
+- All legacy code, syntax errors, and unused logic removed; codebase is clean and ready for expansion
+- Stepper controller module and calibration logic planned
+- Next: Implement stepper controller, expand handler logic, add unit tests and mock modules, and continue documentation/query support
+- patch test: This line is for validating reliable patching in ambiguous regions
 
 ---
 
 ## How to Run / Build
-- Open `ROBT_Leg_Controller.ino` in the Arduino IDE
-- Select ESP32-C3 board and correct port
-- Upload via USB (OTA update planned)
-- Serial monitor at 115200 baud for debugging
+- Open the project folder in **Visual Studio Code**.
+- Ensure the **Arduino Extension** is installed and configured.
+- Open `ROBT_Leg_Controller.ino` in VS Code.
+- Select the **Nologo ESP32-C3 Super Mini** board and correct port in the Arduino Extension.
+- Click **Upload** to flash via USB (OTA update planned).
+- Use the **Serial Monitor** at 115200 baud for debugging.
+
+_Arduino IDE is supported as a secondary method._
 
 ---
 
