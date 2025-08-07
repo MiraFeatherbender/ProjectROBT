@@ -35,7 +35,7 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         [&](const ParsedCommand& cmd) { handleEStopCommand(cmd, supervisor); },
         // Allowed from any state except Booting (but Booting included for safety)
         CommandInfo{CommandPriority::PriorityCritical, {
-            SystemState::Booting, SystemState::Parked, SystemState::Stopped, SystemState::ProcessMoveCmd,
+            SystemState::Booting, SystemState::Parked, SystemState::Homed, SystemState::Stopped, SystemState::ProcessMoveCmd,
             SystemState::Moving, SystemState::EStop, SystemState::Maintenance, SystemState::Updating
         }}
     );
@@ -43,27 +43,29 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "SERVO_CAL",
         [&](const ParsedCommand& cmd) { handleServoCalCommand(cmd, supervisor); },
         // Allowed from Stopped or Maintenance
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance, 
+        SystemState::Parked, SystemState::Homed}}
     );
     dispatcher.registerCommand(
         "VERIFY_NVS",
         [&](const ParsedCommand& cmd) { handleVerifyNVSCommand(cmd, supervisor); },
         // Allowed from Stopped, Maintenance, or Parked
-        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Maintenance, 
+        SystemState::Homed, SystemState::Parked}}
     );
     dispatcher.registerCommand(
         "PARK",
         [&](const ParsedCommand& cmd) { handleParkCommand(cmd, supervisor); },
         // Only allowed from Stopped
-        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Homed}}
     );
     dispatcher.registerCommand(
         "NODE",
         [&](const ParsedCommand& cmd) { handleNodeCommand(cmd, supervisor); },
         // Allowed in all states except Booting
         CommandInfo{CommandPriority::PriorityLow, {
-            SystemState::Parked, SystemState::Stopped, SystemState::Moving, SystemState::ProcessMoveCmd,
-            SystemState::EStop, SystemState::Maintenance, SystemState::Updating
+            SystemState::Parked, SystemState::Homed, SystemState::Stopped, SystemState::Moving, 
+            SystemState::EStop
         }}
     );
     dispatcher.registerCommand(
@@ -76,7 +78,7 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "HOME",
         [&](const ParsedCommand& cmd) { handleHomeCommand(cmd, supervisor); },
         // Allowed from Booting, Stopped, and Moving
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Moving}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Parked}}
     );
     // Add more commands as needed
 }

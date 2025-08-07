@@ -4,15 +4,15 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 35% | In Progress: 37% | Not Started: 28%
+Complete: 34% | In Progress: 36% | Not Started: 30%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 47% | In Progress: 42% | Not Started: 11%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 45% | In Progress: 40% | Not Started: 15%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 32% | In Progress: 36% | Not Started: 33%
+Complete: 31% | In Progress: 35% | Not Started: 34%
 
 ## Task State Legend
 
@@ -53,6 +53,7 @@ Complete: 32% | In Progress: 36% | Not Started: 33%
 - [⏳] Define and document a `LegControllerCommandMap` for all supported commands 🔀
     - [⏳] Ensure all commands use consistent parameter mapping and error code conventions
     - [⏳] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
+- [ ] Ensure command handlers support modular differentiation of action, set, and query modes, following AT command conventions 🔀
 
 **Calibration & Storage**
 - [⏳] Add flash storage for calibration data, including center pulse time and backlash offset 🔀
@@ -84,20 +85,21 @@ Complete: 32% | In Progress: 36% | Not Started: 33%
     - [x] HOME command handler
     - [⏳] E_STOP command handler
     - [⏳] SERVO_CAL command handler
-    - [⏳] VERIFY_NVS command handler
+    - [⏳] VERIFY_NVS command handler ('CAL?')
     - [⏳] NODE command handler
     - [⏳] OTA command handler
-- [ ] Add Query support for all commands 🔀
+- [ ] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
+- [ ] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
+- [ ] Add Query support for appropriate commands 🔀
     - [ ] MOVE query 🔀
-    - [ ] SMOOTH_STOP query 🔀
     - [ ] PARK query 🔀
     - [ ] HOME query 🔀
     - [ ] E_STOP query 🔀
-    - [ ] SERVO_CAL query 🔀
-    - [ ] VERIFY_NVS query 🔀
+    - [ ] SERVO_CAL query 🔀 ('CAL')
     - [ ] NODE query 🔀
     - [ ] OTA query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
+- [ ] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
 
 **Control Dynamics & Hardware**
 - [x] Test and validate broadcast message parsing
@@ -121,6 +123,7 @@ Complete: 32% | In Progress: 36% | Not Started: 33%
         - [⏳] ServoCalibration creates SweepSummary
         - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter
         - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash
+
 
 **Documentation & Testing**
 - [⏳] Document all commands
