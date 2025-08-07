@@ -151,7 +151,7 @@ _Arduino IDE is supported as a secondary method._
 | Command         | Parameters                 | Description                        | Response                |
 |-----------------|----------------------------|------------------------------------|-------------------------|
 | AT+MOVE         | steering, velocity, slew   | Move leg with given params         | +ACK / +ERR             |
-| AT+SMOOTH_STOP  |                            | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP queued |
+| AT+SMOOTH_STOP  | slew                       | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP queued |
 | AT+E_STOP       |                            | Immediate emergency stop           | +ACK:E_STOP queued      |
 | AT+SERVO_CAL    |                            | Start servo calibration            | +ACK:SERVO_CAL queued   |
 | AT+VERIFY_NVS   |                            | Verify NVS calibration data        | +ACK:VERIFY_NVS queued  |

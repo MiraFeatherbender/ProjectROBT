@@ -4,15 +4,15 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 34% | In Progress: 36% | Not Started: 30%
+Complete: 34% | In Progress: 36% | Not Started: 31%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
 Complete: 45% | In Progress: 40% | Not Started: 15%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 31% | In Progress: 35% | Not Started: 34%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 31% | In Progress: 35% | Not Started: 35%
 
 ## Task State Legend
 
@@ -88,6 +88,7 @@ Complete: 31% | In Progress: 35% | Not Started: 34%
     - [⏳] VERIFY_NVS command handler ('CAL?')
     - [⏳] NODE command handler
     - [⏳] OTA command handler
+- [ ] Add slew parameter support to SMOOTH_STOP command 🔀
 - [ ] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
 - [ ] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
 - [ ] Add Query support for appropriate commands 🔀
