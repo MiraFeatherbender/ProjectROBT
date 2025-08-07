@@ -3,5 +3,6 @@
     "board": "esp32:esp32:nologo_esp32c3_super_mini",
     "port": "COM4",
     "programmer": "esptool",
-    "sketch": "ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+    "sketch": "ROBT_Leg_Controller\\ROBT_Leg_Controller.ino",
+    "output": "../build"
 }
