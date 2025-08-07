@@ -3,16 +3,16 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 33% | In Progress: 42% | Not Started: 26%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 30% | In Progress: 39% | Not Started: 30%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
-Complete: 47% | In Progress: 47% | Not Started: 5%
+Complete: 45% | In Progress: 45% | Not Started: 10%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 28% | In Progress: 40% | Not Started: 31%
+🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 26% | In Progress: 38% | Not Started: 36%
 
 ## Task State Legend
 
@@ -45,6 +45,7 @@ Complete: 28% | In Progress: 40% | Not Started: 31%
 - [⏳] Define and document a `LegControllerCommandMap` for all supported commands
     - [⏳] Ensure all commands use consistent parameter mapping and error code conventions
     - [⏳] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
+ - [ ] Implement stepper controller module
 
 ---
 
@@ -65,6 +66,12 @@ Complete: 28% | In Progress: 40% | Not Started: 31%
         - [⏳] ServoCalibration creates SweepSummary
         - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter
         - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash
+
+ - [ ] Implement stepper controller module
+     - [ ] Integrate wheel context (position, velocity, acceleration tracking)
+     - [ ] Support S-curve profiling for smooth stepper motion
+     - [ ] Integrate with command and state machine architecture for modular control
+     - [ ] Support synchronized slew time (from Drive Controller project)
 
 - [ ] Add physical reset switch for E-Stop state
     - [ ] Measure pins 8 and 9 for boot state
