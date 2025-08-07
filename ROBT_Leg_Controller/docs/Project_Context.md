@@ -129,6 +129,8 @@ Last reviewed by Copilot: August 7, 2025
 - All legacy code, syntax errors, and unused logic removed; codebase is clean and ready for expansion
 - Stepper controller module and calibration logic planned
 - Next: Implement stepper controller, expand handler logic, add unit tests and mock modules, and continue documentation/query support
+- Explicit Next Steps: Expand handler logic to include skeletons for set/query/action state machines
+- Make sure to branch for major features, refactors, troubleshooting, etc.
 - patch test: This line is for validating reliable patching in ambiguous regions
 
 ---
