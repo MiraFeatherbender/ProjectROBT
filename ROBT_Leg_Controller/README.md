@@ -49,11 +49,14 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 ## Getting Started
 
 1. **Clone this repository**
-2. **Install dependencies:**
-    - [ESP32 Arduino core](https://github.com/espressif/arduino-esp32) (for Arduino IDE)
-3. **Open `ROBT_Leg_Controller.ino` in Arduino IDE**
-4. **Select the ESP32-C3 board and correct port**
-5. **Build and upload the code**
+2. **Open the project folder in Visual Studio Code**
+3. **Install and configure the Arduino Extension**
+4. **Open `ROBT_Leg_Controller.ino` in VS Code**
+5. **Select the Nologo ESP32-C3 Super Mini board and correct port**
+6. **Click Upload to flash via USB (OTA update planned)**
+7. **Use the Serial Monitor at 115200 baud for debugging**
+
+_Arduino IDE is supported as a secondary method._
 
 ---
 
@@ -86,6 +89,47 @@ Provides robust, safe, and precise steering and drive control with automatic cal
  - `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
  - `FlashStorageTypes.h` – Data structures for flash storage
  - `NVSManager.cpp/h` – Flash storage and calibration data management
+
+---
+
+## Project Structure
+
+- Modular C++ codebase: hardware, logic, and configuration separated into .cpp/.h modules.
+- Main entry: `ROBT_Leg_Controller.ino`
+- Key modules: DriveConfig, LegSupervisor, CommandParser, ServoController, HallSensorHandler, NVSManager, etc.
+
+---
+
+## AT Command Reference
+
+| Command         | Description                |
+|-----------------|---------------------------|
+| AT+MOVE         | Move leg with parameters  |
+| AT+HOME         | Move to home position     |
+| AT+SMOOTH_STOP  | Ramp velocity to 0, stop  |
+| AT+E_STOP       | Emergency stop            |
+| AT+SERVO_CAL    | Start servo calibration   |
+| AT+VERIFY_NVS   | Verify calibration data   |
+| AT+PARK         | Move to park position     |
+| AT+NODE         | Responds with node number |
+| AT+OTA          | Begin OTA update          |
+
+See `Project_Context.md` for full details.
+
+---
+
+## Project Status
+
+- Major refactor complete, codebase ready for expansion.
+- Stepper controller and expanded AT command support planned.
+- See [Goals_And_Steps.md](ROBT_Leg_Controller/docs/Goals_And_Steps.md) for roadmap and progress tracking.
+
+---
+
+## Testing & Debugging
+
+- Use Serial Monitor (115200 baud) for output and debugging.
+- Hardware-in-the-loop testing with LED indicators and physical motion.
 
 ---
 
