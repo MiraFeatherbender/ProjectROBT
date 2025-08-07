@@ -30,11 +30,11 @@ Complete: 0% | In Progress: 0% | Not Started: 0%
 ### Control Dynamics & Hardware
 - [x] Implement hardware-based node addressing via address pins (unified firmware for all legs)
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
+- [ ] Implement stepper controller module
 - [⏳] Integrate servo and stepper motion into custom AT command interface
 - [x] Replace static LEDC fade time calculation with parameterized slew time
     - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
     - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks to prevent unsafe servo
-- [ ] Implement stepper controller module
 
 ### Command System & Parser
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
@@ -86,10 +86,11 @@ Complete: 0% | In Progress: 0% | Not Started: 0%
     - [ ] VERIFY_NVS query
     - [ ] NODE query
     - [ ] OTA query
-- [⏳] Document AT command and broadcast payload formats in code and docs
+- [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation)
 
 ### Control Dynamics & Hardware
-- [x] Test and validate broadcast message parsing for:
+
+- [x] Test and validate broadcast message parsing
     - [x] Per-node payloads (e.g., `N11,42,99,|`)
     - [x] All-node payloads (no node tags)
     - [x] Edge cases (missing node, empty payload, malformed input)
