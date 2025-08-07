@@ -11,7 +11,10 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 - **Direct servo potentiometer sampling** using ADC for startup angle
 - **Safe servo startup** and initialization
 - **Servo backlash compensation**
+- **Modular AT command interface** for robust, extensible control
+- **Dynamic hardware-based node addressing** (unified firmware for all legs)
 - Modular configuration for servos, steppers, and pin assignments
+- **Planned stepper controller support** for advanced motion control
 
 ---
 
@@ -79,16 +82,22 @@ _Arduino IDE is supported as a secondary method._
 
 ## File Overview
 
- - `ROBT_Leg_Controller.ino` – Main sketch and state machine
- - `DriveConfig.h` – Hardware and configuration structs
- - `LegSupervisor.cpp/h` – High-level leg/servo management
- - `SerialInputHandler.cpp/h` – Serial input buffering and callback pipeline
- - `CommandParser.cpp/h` – Serial/ESP-NOW AT command parsing and dispatch
- - `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
- - `ServoController.cpp/h` – Servo control logic
- - `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
- - `FlashStorageTypes.h` – Data structures for flash storage
- - `NVSManager.cpp/h` – Flash storage and calibration data management
+The project is organized into modular C++ files for clarity and maintainability. Key files include:
+
+- `ROBT_Leg_Controller.ino` – Main sketch and state machine
+- `DriveConfig.h` – Hardware and configuration structs
+- `LegSupervisor.cpp/h` – High-level leg/servo management
+- `SerialInputHandler.cpp/h` – Serial input buffering and callback pipeline
+- `CommandParser.cpp/h` – Serial/ESP-NOW AT command parsing and dispatch
+- `LegControllerCommandMap.cpp/h` – Centralized AT command registration
+- `CommandDispatcher.cpp/h` – Command dispatch logic
+- `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
+- `ServoController.cpp/h` – Servo control logic
+- `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
+- `FlashStorageTypes.h` – Data structures for flash storage
+- `NVSManager.cpp/h` – Flash storage and calibration data management
+
+All logic is separated into `.cpp/.h` modules for hardware abstraction and maintainability.
 
 ---
 
