@@ -3,16 +3,16 @@
 **Project Progress Overview**
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
-Complete: 32% | In Progress: 45% | Not Started: 23%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 33% | In Progress: 42% | Not Started: 26%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜  
-Complete: 42% | In Progress: 53% | Not Started: 5%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
+Complete: 47% | In Progress: 47% | Not Started: 5%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 28% | In Progress: 43% | Not Started: 30%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 28% | In Progress: 40% | Not Started: 31%
 
 ## Task State Legend
 
@@ -33,7 +33,7 @@ Complete: 28% | In Progress: 43% | Not Started: 30%
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
 - [⏳] Integrate servo and stepper motion into custom AT command interface
 - [⏳] Add flash storage for calibration data, including center pulse time and backlash offset
-- [⏳] Replace static LEDC fade time calculation with parameterized slew time
+- [x] Replace static LEDC fade time calculation with parameterized slew time
     - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
     - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks to prevent unsafe servo
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase (serial command interface complete; see [migration plan](./ESP-NOW_Command_OTA_Migration_Plan.md))
@@ -71,18 +71,41 @@ Complete: 28% | In Progress: 43% | Not Started: 30%
 
 - [⏳] Implement AT command handlers
     - [x] MOVE command handler
-    - [⏳] SMOOTH_STOP command handler
+    - [x] SMOOTH_STOP command handler
+    - [x] PARK command handler
+    - [x] HOME command handler
     - [⏳] E_STOP command handler
     - [⏳] SERVO_CAL command handler
     - [⏳] VERIFY_NVS command handler
-    - [⏳] PARK command handler
     - [⏳] NODE command handler
     - [⏳] OTA command handler
 
-- [ ] Refactor boot logic from *begin() to state machine
-    - [ ] Servo startup position belongs in homing state
+- [ ] Add Query support for all commands
+    - [ ] MOVE query
+    - [ ] SMOOTH_STOP query
+    - [ ] PARK query
+    - [ ] HOME query
+    - [ ] E_STOP query
+    - [ ] SERVO_CAL query
+    - [ ] VERIFY_NVS query
+    - [ ] NODE query
+    - [ ] OTA query
 
-- [ ] Implement HOME command for external use and internal self injection
+ [⏳] Document all commands
+    - [⏳] MOVE documentation
+    - [⏳] SMOOTH_STOP documentation
+    - [⏳] PARK documentation
+    - [⏳] HOME documentation
+    - [⏳] E_STOP documentation
+    - [⏳] SERVO_CAL documentation
+    - [⏳] VERIFY_NVS documentation
+    - [⏳] NODE documentation
+    - [⏳] OTA documentation
+
+- [x] Refactor boot logic from *begin() to state machine
+    - [x] Servo startup position belongs in homing state
+
+- [x] Implement HOME command for external use and internal self injection
 
 - [x] Prototype SystemState state machine in LegSupervisor
     - [⏳] Implement Booting state

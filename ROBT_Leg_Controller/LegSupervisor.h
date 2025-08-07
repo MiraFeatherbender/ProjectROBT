@@ -13,11 +13,10 @@
 
 class LegSupervisor {
 public:
-    // Clear the transition queue (for dispatcher override)
-    void clearTransitionQueue();
-public:
-    explicit LegSupervisor(const ServoConfig& ServoCFG);
 
+    explicit LegSupervisor(const ServoConfig& ServoCFG);
+   
+    void clearTransitionQueue();  // Clear the transition queue (for dispatcher override)
     bool begin();  // Initializes the servo LEDC
     void queueTransitions(const std::vector<StateTransition>& transitions);
     void update(); // Processes state transitions and acts on hardware
@@ -30,13 +29,11 @@ public:
     CommandPriority getCurrentPriority() const { return currentPriority_; }
     SystemState getCurrentState() const { return currentState_; }
 
-    // Removed getCurrentSteeringAngle(), use getCurrentAngle() instead
-    float getDefaultSlewTime() const { return defaultSlewTime_; }
     float getParkSteeringAngle() const { return parkSteeringAngle_; }
-
-    // Removed setCurrentSteeringAngle()
-    void setDefaultSlewTime(float slew) { defaultSlewTime_ = slew; }
     void setParkSteeringAngle(float angle) { parkSteeringAngle_ = angle; }
+
+    // Returns safe fade/slew time for a prescribed angle using ServoController's calculation
+    uint32_t getSafeTiming(float prescribedAngle) const;
 
 private:
     ServoController servo_;
@@ -48,8 +45,7 @@ private:
     bool saveSweepSummary();
     std::vector<StateTransition> transitionQueue_;
 
-    // Member variables for slew/park only
-    float defaultSlewTime_;
+    // Member variable for park angle only
     float parkSteeringAngle_;
 
     // Members for ProcessMoveCmd state machine

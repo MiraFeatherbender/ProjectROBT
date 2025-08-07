@@ -15,11 +15,14 @@ LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
     : servo_(ServoCFG),
       hallSensor_(),
       servoCal_(servo_, ServoCFG),
-      defaultSlewTime_(2.0f),
       parkSteeringAngle_(135.0f) {}
 
+// Returns safe fade/slew time for a prescribed angle using ServoController's calculation
+uint32_t LegSupervisor::getSafeTiming(float prescribedAngle) const {
+    return servo_.calculateFadeTimeMs(prescribedAngle, getCurrentAngle());
+}
+
 bool LegSupervisor::begin() {
-    servo_.begin();
     if (!attachLEDC(servo_.getLEDCConfig())) return false;
     return true;
 }
@@ -107,7 +110,12 @@ void LegSupervisor::update() {
                         float steering = transition.params[0];
                         float velocity = transition.params[1];
                         float slew = transition.params[2];
-                        setSteeringAngle(steering); // TODO: add slew support
+                        bool useRaw = (transition.params.size() >= 4) ? (transition.params[3] != 0.0f) : false;
+                        if (useRaw) {
+                            setRawSteeringAngle(steering);
+                        } else {
+                            setSteeringAngle(steering);
+                        }
                         // TODO: setDriveVelocity(velocity, slew); // Placeholder for future stepper logic
                         moveCmdActive_ = true;
                         moveCmdStartTime_ = millis();

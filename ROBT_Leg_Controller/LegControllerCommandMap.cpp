@@ -8,10 +8,11 @@
 void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // HOME: Move to neutral steering angle, 0 velocity, default slew time, then transition to Stopped
     float neutralSteering = 135.0f; // Define neutral as 135.0f, or use a config value if available
-    float slewTime = supervisor.getDefaultSlewTime();
+    float slewTime = supervisor.getSafeTiming(neutralSteering);
     std::vector<StateTransition> transitions = {
-        {SystemState::ProcessMoveCmd, {neutralSteering, 0.0f, slewTime}},
-        {SystemState::Stopped, {}}
+        // Fourth param 1.0f triggers raw movement for homing
+        {SystemState::ProcessMoveCmd, {neutralSteering, 0.0f, slewTime, 1.0f}},
+        {SystemState::Homed, {}}
     };
     supervisor.queueTransitions(transitions);
     cmd.context.respond("+ACK:HOME queued");
@@ -48,7 +49,7 @@ void handleMoveCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
 void handleSmoothStopCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // SMOOTH_STOP: Use ProcessMoveCmd to ramp velocity to 0, keep steering steady, then transition to Stopped
     float currentSteering = supervisor.getCurrentAngle();
-    float slewTime = supervisor.getDefaultSlewTime();
+    float slewTime = 1500.0f; // ms, fixed deceleration time for smooth stop
     std::vector<StateTransition> transitions = {
         {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, slewTime}},
         {SystemState::Stopped, {}}
@@ -90,9 +91,10 @@ void handleVerifyNVSCommand(const ParsedCommand& cmd, LegSupervisor& supervisor)
 void handleParkCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // PARK: Use ProcessMoveCmd to set steering angle for parking, velocity 0, then transition to Parked
     float parkSteering = supervisor.getParkSteeringAngle();
-    float slewTime = supervisor.getDefaultSlewTime();
+    float slewTime = supervisor.getSafeTiming(parkSteering);
     std::vector<StateTransition> transitions = {
-        {SystemState::ProcessMoveCmd, {parkSteering, 0.0f, slewTime}},
+        // Fourth param 1.0f triggers raw movement for parking
+        {SystemState::ProcessMoveCmd, {parkSteering, 0.0f, slewTime, 1.0f}},
         {SystemState::Parked, {}}
     };
     supervisor.queueTransitions(transitions);

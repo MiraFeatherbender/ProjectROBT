@@ -82,7 +82,12 @@ void loop() {
     case BOOT_ANGLE_CAPTURED:
       analogContinuousStop();
       analogContinuousDeinit();
-      supervisor.setRawSteeringAngle(135.0f);
+      {
+          CommandSourceContext ctx;
+          ctx.source = CommandSourceContext::serial_;
+          ctx.respond = [](const String& resp) { Serial.println(resp); };
+          parser.parseAndDispatch("AT+HOME", ctx);
+      }
       boot_state = RUNNING;
       break;
 

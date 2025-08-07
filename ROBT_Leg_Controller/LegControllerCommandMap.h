@@ -22,7 +22,7 @@ inline void registerAllCommands(CommandDispatcher& dispatcher, LegSupervisor& su
         "MOVE",
         [&](const ParsedCommand& cmd) { handleMoveCommand(cmd, supervisor); },
         // Allowed only from Stopped or Moving (for smooth chaining)
-        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Moving}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Moving, SystemState::Homed}}
     );
     dispatcher.registerCommand(
         "SMOOTH_STOP",
