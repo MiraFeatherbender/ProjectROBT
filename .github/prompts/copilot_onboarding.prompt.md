@@ -4,7 +4,6 @@ mode: agent
 Please review the following for full project context:
  - /workspaces/ProjectROBT/ROBT_Leg_Controller/docs/Project_Context.md
  - /workspaces/ProjectROBT/ROBT_Leg_Controller/docs/Goals_And_Steps.md
- - /workspaces/ProjectROBT/ROBT_Leg_Controller/docs/AT-Command_Migration_Plan.md
  - /workspaces/ProjectROBT/ROBT_Leg_Controller/docs/ESP-NOW_Command_OTA_Migration_Plan.md
  - /workspaces/ProjectROBT/ROBT_Leg_Controller/README.md
 
