@@ -16,8 +16,9 @@ This document provides a comprehensive reference for the environment, hardware, 
 ## Development Environment
 - **IDE:** Visual Studio Code with Arduino Extension (primary), Arduino IDE (secondary)
 - **Board Support:** Latest ESP32 Arduino Core
-- **Upload Method:** USB via VS Code Arduino Extension (primary); Arduino CLI v1.2.2 for compiling and exporting OTA `.bin` files (see `.vscode/tasks.json` for automation); custom HTTP OTA updater (planned, used in other projects)
-- **Automation:** VS Code tasks automate firmware builds, CLI upgrades, and documentation progress bar updates. CLI is installed in the project’s `bin` folder and added to PATH.
+- **Upload Method:** USB via VS Code Arduino Extension; Arduino CLI v1.2.2 for compiling and exporting `.bin` files (see `.vscode/tasks.json`)
+- **Automation:** VS Code tasks automate firmware builds, CLI upgrades, and documentation progress bar updates. CLI is in the project’s `bin` folder and added to PATH.
+- **Documentation Progress Bars:** The `docs/update_progress.py` script updates progress bars in `Goals_And_Steps.md` automatically. It works from either the main project or `docs` folder and is integrated as a VS Code task.
 
 ---
 
