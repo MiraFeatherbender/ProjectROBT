@@ -134,7 +134,8 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // CAL action: no parameters required
             makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor&) {
                 return std::vector<StateTransition>{
-                    {SystemState::Calibrating, SystemState::Stopped {}}
+                    {SystemState::Calibrating, {}},
+                    {SystemState::Stopped, {}}
                 };
             }),
             /*

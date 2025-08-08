@@ -14,10 +14,7 @@
             "forcedInclude": [],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "defines": [],
-            "compileCommands": [
-                "${workspaceFolder}/build/compile_commands.json"
-            ]
+            "defines": []
         },
         {
             "name": "Arduino",
@@ -31,7 +28,6 @@
             "intelliSenseMode": "gcc-x64",
             "includePath": [
                 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
-                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\**",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3\\qio_qspi\\include",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
@@ -43,11 +39,10 @@
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411\\riscv32-esp-elf\\include"
             ],
             "forcedInclude": [
-                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32\\Arduino.h",
-                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32\\hardwareserial.h"
+                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32\\Arduino.h"
             ],
-            "cStandard": "c17",
-            "cppStandard": "c++17",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
             "defines": [
                 "F_CPU=160000000L",
                 "ARDUINO=10607",
@@ -468,10 +463,7 @@
                 "__ATOMIC_ACQ_REL=4",
                 "__ATOMIC_RELEASE=3",
                 "USBCON"
-            ],
-            "recursiveIncludes": {
-                "reduce": "never"
-            }
+            ]
         }
     ]
 }

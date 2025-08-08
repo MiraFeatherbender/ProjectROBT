@@ -1,6 +1,8 @@
 #line 1 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\docs\\Project_Context.md"
-## Copilot Onboarding
+# Copilot Onboarding
+
 Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits. Key context:
+
 - Main entry: `ROBT_Leg_Controller.ino` (Arduino sketch)
 - All hardware, config, and logic are separated into .cpp/.h modules
 - AT command interface is documented below; see Command Reference
@@ -8,13 +10,14 @@ Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-b
 - See 'Recent Changes & Current Focus' for what’s actively being developed
 - If you need more context, check linked migration and goals docs
 
-# Project Context Reference
+## Project Context Reference
 
 This document provides a comprehensive reference for the environment, hardware, structure, and preferences of the ROBT_Leg_Controller project. Use this as a quick guide for Copilot, collaborators, or future development.
 
 ---
 
 ## Development Environment
+
 - **IDE:** Visual Studio Code with Arduino Extension (primary), Arduino IDE (secondary)
 - **Board Support:** Latest ESP32 Arduino Core
 - **Upload Method:** USB via VS Code Arduino Extension; Arduino CLI v1.2.2 for compiling and exporting `.bin` files (see `.vscode/tasks.json`)
@@ -24,6 +27,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Hardware Overview
+
 - **Main MCU:** ESP32-C3 Super Mini
 - **Planned Network:** Will act as a child MCU to two Unexpected Maker FeatherS3 modules (parents) via ESP-NOW
 - **Peripherals:**
@@ -37,6 +41,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Project Structure
+
 - **Main Entry Point:** ROBT_Leg_Controller.ino (Arduino sketch)
 - **Key Modules:**
   - DriveConfig.h: Pin assignments, hardware details, and config structs
@@ -56,6 +61,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Communication Interfaces
+
 - **Current:** Serial (for bench testing)
 - **Planned:** ESP-NOW (primary), with a custom AT command interface (already developed elsewhere, to be extended here)
 - **Protocols/Formats:** Custom AT command syntax
@@ -63,6 +69,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Persistent Storage
+
 - **Type:** ESP32 NVS (Non-Volatile Storage)
 - **Stored Data:** Calibration data (using the SweepSummary struct)
 - **Storage Flow:** Data is written and retrieved via NVSManager using SweepSummary
@@ -70,6 +77,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Coding Style & Preferences
+
 - **Style:**
   - Prefer standard C++ style (classes, strong typing, modern idioms) for most of the codebase
   - Use Arduino syntax only when necessary (e.g., for main entry point or features not easily done in C++)
@@ -88,6 +96,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Testing & Debugging
+
 - **Methods:**
   - Serial output for code verification and debugging
   - Hardware-in-the-loop testing (using LED indicators and observing physical motion)
@@ -97,6 +106,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Known Issues, Constraints, and Preferences
+
 - Uses ESP32 LEDC hardware for both servo (with LEDCfade) and stepper (via frequency adjustment, planned)
 - Hall sensor feedback is handled via ISR, used only during calibration
 - Avoids blocking calls; prefers state machines for flow control
@@ -104,9 +114,10 @@ This document provides a comprehensive reference for the environment, hardware, 
 - Prefers writing custom libraries for core logic; uses manufacturer or hardware-specific libraries only when necessary (e.g., LCD, SD card)
 - Avoids generic libraries (e.g., “servo”) in favor of custom implementations
 - No major “gotchas” identified, but design is focused on determinism, maintainability, and hardware efficiency
-
+- Non-standard USB devices (e.g., game controllers) may cause VS Code to fail to load. Unplug to resolve.
 
 ### Common Compiler Error Patterns & Prevention Checklist
+
 - **Enum macro conflicts:** Avoid using names like LOW/HIGH in enums; these may collide with Arduino macros. Always choose unique, descriptive enum values.
 - **Missing includes:** If you see 'type not recognized' or 'not declared in this scope' errors, check that all required headers are included in every file that uses those types.
 - **Forward declaration issues:** When passing objects between modules, ensure the full class definition is available (not just a forward declaration) in headers where needed.
@@ -119,24 +130,23 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 ---
 
 ## Recent Changes & Current Focus
-Last reviewed by Copilot: August 7, 2025
 
- - Major refactor: Command handler and dispatcher now use CommandFactory for unified registration and mode-differentiated handler sets
-- Address pin reading and node assignment now fully dynamic
-- Homing logic implemented: AT+HOME command, neutral position handling, and state machine integration
-- Homing routines now support safe movement to neutral/home position on startup and via command
-- Project structure and onboarding documentation reviewed and clarified
-- Roadmap and progress tracking system reorganized for automation compatibility
-- All legacy code, syntax errors, and unused logic removed; codebase is clean and ready for expansion
-- Expanded handler logic to include skeletons for set/query/action state machines
-- Stepper controller module and calibration logic planned
-- Next: Implement stepper controller, expand handler logic, add unit tests and mock modules, and continue documentation/query support
-- Make sure to branch for major features, refactors, troubleshooting, etc.
-- patch test: This line is for validating reliable patching in ambiguous regions
+Last reviewed by Copilot: August 8, 2025
+
+- Refactored command handler and dispatcher to use CommandFactory with a helper for boilerplate, preserving documentation and streamlining new command creation
+- All custom AT commands (except OTA) are now ready for use; unified +OK response and error handling pattern implemented
+- Documentation and progress tracking updated for automation compatibility and clarity
+- Added roadmap entry for universal error code map to support consistent error responses
+- Manual and automated edits validated for patch reliability and documentation integrity
+- Comments and code structure reviewed and cleaned for maintainability
+- Next: Implement calibration state logic, NVS data saving/retrieval, stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
+- Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
+- Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 
 ---
 
 ## How to Run / Build
+
 - Open the project folder in **Visual Studio Code**.
 - Ensure the **Arduino Extension** is installed and configured.
 - Open `ROBT_Leg_Controller.ino` in VS Code.
@@ -149,28 +159,30 @@ _Arduino IDE is supported as a secondary method._
 ---
 
 ## Command Reference (AT Commands)
+
 | Command         | Parameters                 | Description                        | Response                |
 |-----------------|----------------------------|------------------------------------|-------------------------|
-| AT+MOVE?        |                            | Query current move state           | +ACK:MOVE? / +ERR       |
-| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +ACK:MOVE= / +ERR       |
-| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +ACK:SMOOTH_STOP / +ERR |
-| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +ACK:SMOOTH_STOP? / +ERR|
-| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP= / +ERR|
-| AT+E_STOP       |                            | Immediate emergency stop           | +ACK:E_STOP queued      |
-| AT+E_STOP?      |                            | Query E-Stop state                 | +ACK:E_STOP? / +ERR     |
-| AT+PARK         |                            | Move to park position              | +ACK:PARK queued        |
-| AT+PARK?        |                            | Query park state                   | +ACK:PARK? / +ERR       |
-| AT+HOME         |                            | Move to neutral/home position      | +ACK:HOME queued        |
-| AT+HOME?        |                            | Query home state                   | +ACK:HOME? / +ERR       |
-| AT+CAL          |                            | Start servo calibration            | +ACK:CAL queued         |
-| AT+CAL?         |                            | Query calibration data             | +ACK:CAL? / +ERR        |
-| AT+CAL=         | calibration params         | Set calibration parameters         | +ACK:CAL= / +ERR        |
-| AT+NODE?        |                            | Query node assignment              | +NODE? / +ERR           |
-| AT+OTA          |                            | Begin OTA update                   | +ACK:OTA queued         |
+| AT+MOVE?        |                            | Query current move state           | +MOVE? ... / +ERR       |
+| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +OK / +ERR              |
+| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +OK / +ERR              |
+| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +SMOOTH_STOP? ... / +ERR|
+| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +OK / +ERR              |
+| AT+E_STOP       |                            | Immediate emergency stop           | +OK / +ERR              |
+| AT+E_STOP?      |                            | Query E-Stop state                 | +E_STOP? ... / +ERR     |
+| AT+PARK         |                            | Move to park position              | +OK / +ERR              |
+| AT+PARK?        |                            | Query park state                   | +PARK? ... / +ERR       |
+| AT+HOME         |                            | Move to neutral/home position      | +OK / +ERR              |
+| AT+HOME?        |                            | Query home state                   | +HOME? ... / +ERR       |
+| AT+CAL          |                            | Start servo calibration            | +OK / +ERR              |
+| AT+CAL?         |                            | Query calibration data             | +CAL? ... / +ERR        |
+| AT+CAL=         | calibration params         | Set calibration parameters         | +OK / +ERR              |
+| AT+NODE?        |                            | Query node assignment              | +NODE? ... / +ERR       |
+| AT+OTA          |                            | Begin OTA update                   | +OK / +ERR              |
 
 ---
 
 ## Migration & Goals Reference
+
 - See [Goals_And_Steps.md](Goals_And_Steps.md) for current development priorities
 - See [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
 

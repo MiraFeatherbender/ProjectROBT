@@ -46,6 +46,7 @@ struct PinInitConfig {
 
 constexpr uint8_t PIN_HALL_NORTH = 5;
 constexpr uint8_t PIN_HALL_SOUTH = 6;
+constexpr uint8_t HALL_LED = 7;
 constexpr uint8_t PIN_ADDR_1 = 10;
 constexpr uint8_t PIN_ADDR_2 = 20;
 constexpr uint8_t PIN_ADDR_3 = 21;
@@ -57,7 +58,7 @@ static const PinInitConfig leg_pin_init_table[] = {
     {"Hall_Module_PWR",            4, PINMODE_OUTPUT_HIGH},
     {"Hall_North",    PIN_HALL_NORTH, PINMODE_INPUT_PULLUP},
     {"Hall_South",    PIN_HALL_SOUTH, PINMODE_INPUT_PULLUP},
-    {"Hall_Module_Indicator",      7, PINMODE_OUTPUT_HIGH},
+    {"Hall_Module_LED",     HALL_LED, PINMODE_OUTPUT_HIGH},
     {"Address 1",         PIN_ADDR_1, PINMODE_INPUT_PULLUP}, 
     {"Address 2",         PIN_ADDR_2, PINMODE_INPUT_PULLUP}, //(Left/Right)
     {"Address 3",         PIN_ADDR_3, PINMODE_INPUT_PULLUP} //(Forward/Center/Rear)
