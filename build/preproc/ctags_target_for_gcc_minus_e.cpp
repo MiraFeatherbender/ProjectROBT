@@ -1,22 +1,14 @@
-#include <Arduino.h>
-#line 1 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
-#include "DriveConfig.h"
-#include "LegSupervisor.h"
-#include "SerialInputHandler.h"
-#include "CommandParser.h"
-#include "CommandDispatcher.h"
-#include "LegControllerCommandMap.h"
+# 1 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+# 2 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+# 3 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+# 4 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+# 5 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+# 6 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+# 7 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
 
-ADCConfig adc_cfg;  // From DriveConfig.h
+ADCConfig adc_cfg; // From DriveConfig.h
 
-#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
-void adcComplete();
-#line 23 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
-void setup();
-#line 66 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
-void loop();
-#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
-void ARDUINO_ISR_ATTR adcComplete() {
+void adcComplete() {
   adc_cfg.conversion_done = true;
 }
 
@@ -35,10 +27,10 @@ void setup() {
 
   for (const auto& cfg : leg_pin_init_table) {
      switch (cfg.mode) {
-        case PINMODE_INPUT:          pinMode(cfg.pin, INPUT); break;
-        case PINMODE_INPUT_PULLUP:   pinMode(cfg.pin, INPUT_PULLUP); break;
-        case PINMODE_OUTPUT_HIGH:    pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, HIGH); break;
-        case PINMODE_OUTPUT_LOW:     pinMode(cfg.pin, OUTPUT); digitalWrite(cfg.pin, LOW); break;
+        case PINMODE_INPUT: pinMode(cfg.pin, 0x01); break;
+        case PINMODE_INPUT_PULLUP: pinMode(cfg.pin, 0x05); break;
+        case PINMODE_OUTPUT_HIGH: pinMode(cfg.pin, 0x03); digitalWrite(cfg.pin, 0x1); break;
+        case PINMODE_OUTPUT_LOW: pinMode(cfg.pin, 0x03); digitalWrite(cfg.pin, 0x0); break;
     }
   }
 
@@ -63,7 +55,7 @@ void setup() {
   });
 
   if (!supervisor.begin()) {
-    Serial.println("Failed to attach LEDC");
+    HWCDCSerial.println("Failed to attach LEDC");
     while (true);
   }
 
@@ -94,14 +86,14 @@ void loop() {
       {
           CommandSourceContext ctx;
           ctx.source = CommandSourceContext::serial_;
-          ctx.respond = [](const String& resp) { Serial.println(resp); };
+          ctx.respond = [](const String& resp) { HWCDCSerial.println(resp); };
           parser.parseAndDispatch("AT+HOME", ctx);
       }
       boot_state = RUNNING;
       break;
 
     case RUNNING:
-      
+
       serialHandler.update();
       supervisor.update();
       break;
