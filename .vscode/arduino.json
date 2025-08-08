@@ -4,5 +4,5 @@
     "port": "COM4",
     "programmer": "esptool",
     "sketch": "ROBT_Leg_Controller\\ROBT_Leg_Controller.ino",
-    "output": "/build"
+    "output": "\\build"
 }
