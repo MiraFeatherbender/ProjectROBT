@@ -113,6 +113,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 - Prefers writing custom libraries for core logic; uses manufacturer or hardware-specific libraries only when necessary (e.g., LCD, SD card)
 - Avoids generic libraries (e.g., “servo”) in favor of custom implementations
 - No major “gotchas” identified, but design is focused on determinism, maintainability, and hardware efficiency
+- Non-standard USB devices (e.g., game controllers) may cause VS Code to fail to load. Unplug to resolve.
 
 ### Common Compiler Error Patterns & Prevention Checklist
 
