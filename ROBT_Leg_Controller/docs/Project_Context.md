@@ -1,5 +1,7 @@
-## Copilot Onboarding
+# Copilot Onboarding
+
 Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits. Key context:
+
 - Main entry: `ROBT_Leg_Controller.ino` (Arduino sketch)
 - All hardware, config, and logic are separated into .cpp/.h modules
 - AT command interface is documented below; see Command Reference
@@ -7,13 +9,14 @@ Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-b
 - See 'Recent Changes & Current Focus' for what’s actively being developed
 - If you need more context, check linked migration and goals docs
 
-# Project Context Reference
+## Project Context Reference
 
 This document provides a comprehensive reference for the environment, hardware, structure, and preferences of the ROBT_Leg_Controller project. Use this as a quick guide for Copilot, collaborators, or future development.
 
 ---
 
 ## Development Environment
+
 - **IDE:** Visual Studio Code with Arduino Extension (primary), Arduino IDE (secondary)
 - **Board Support:** Latest ESP32 Arduino Core
 - **Upload Method:** USB via VS Code Arduino Extension; Arduino CLI v1.2.2 for compiling and exporting `.bin` files (see `.vscode/tasks.json`)
@@ -23,6 +26,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Hardware Overview
+
 - **Main MCU:** ESP32-C3 Super Mini
 - **Planned Network:** Will act as a child MCU to two Unexpected Maker FeatherS3 modules (parents) via ESP-NOW
 - **Peripherals:**
@@ -36,6 +40,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Project Structure
+
 - **Main Entry Point:** ROBT_Leg_Controller.ino (Arduino sketch)
 - **Key Modules:**
   - DriveConfig.h: Pin assignments, hardware details, and config structs
@@ -55,6 +60,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Communication Interfaces
+
 - **Current:** Serial (for bench testing)
 - **Planned:** ESP-NOW (primary), with a custom AT command interface (already developed elsewhere, to be extended here)
 - **Protocols/Formats:** Custom AT command syntax
@@ -62,6 +68,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Persistent Storage
+
 - **Type:** ESP32 NVS (Non-Volatile Storage)
 - **Stored Data:** Calibration data (using the SweepSummary struct)
 - **Storage Flow:** Data is written and retrieved via NVSManager using SweepSummary
@@ -69,6 +76,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Coding Style & Preferences
+
 - **Style:**
   - Prefer standard C++ style (classes, strong typing, modern idioms) for most of the codebase
   - Use Arduino syntax only when necessary (e.g., for main entry point or features not easily done in C++)
@@ -87,6 +95,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Testing & Debugging
+
 - **Methods:**
   - Serial output for code verification and debugging
   - Hardware-in-the-loop testing (using LED indicators and observing physical motion)
@@ -96,6 +105,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ---
 
 ## Known Issues, Constraints, and Preferences
+
 - Uses ESP32 LEDC hardware for both servo (with LEDCfade) and stepper (via frequency adjustment, planned)
 - Hall sensor feedback is handled via ISR, used only during calibration
 - Avoids blocking calls; prefers state machines for flow control
@@ -104,8 +114,8 @@ This document provides a comprehensive reference for the environment, hardware, 
 - Avoids generic libraries (e.g., “servo”) in favor of custom implementations
 - No major “gotchas” identified, but design is focused on determinism, maintainability, and hardware efficiency
 
-
 ### Common Compiler Error Patterns & Prevention Checklist
+
 - **Enum macro conflicts:** Avoid using names like LOW/HIGH in enums; these may collide with Arduino macros. Always choose unique, descriptive enum values.
 - **Missing includes:** If you see 'type not recognized' or 'not declared in this scope' errors, check that all required headers are included in every file that uses those types.
 - **Forward declaration issues:** When passing objects between modules, ensure the full class definition is available (not just a forward declaration) in headers where needed.
@@ -118,9 +128,10 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 ---
 
 ## Recent Changes & Current Focus
+
 Last reviewed by Copilot: August 7, 2025
 
- - Major refactor: Command handler and dispatcher now use CommandFactory for unified registration and mode-differentiated handler sets
+- Major refactor: Command handler and dispatcher now use CommandFactory for unified registration and mode-differentiated handler sets
 - Address pin reading and node assignment now fully dynamic
 - Homing logic implemented: AT+HOME command, neutral position handling, and state machine integration
 - Homing routines now support safe movement to neutral/home position on startup and via command
@@ -136,6 +147,7 @@ Last reviewed by Copilot: August 7, 2025
 ---
 
 ## How to Run / Build
+
 - Open the project folder in **Visual Studio Code**.
 - Ensure the **Arduino Extension** is installed and configured.
 - Open `ROBT_Leg_Controller.ino` in VS Code.
@@ -148,6 +160,7 @@ _Arduino IDE is supported as a secondary method._
 ---
 
 ## Command Reference (AT Commands)
+
 | Command         | Parameters                 | Description                        | Response                |
 |-----------------|----------------------------|------------------------------------|-------------------------|
 | AT+MOVE?        |                            | Query current move state           | +ACK:MOVE? / +ERR       |
@@ -170,6 +183,7 @@ _Arduino IDE is supported as a secondary method._
 ---
 
 ## Migration & Goals Reference
+
 - See [Goals_And_Steps.md](Goals_And_Steps.md) for current development priorities
 - See [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
 
