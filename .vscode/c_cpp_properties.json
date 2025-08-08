@@ -3,13 +3,13 @@
     "configurations": [
         {
             "name": "Linux",
-            "compilerPath":"", //"/usr/bin/clang",
+            "compilerPath":"/usr/bin/clang",
             "compilerArgs": [],
             "intelliSenseMode": "linux-clang-x64",
             "includePath": [
-                "${workspaceFolder}/**"//,
-                //"${workspaceFolder}/espressif/esp32/cores/esp32",
-                //"${workspaceFolder}/espressif/esp-idf/components/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/espressif/esp32/cores/esp32",
+                "${workspaceFolder}/espressif/esp-idf/components/**"
             ],
             "forcedInclude": [],
             "cStandard": "c17",
