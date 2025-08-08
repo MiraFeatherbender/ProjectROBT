@@ -45,7 +45,7 @@ Complete: 34% | In Progress: 51% | Not Started: 16%
 - [⏳] Integrate servo and stepper motion into custom AT command interface 🔀
 - [x] Replace static LEDC fade time calculation with parameterized slew time
     - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
-    - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks to prevent unsafe servo
+    - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
 
 **Command System & Parser**
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
