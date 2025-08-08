@@ -61,6 +61,10 @@ private:
     bool moveCmdActive_ = false;
     unsigned long moveCmdStartTime_ = 0;
     float moveCmdSlewTime_ = 0.0f;
+
+    // Hall LED blink state
+    bool hallLedState_ = false;
+    unsigned long hallLedLastToggle_ = 0;
 };
 
 #endif //LEG_SUPERVISOR_H

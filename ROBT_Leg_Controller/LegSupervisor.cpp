@@ -90,6 +90,15 @@ void LegSupervisor::update() {
                 break;
             case SystemState::EStop:
                 currentState_ = SystemState::EStop;
+                // Minimal non-blocking Hall LED blink
+                {
+                    unsigned long now = millis();
+                    if (now - hallLedLastToggle_ >= 250) { // 250ms interval
+                        hallLedState_ = !hallLedState_;
+                        digitalWrite(HALL_LED, hallLedState_ ? HIGH : LOW);
+                        hallLedLastToggle_ = now;
+                    }
+                }
                 transitionQueue_.erase(transitionQueue_.begin());
                 break;
             case SystemState::Maintenance:

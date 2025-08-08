@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 46% | In Progress: 39% | Not Started: 15%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 48% | In Progress: 37% | Not Started: 15%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
 Complete: 65% | In Progress: 25% | Not Started: 10%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 41% | In Progress: 42% | Not Started: 16%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 43% | In Progress: 41% | Not Started: 16%
 
 ## Task State Legend
 
@@ -90,9 +90,9 @@ Complete: 41% | In Progress: 42% | Not Started: 16%
   - [x] SMOOTH_STOP command handler
   - [x] PARK command handler
   - [x] HOME command handler
-  - [⏳] E_STOP command handler
+  - [🧩] E_STOP command handler (blocked: needs stepper module)
   - [⏳] CAL command handler
-  - [⏳] OTA command handler
+  - [🧩] OTA command handler (blocked: needs OTA module)
 - [ ] Add slew parameter support to SMOOTH_STOP command 🔀
 - [x] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
@@ -103,9 +103,10 @@ Complete: 41% | In Progress: 42% | Not Started: 16%
   - [x] HOME query 🔀
   - [x] E_STOP query 🔀
   - [⏳] CAL query 🔀
-  - [⏳] NODE query 🔀
+  - [x] NODE query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
 - [x] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
+- [ ] Implement universal error code map for consistent error responses 🔀
 
 ### Control Dynamics & Hardware Tasks
 
@@ -113,7 +114,7 @@ Complete: 41% | In Progress: 42% | Not Started: 16%
   - [x] Per-node payloads (e.g., `N11,42,99,|`)
   - [x] All-node payloads (no node tags)
   - [x] Edge cases (missing node, empty payload, malformed input)
-- [ ] Implement stepper controller module 🔀
+- [🧩] Implement stepper controller module 🔀 (blocked: awaiting servo testing)
   - [ ] Integrate wheel context (position, velocity, acceleration tracking) 🔀
   - [ ] Support S-curve profiling for smooth stepper motion 🔀
   - [ ] Integrate with command and state machine architecture for modular control 🔀
@@ -161,7 +162,7 @@ Complete: 41% | In Progress: 42% | Not Started: 16%
   - [x] Implement ProcessMoveCMD state
   - [x] Implement Moving state
   - [⏳] Implement Calibrating state 🔀
-  - [⏳] Implement EStop state 🔀
+  - [x] Implement EStop state 🔀
   - [⏳] Implement Maintenance state 🔀
   - [⏳] Implement Updating state 🔀
 - [x] Refactor boot logic from *begin() to state machine

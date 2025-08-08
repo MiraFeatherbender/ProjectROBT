@@ -1,4 +1,17 @@
 #include "CommandFactory.h"
+#include <functional>
+
+// Helper to wrap transition logic and response for set/action commands
+// Usage: makeTransitionHandler([](cmd, supervisor) { ...build transitions... })
+auto makeTransitionHandler = [](std::function<std::vector<StateTransition>(const ParsedCommand&, LegSupervisor&)> builder) {
+    return [builder](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+        auto transitions = builder(cmd, supervisor);
+        if (!transitions.empty()) {
+            supervisor.queueTransitions(transitions);
+            cmd.context.respond("+OK");
+        }
+    };
+};
 
 CommandHandler unsupportedHandler = [](const ParsedCommand& cmd, LegSupervisor&) {
     cmd.context.respond("+ERR:UNSUPPORTED_COMMAND_MODE");
@@ -18,53 +31,44 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
         {
             // Action handler
             // HOME: Move to neutral steering angle, 0 velocity, default slew time, then transition to Stopped
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 // Define neutral as 135.0f, or use a config value if available
                 float neutralSteering = 135.0f;
                 float slewTime = supervisor.getSafeTiming(neutralSteering);
-                std::vector<StateTransition> transitions = {
+                return std::vector<StateTransition>{
                     // Fourth param 1.0f triggers raw movement for homing
                     {SystemState::ProcessMoveCmd, {neutralSteering, 0.0f, slewTime, 1.0f}},
                     {SystemState::Homed, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+HOME queued");
-            },
-            // Set handler
-            unsupportedHandler,
-            // Query handler
-            defaultQueryHandler
+            }),
+            unsupportedHandler, // Set
+            defaultQueryHandler // Query
         },
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Parked}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Parked}}
     };
 
     // MOVE
     commands["MOVE"] = {
         {
-            // Action handler: unsupported
-            unsupportedHandler,
+            unsupportedHandler, // Action
             // Set handler
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 // AT+MOVE=steering_angle,velocity,slew_time
                 // Params: [0]=steering_angle, [1]=velocity, [2]=slew_time
                 // Validate parameter count
                 if (cmd.params.size() < 3) {
                     cmd.context.respond("+ERR:INVALID_PARAMS");
-                    return;
+                    return std::vector<StateTransition>{};
                 }
                 float steering_angle = cmd.params[0].toFloat();
                 float velocity = cmd.params[1].toFloat();
                 float slew_time = cmd.params[2].toFloat();
                 // Build state transition sequence: ProcessMoveCmd -> Moving
-                std::vector<StateTransition> transitions = {
+                return std::vector<StateTransition>{
                     {SystemState::ProcessMoveCmd, {steering_angle, velocity, slew_time}},
                     {SystemState::Moving, {}}
                 };
-                // Queue transitions in LegSupervisor
-                supervisor.queueTransitions(transitions);
-                // Respond with ACK
-                cmd.context.respond("+ACK");
-            },
+            }),
             // Query handler (placeholder)
             [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 // Returns current angle and velocity
@@ -80,20 +84,16 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
     commands["SMOOTH_STOP"] = {
         {
             // SMOOTH_STOP: Use ProcessMoveCmd to ramp velocity to 0, keep steering steady, then transition to Stopped
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 float currentSteering = supervisor.getCurrentAngle();
                 float slewTime = 1500.0f; // ms, fixed deceleration time for smooth stop
-                std::vector<StateTransition> transitions = {
+                return std::vector<StateTransition>{
                     {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, slewTime}},
                     {SystemState::Stopped, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+SMOOTH_STOP queued");
-            },
-            // Set handler
-            unsupportedHandler,
-            // Query handler
-            defaultQueryHandler
+            }),
+            unsupportedHandler, // Set
+            defaultQueryHandler // Query
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Moving}}
     };
@@ -102,46 +102,34 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
     commands["E_STOP"] = {
         {
             // E_STOP: Use ProcessMoveCmd to immediately set velocity to 0, then transition to EStop
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 float currentSteering = supervisor.getCurrentAngle();
                 float immediateSlew = 0.0f; // Immediate stop
-                std::vector<StateTransition> transitions = {
+                return std::vector<StateTransition>{
                     {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, immediateSlew}},
                     {SystemState::EStop, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+E_STOP queued");
-            },
-            // Set handler
-            unsupportedHandler,
-            // Query handler
-            defaultQueryHandler
+            }),
+            unsupportedHandler, // Set
+            defaultQueryHandler // Query
         },
-        CommandInfo{CommandPriority::PriorityCritical, {
-            SystemState::Booting, SystemState::Parked, SystemState::Homed, SystemState::Stopped, SystemState::ProcessMoveCmd,
-            SystemState::Moving, SystemState::EStop, SystemState::Maintenance, SystemState::Updating
-        }}
+        CommandInfo{CommandPriority::PriorityCritical, {}}
     };
 
     // CAL (formerly SERVO_CAL and VERIFY_NVS)
     commands["CAL"] = {
         {
             // CAL action: no parameters required
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-                std::vector<StateTransition> transitions = {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor&) {
+                return std::vector<StateTransition>{
                     {SystemState::Calibrating, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+CAL queued");
-            },
-            unsupportedHandler,
-            // CAL? (formerly VERIFY_NVS): no parameters required
+            }),
+            unsupportedHandler, // Set
+            // CAL? query: respond with info only (no state change)
             [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-                std::vector<StateTransition> transitions = {
-                    {SystemState::Maintenance, {}}
-                };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+CAL? queued");
+                // TODO: Replace with actual calibration info accessor
+                cmd.context.respond("+CAL? info not implemented");
             }
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked, SystemState::Homed}}
@@ -151,21 +139,17 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
     commands["PARK"] = {
         {
             // PARK: Use ProcessMoveCmd to set steering angle for parking, velocity 0, then transition to Parked
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 float parkSteering = supervisor.getParkSteeringAngle();
                 float slewTime = supervisor.getSafeTiming(parkSteering);
-                std::vector<StateTransition> transitions = {
+                return std::vector<StateTransition>{
                     // Fourth param 1.0f triggers raw movement for parking
                     {SystemState::ProcessMoveCmd, {parkSteering, 0.0f, slewTime, 1.0f}},
                     {SystemState::Parked, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:PARK queued");
-            },
-            // Set handler
-            unsupportedHandler,
-            // Query handler
-            defaultQueryHandler
+            }),
+            unsupportedHandler, // Set
+            defaultQueryHandler // Query
         },
         CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Homed}}
     };
@@ -173,33 +157,27 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
     // NODE query command
     commands["NODE"] = {
         {
-            unsupportedHandler,
-            unsupportedHandler,
-            // NODE query: no parameters required
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-                std::vector<StateTransition> transitions = {
-                    {SystemState::Stopped, {}}
-                };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:NODE? queued");
+            unsupportedHandler, // Action
+            unsupportedHandler, // Set
+            // NODE query: respond with node number, no state change
+            [](const ParsedCommand& cmd, LegSupervisor&) {
+                cmd.context.respond("+NODE? " + String(cmd.nodeNumber));
             }
         },
-        CommandInfo{CommandPriority::PriorityLow, {SystemState::Parked, SystemState::Homed, SystemState::Stopped, SystemState::Moving, SystemState::EStop}}
+        CommandInfo{CommandPriority::PriorityCritical, {}}
     };
 
     // OTA
     commands["OTA"] = {
         {
             // OTA command: no parameters required
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-                std::vector<StateTransition> transitions = {
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor&) {
+                return std::vector<StateTransition>{
                     {SystemState::Updating, {}}
                 };
-                supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:OTA queued");
-            },
-            unsupportedHandler,
-            unsupportedHandler
+            }),
+            unsupportedHandler, // Set
+            unsupportedHandler  // Query
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Maintenance}}
     };
