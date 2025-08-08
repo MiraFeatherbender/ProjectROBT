@@ -4,6 +4,12 @@ CommandHandler unsupportedHandler = [](const ParsedCommand& cmd, LegSupervisor&)
     cmd.context.respond("+ERR:UNSUPPORTED_COMMAND_MODE");
 };
 
+// Default query handler: returns system state in format "+<command>? <systemstate>"
+CommandHandler defaultQueryHandler = [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+    String response = "+" + cmd.command + "? " + String(static_cast<int>(supervisor.getCurrentState()));
+    cmd.context.respond(response);
+};
+
 std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSupervisor& supervisor) {
     std::map<std::string, RegisteredCommand> commands;
 
@@ -22,16 +28,12 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::Homed, {}}
                 };
                 supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:HOME queued");
+                cmd.context.respond("+HOME queued");
             },
             // Set handler
             unsupportedHandler,
-            // Query handler (placeholder)
-            [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-                // Returns homed status (true/false)
-               // bool isHomed = supervisor.isHomed(); // Assuming this method exists
-                cmd.context.respond("+HOME? homed=");// + String(isHomed));
-            }
+            // Query handler
+            defaultQueryHandler
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Parked}}
     };
@@ -86,10 +88,12 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::Stopped, {}}
                 };
                 supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:SMOOTH_STOP queued");
+                cmd.context.respond("+SMOOTH_STOP queued");
             },
+            // Set handler
             unsupportedHandler,
-            unsupportedHandler
+            // Query handler
+            defaultQueryHandler
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Moving}}
     };
@@ -106,10 +110,12 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::EStop, {}}
                 };
                 supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:E_STOP queued");
+                cmd.context.respond("+E_STOP queued");
             },
+            // Set handler
             unsupportedHandler,
-            unsupportedHandler
+            // Query handler
+            defaultQueryHandler
         },
         CommandInfo{CommandPriority::PriorityCritical, {
             SystemState::Booting, SystemState::Parked, SystemState::Homed, SystemState::Stopped, SystemState::ProcessMoveCmd,
@@ -126,7 +132,7 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::Calibrating, {}}
                 };
                 supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:CAL queued");
+                cmd.context.respond("+CAL queued");
             },
             unsupportedHandler,
             // CAL? (formerly VERIFY_NVS): no parameters required
@@ -135,7 +141,7 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::Maintenance, {}}
                 };
                 supervisor.queueTransitions(transitions);
-                cmd.context.respond("+ACK:CAL? queued");
+                cmd.context.respond("+CAL? queued");
             }
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked, SystemState::Homed}}
@@ -156,8 +162,10 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                 supervisor.queueTransitions(transitions);
                 cmd.context.respond("+ACK:PARK queued");
             },
+            // Set handler
             unsupportedHandler,
-            unsupportedHandler
+            // Query handler
+            defaultQueryHandler
         },
         CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Homed}}
     };
