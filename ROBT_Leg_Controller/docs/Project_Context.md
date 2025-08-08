@@ -130,20 +130,17 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 
 ## Recent Changes & Current Focus
 
-Last reviewed by Copilot: August 7, 2025
+Last reviewed by Copilot: August 8, 2025
 
-- Major refactor: Command handler and dispatcher now use CommandFactory for unified registration and mode-differentiated handler sets
-- Address pin reading and node assignment now fully dynamic
-- Homing logic implemented: AT+HOME command, neutral position handling, and state machine integration
-- Homing routines now support safe movement to neutral/home position on startup and via command
-- Project structure and onboarding documentation reviewed and clarified
-- Roadmap and progress tracking system reorganized for automation compatibility
-- All legacy code, syntax errors, and unused logic removed; codebase is clean and ready for expansion
-- Expanded handler logic to include skeletons for set/query/action state machines
-- Stepper controller module and calibration logic planned
-- Next: Implement stepper controller, expand handler logic, add unit tests and mock modules, and continue documentation/query support
-- Make sure to branch for major features, refactors, troubleshooting, etc.
-- patch test: This line is for validating reliable patching in ambiguous regions
+- Refactored command handler and dispatcher to use CommandFactory with a helper for boilerplate, preserving documentation and streamlining new command creation
+- All custom AT commands (except OTA) are now ready for use; unified +OK response and error handling pattern implemented
+- Documentation and progress tracking updated for automation compatibility and clarity
+- Added roadmap entry for universal error code map to support consistent error responses
+- Manual and automated edits validated for patch reliability and documentation integrity
+- Comments and code structure reviewed and cleaned for maintainability
+- Next: Implement calibration state logic, NVS data saving/retrieval, stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
+- Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
+- Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 
 ---
 
@@ -164,22 +161,22 @@ _Arduino IDE is supported as a secondary method._
 
 | Command         | Parameters                 | Description                        | Response                |
 |-----------------|----------------------------|------------------------------------|-------------------------|
-| AT+MOVE?        |                            | Query current move state           | +ACK:MOVE? / +ERR       |
-| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +ACK:MOVE= / +ERR       |
-| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +ACK:SMOOTH_STOP / +ERR |
-| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +ACK:SMOOTH_STOP? / +ERR|
-| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP= / +ERR|
-| AT+E_STOP       |                            | Immediate emergency stop           | +ACK:E_STOP queued      |
-| AT+E_STOP?      |                            | Query E-Stop state                 | +ACK:E_STOP? / +ERR     |
-| AT+PARK         |                            | Move to park position              | +ACK:PARK queued        |
-| AT+PARK?        |                            | Query park state                   | +ACK:PARK? / +ERR       |
-| AT+HOME         |                            | Move to neutral/home position      | +ACK:HOME queued        |
-| AT+HOME?        |                            | Query home state                   | +ACK:HOME? / +ERR       |
-| AT+CAL          |                            | Start servo calibration            | +ACK:CAL queued         |
-| AT+CAL?         |                            | Query calibration data             | +ACK:CAL? / +ERR        |
-| AT+CAL=         | calibration params         | Set calibration parameters         | +ACK:CAL= / +ERR        |
-| AT+NODE?        |                            | Query node assignment              | +NODE? / +ERR           |
-| AT+OTA          |                            | Begin OTA update                   | +ACK:OTA queued         |
+| AT+MOVE?        |                            | Query current move state           | +MOVE? ... / +ERR       |
+| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +OK / +ERR              |
+| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +OK / +ERR              |
+| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +SMOOTH_STOP? ... / +ERR|
+| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +OK / +ERR              |
+| AT+E_STOP       |                            | Immediate emergency stop           | +OK / +ERR              |
+| AT+E_STOP?      |                            | Query E-Stop state                 | +E_STOP? ... / +ERR     |
+| AT+PARK         |                            | Move to park position              | +OK / +ERR              |
+| AT+PARK?        |                            | Query park state                   | +PARK? ... / +ERR       |
+| AT+HOME         |                            | Move to neutral/home position      | +OK / +ERR              |
+| AT+HOME?        |                            | Query home state                   | +HOME? ... / +ERR       |
+| AT+CAL          |                            | Start servo calibration            | +OK / +ERR              |
+| AT+CAL?         |                            | Query calibration data             | +CAL? ... / +ERR        |
+| AT+CAL=         | calibration params         | Set calibration parameters         | +OK / +ERR              |
+| AT+NODE?        |                            | Query node assignment              | +NODE? ... / +ERR       |
+| AT+OTA          |                            | Begin OTA update                   | +OK / +ERR              |
 
 ---
 

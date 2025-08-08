@@ -92,7 +92,19 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                     {SystemState::Stopped, {}}
                 };
             }),
-            unsupportedHandler, // Set
+            // Set handler: same as action, but slewTime is provided as a parameter
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+                float currentSteering = supervisor.getCurrentAngle();
+                if (cmd.params.size() < 1) {
+                    cmd.context.respond("+ERR:INVALID_PARAMS");
+                    return std::vector<StateTransition>{};
+                }
+                float slewTime = cmd.params[0].toFloat();
+                return std::vector<StateTransition>{
+                    {SystemState::ProcessMoveCmd, {currentSteering, 0.0f, slewTime}},
+                    {SystemState::Stopped, {}}
+                };
+            }),
             defaultQueryHandler // Query
         },
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Moving}}
@@ -122,10 +134,20 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // CAL action: no parameters required
             makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor&) {
                 return std::vector<StateTransition>{
-                    {SystemState::Calibrating, {}}
+                    {SystemState::Calibrating, SystemState::Stopped {}}
                 };
             }),
-            unsupportedHandler, // Set
+            /*
+            // CAL set: transitions to Calibrating and passes parameters to setCal (placeholder)
+            makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
+                // Placeholder: pass all parameters to a hypothetical setCal function
+                // supervisor.setCal(cmd.params); // Uncomment and refine when setCal is implemented
+                return std::vector<StateTransition>{
+                    {SystemState::Calibrating, SystemState::Stopped {}}
+                };
+            }),
+            */
+            unsupportedHandler, // Set (replace with above when ready)
             // CAL? query: respond with info only (no state change)
             [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 // TODO: Replace with actual calibration info accessor
