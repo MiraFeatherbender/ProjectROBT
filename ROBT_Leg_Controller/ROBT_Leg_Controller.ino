@@ -5,6 +5,7 @@
 #include "CommandParser.h"
 #include "CommandDispatcher.h"
 #include "CommandFactory.h" // Replaces LegControllerCommandMap.h
+#include <HardwareSerial.h>
 // #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
 
 ADCConfig adc_cfg;  // From DriveConfig.h
