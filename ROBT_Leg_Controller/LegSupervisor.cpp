@@ -1,30 +1,24 @@
-
 #include "LegSupervisor.h"
 #include <cmath>
 #include <esp32-hal-ledc.h>
 
-// Clear the transition queue and reset ProcessMoveCmd timer/lockout
-void LegSupervisor::clearTransitionQueue() {
-    transitionQueue_.clear();
-    moveCmdActive_ = false;
-    moveCmdStartTime_ = 0;
-    moveCmdSlewTime_ = 0.0f;
-}
-
+// Initialization & Setup
 LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
     : servo_(ServoCFG),
       hallSensor_(),
       servoCal_(servo_, ServoCFG),
       parkSteeringAngle_(135.0f) {}
 
-// Returns safe fade/slew time for a prescribed angle using ServoController's calculation
-uint32_t LegSupervisor::getSafeTiming(float prescribedAngle) const {
-    return servo_.calculateFadeTimeMs(prescribedAngle, getCurrentAngle());
-}
-
 bool LegSupervisor::begin() {
     if (!attachLEDC(servo_.getLEDCConfig())) return false;
     return true;
+}
+
+void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
+    analogContinuousSetWidth(cfg.width_bits);
+    analogContinuousSetAtten(cfg.attenuation);
+    analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
+    analogContinuousStart();
 }
 
 void LegSupervisor::captureInitialAngle(uint16_t raw_mv) {
@@ -36,53 +30,11 @@ void LegSupervisor::captureInitialAngle(uint16_t raw_mv) {
     servo_.initializeAngle(angle);
 }
 
-float LegSupervisor::getCurrentAngle() const {
-    return servo_.getAngle();  // Or directly return if public
-}
-
 bool LegSupervisor::attachLEDC(const LEDCConfig& cfg) {
     return ledcAttach(cfg.pin, cfg.frequency, cfg.resolution_bits);
 }
 
-void LegSupervisor::setSteeringAngle(float angle) {
-    servo_.setAngle(angle);
-}
-
-void LegSupervisor::setRawSteeringAngle(float angle){
-    servo_.setAngleRaw(angle);
-}
-
-void LegSupervisor::handleParsedCommand(const ParsedCommand& cmd) {
-    String response = "+ACK: node=" + String(cmd.nodeNumber) + ", cmd='" + cmd.command + "'";
-    if (!cmd.params.empty()) {
-        response += ", params=";
-        for (size_t i = 0; i < cmd.params.size(); ++i) {
-            response += cmd.params[i];
-            if (i < cmd.params.size() - 1) response += ",";
-        }
-    }
-    if (cmd.isOTA) response += ", OTA=1";
-    cmd.context.respond(response); // Send response back to source
-}
-
-void LegSupervisor::initADC(ADCConfig& cfg, void (*callback)()) {
-    analogContinuousSetWidth(cfg.width_bits);
-    analogContinuousSetAtten(cfg.attenuation);
-    analogContinuous(cfg.pins, cfg.pin_count, cfg.conversions_per_pin, cfg.sampling_frequency, callback);
-    analogContinuousStart();
-}
-
-bool LegSupervisor::saveSweepSummary(){
-    SweepSummary summary = servoCal_.getSweepSummary();
-    return NVSManager::storeSweepSummary(summary);
-}
-
-void LegSupervisor::queueTransitions(const std::vector<StateTransition>& transitions) {
-    for (const auto& t : transitions) {
-        transitionQueue_.push_back(t);
-    }
-}
-
+// State Machine & Transitions
 void LegSupervisor::update() {
     if (!transitionQueue_.empty()) {
         auto& transition = transitionQueue_.front();
@@ -158,4 +110,54 @@ void LegSupervisor::update() {
                 break;
         }
     }
+}
+
+void LegSupervisor::queueTransitions(const std::vector<StateTransition>& transitions) {
+    for (const auto& t : transitions) {
+        transitionQueue_.push_back(t);
+    }
+}
+
+void LegSupervisor::clearTransitionQueue() {
+    transitionQueue_.clear();
+    moveCmdActive_ = false;
+    moveCmdStartTime_ = 0;
+    moveCmdSlewTime_ = 0.0f;
+}
+
+// Servo Control
+void LegSupervisor::setSteeringAngle(float angle) {
+    servo_.setAngle(angle);
+}
+
+void LegSupervisor::setRawSteeringAngle(float angle){
+    servo_.setAngleRaw(angle);
+}
+
+float LegSupervisor::getCurrentAngle() const {
+    return servo_.getAngle();  // Or directly return if public
+}
+
+uint32_t LegSupervisor::getSafeTiming(float prescribedAngle) const {
+    return servo_.calculateFadeTimeMs(prescribedAngle, getCurrentAngle());
+}
+
+// Command Handling
+void LegSupervisor::handleParsedCommand(const ParsedCommand& cmd) {
+    String response = "+ACK: node=" + String(cmd.nodeNumber) + ", cmd='" + cmd.command + "'";
+    if (!cmd.params.empty()) {
+        response += ", params=";
+        for (size_t i = 0; i < cmd.params.size(); ++i) {
+            response += cmd.params[i];
+            if (i < cmd.params.size() - 1) response += ",";
+        }
+    }
+    if (cmd.isOTA) response += ", OTA=1";
+    cmd.context.respond(response); // Send response back to source
+}
+
+// Persistence
+bool LegSupervisor::saveSweepSummary(){
+    SweepSummary summary = servoCal_.getSweepSummary();
+    return NVSManager::storeSweepSummary(summary);
 }
