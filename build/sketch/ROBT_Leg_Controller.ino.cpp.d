@@ -163,4 +163,4 @@ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ROBT_Leg_
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\NVSManager.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandInfo.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandDispatcher.h \
- C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.h
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandFactory.h

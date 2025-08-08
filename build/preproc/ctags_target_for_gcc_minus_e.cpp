@@ -5,6 +5,7 @@
 # 5 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
 # 6 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
 # 7 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
+// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
 
 ADCConfig adc_cfg; // From DriveConfig.h
 
@@ -61,7 +62,7 @@ void setup() {
 
   supervisor.initADC(adc_cfg, &adcComplete);
   delay(100); // Delay for servo stability
-  registerAllCommands(dispatcher, supervisor);
+  CommandFactory::registerAll(dispatcher, supervisor);
 }
 
 void loop() {

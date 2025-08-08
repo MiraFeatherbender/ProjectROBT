@@ -90,8 +90,8 @@ The project is organized into modular C++ files for clarity and maintainability.
 - `LegSupervisor.cpp/h` – High-level leg/servo management
 - `SerialInputHandler.cpp/h` – Serial input buffering and callback pipeline
 - `CommandParser.cpp/h` – Serial/ESP-NOW AT command parsing and dispatch
-- `LegControllerCommandMap.cpp/h` – Centralized AT command registration
-- `CommandDispatcher.cpp/h` – Command dispatch logic
+- `CommandFactory.cpp/h` – Centralized AT command registration and mode-differentiated handler sets
+- `CommandDispatcher.cpp/h` – Dispatches commands using handler sets from CommandFactory
 - `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
 - `ServoController.cpp/h` – Servo control logic
 - `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
@@ -106,20 +106,20 @@ All logic is separated into `.cpp/.h` modules for hardware abstraction and maint
 
 - Modular C++ codebase: hardware, logic, and configuration separated into .cpp/.h modules.
 - Main entry: `ROBT_Leg_Controller.ino`
-- Key modules: DriveConfig, LegSupervisor, CommandParser, ServoController, HallSensorHandler, NVSManager, etc.
+- Key modules: DriveConfig, LegSupervisor, CommandParser, CommandFactory, CommandDispatcher, ServoController, HallSensorHandler, NVSManager, etc.
 
 ---
 
 ## AT Command Reference
 
-| Command         | Description                |
+| Command         | Description               |
 |-----------------|---------------------------|
 | AT+MOVE         | Move leg with parameters  |
 | AT+HOME         | Move to home position     |
 | AT+SMOOTH_STOP  | Ramp velocity to 0, stop  |
 | AT+E_STOP       | Emergency stop            |
-| AT+SERVO_CAL    | Start servo calibration   |
-| AT+VERIFY_NVS   | Verify calibration data   |
+| AT+CAL          | Start servo calibration   |
+| AT+CAL?         | Verify calibration data   |
 | AT+PARK         | Move to park position     |
 | AT+NODE         | Responds with node number |
 | AT+OTA          | Begin OTA update          |

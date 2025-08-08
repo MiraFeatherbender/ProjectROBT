@@ -15,17 +15,17 @@
     "Includepath": null
   },
   {
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandFactory.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandParser.cpp",
     "Include": "",
     "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegControllerCommandMap.cpp",
     "Include": "",
     "Includepath": null
   },

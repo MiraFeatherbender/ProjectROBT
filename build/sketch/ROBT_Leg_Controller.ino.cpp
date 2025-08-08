@@ -5,17 +5,18 @@
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
 #include "CommandDispatcher.h"
-#include "LegControllerCommandMap.h"
+#include "CommandFactory.h" // Replaces LegControllerCommandMap.h
+// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
-#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 11 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void adcComplete();
-#line 23 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 24 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void setup();
-#line 66 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 67 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void loop();
-#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 11 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void ARDUINO_ISR_ATTR adcComplete() {
   adc_cfg.conversion_done = true;
 }
@@ -69,7 +70,7 @@ void setup() {
 
   supervisor.initADC(adc_cfg, &adcComplete);
   delay(100); // Delay for servo stability
-  registerAllCommands(dispatcher, supervisor);
+  CommandFactory::registerAll(dispatcher, supervisor);
 }
 
 void loop() {

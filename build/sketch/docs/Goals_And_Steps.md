@@ -51,10 +51,10 @@ Complete: 30% | In Progress: 35% | Not Started: 35%
 **Command System & Parser**
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
-- [⏳] Define and document a `LegControllerCommandMap` for all supported commands 🔀
+- [x] Define and document a `CommandFactory` for all supported commands 🔀
     - [⏳] Ensure all commands use consistent parameter mapping and error code conventions
     - [⏳] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
-- [ ] Ensure command handlers support modular differentiation of action, set, and query modes, following AT command conventions 🔀
+- [x] Ensure command handlers support modular differentiation of action, set, and query modes, following AT command conventions 🔀
 
 **Calibration & Storage**
 - [⏳] Add flash storage for calibration data, including center pulse time and backlash offset 🔀
@@ -91,19 +91,19 @@ Complete: 30% | In Progress: 35% | Not Started: 35%
     - [⏳] NODE command handler
     - [⏳] OTA command handler
 - [ ] Add slew parameter support to SMOOTH_STOP command 🔀
-- [ ] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
-- [ ] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
-- [ ] Add Query support for appropriate commands 🔀
-    - [ ] MOVE query 🔀
-    - [ ] PARK query 🔀
-    - [ ] HOME query 🔀
-    - [ ] E_STOP query 🔀
-    - [ ] ~~SERVO_CAL query 🔀 ('CAL')~~ replace with 'CAL'
-    - [ ] CAL query 🔀
-    - [ ] NODE query 🔀
-    - [ ] OTA query 🔀
+- [x] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
+- [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
+- [⏳] Add Query support for appropriate commands 🔀
+    - [⏳] MOVE query 🔀
+    - [⏳] PARK query 🔀
+    - [⏳] HOME query 🔀
+    - [⏳] E_STOP query 🔀
+    - [⏳] ~~SERVO_CAL query 🔀 ('CAL')~~ replace with 'CAL'
+    - [⏳] CAL query 🔀
+    - [⏳] NODE query 🔀
+    - [⏳] OTA query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
-- [ ] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
+- [x] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
 
 **Control Dynamics & Hardware**
 - [x] Test and validate broadcast message parsing
@@ -140,9 +140,9 @@ Complete: 30% | In Progress: 35% | Not Started: 35%
     - [⏳] VERIFY_NVS documentation
     - [⏳] NODE documentation
     - [⏳] OTA documentation
-- [ ] Update documentation and code comments for new/changed commands and error codes 🔀
-- [ ] Add diagnostic/test commands for hardware and storage modules 🔀
-- [ ] Integrate servo calibration triggers into custom AT command interface 🔀
+- [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
+- [⏳] Add diagnostic/test commands for hardware and storage modules 🔀
+- [⏳] Integrate servo calibration triggers into custom AT command interface 🔀
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀

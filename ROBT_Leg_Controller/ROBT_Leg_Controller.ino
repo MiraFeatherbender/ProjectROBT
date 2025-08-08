@@ -3,7 +3,8 @@
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
 #include "CommandDispatcher.h"
-#include "LegControllerCommandMap.h"
+#include "CommandFactory.h" // Replaces LegControllerCommandMap.h
+// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
@@ -60,7 +61,7 @@ void setup() {
 
   supervisor.initADC(adc_cfg, &adcComplete);
   delay(100); // Delay for servo stability
-  registerAllCommands(dispatcher, supervisor);
+  CommandFactory::registerAll(dispatcher, supervisor);
 }
 
 void loop() {

@@ -45,7 +45,7 @@ This document provides a comprehensive reference for the environment, hardware, 
   - ServoCalibration: Manages servo calibration using hall sensor feedback
   - ServoController: Commands and tracks servo position
   - CommandDispatcher: Centralized dispatcher for mapping command strings to handlers
-  - LegControllerCommandMap: Centralized registration of AT command handlers
+  - CommandFactory: Centralized registration and differentiation of AT command handlers by mode (action, set, query)
   - CommandParser: Parses input lines into ParsedCommand, strips AT+ and classifies type. Now supports setting the node number after construction, allowing address pins to be read after pin initialization.
   - ParsedCommand: Struct representing a parsed AT command, including command, type, params, and context
   - SerialInputHandler: Handles serial input and provides CommandSourceContext for responses
@@ -120,16 +120,16 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 ## Recent Changes & Current Focus
 Last reviewed by Copilot: August 7, 2025
 
-- Major refactor of command handler, dispatcher, and modular AT command mapping
+ - Major refactor: Command handler and dispatcher now use CommandFactory for unified registration and mode-differentiated handler sets
 - Address pin reading and node assignment now fully dynamic
 - Homing logic implemented: AT+HOME command, neutral position handling, and state machine integration
 - Homing routines now support safe movement to neutral/home position on startup and via command
 - Project structure and onboarding documentation reviewed and clarified
 - Roadmap and progress tracking system reorganized for automation compatibility
 - All legacy code, syntax errors, and unused logic removed; codebase is clean and ready for expansion
+- Expanded handler logic to include skeletons for set/query/action state machines
 - Stepper controller module and calibration logic planned
 - Next: Implement stepper controller, expand handler logic, add unit tests and mock modules, and continue documentation/query support
-- Explicit Next Steps: Expand handler logic to include skeletons for set/query/action state machines
 - Make sure to branch for major features, refactors, troubleshooting, etc.
 - patch test: This line is for validating reliable patching in ambiguous regions
 
@@ -150,15 +150,22 @@ _Arduino IDE is supported as a secondary method._
 ## Command Reference (AT Commands)
 | Command         | Parameters                 | Description                        | Response                |
 |-----------------|----------------------------|------------------------------------|-------------------------|
-| AT+MOVE         | steering, velocity, slew   | Move leg with given params         | +ACK / +ERR             |
-| AT+SMOOTH_STOP  | slew                       | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP queued |
+| AT+MOVE?        |                            | Query current move state           | +ACK:MOVE? / +ERR       |
+| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +ACK:MOVE= / +ERR       |
+| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +ACK:SMOOTH_STOP / +ERR |
+| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +ACK:SMOOTH_STOP? / +ERR|
+| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +ACK:SMOOTH_STOP= / +ERR|
 | AT+E_STOP       |                            | Immediate emergency stop           | +ACK:E_STOP queued      |
-| AT+SERVO_CAL    |                            | Start servo calibration            | +ACK:SERVO_CAL queued   |
-| AT+VERIFY_NVS   |                            | Verify NVS calibration data        | +ACK:VERIFY_NVS queued  |
+| AT+E_STOP?      |                            | Query E-Stop state                 | +ACK:E_STOP? / +ERR     |
 | AT+PARK         |                            | Move to park position              | +ACK:PARK queued        |
-| AT+NODE         |                            | Responds with assigned node number | +NODE:<node_number>     |
-| AT+OTA          |                            | Begin OTA update                   | +ACK:OTA queued         |
+| AT+PARK?        |                            | Query park state                   | +ACK:PARK? / +ERR       |
 | AT+HOME         |                            | Move to neutral/home position      | +ACK:HOME queued        |
+| AT+HOME?        |                            | Query home state                   | +ACK:HOME? / +ERR       |
+| AT+CAL          |                            | Start servo calibration            | +ACK:CAL queued         |
+| AT+CAL?         |                            | Query calibration data             | +ACK:CAL? / +ERR        |
+| AT+CAL=         | calibration params         | Set calibration parameters         | +ACK:CAL= / +ERR        |
+| AT+NODE?        |                            | Query node assignment              | +NODE? / +ERR           |
+| AT+OTA          |                            | Begin OTA update                   | +ACK:OTA queued         |
 
 ---
 
