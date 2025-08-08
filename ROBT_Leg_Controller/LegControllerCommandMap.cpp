@@ -17,7 +17,6 @@ void handleHomeCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     supervisor.queueTransitions(transitions);
     cmd.context.respond("+ACK:HOME queued");
 }
-#include "LegControllerCommandMap.h"
 
 void handleMoveCommand(const ParsedCommand& cmd, LegSupervisor& supervisor) {
     // Example: AT+MOVE=steering_angle,velocity,slew_time

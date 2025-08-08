@@ -27,7 +27,7 @@ void CommandParser::parseAndDispatch(const String& inputLine, const CommandSourc
     if (cmd.length() == 0) return;
     bool isOTA = cmd.equalsIgnoreCase("OTA");
     std::vector<String> params;
-    CommandType type = CommandType::None;
+    CommandType type = CommandType::Action;
     if (!isOTA) parseParams(cmd, type, params);
     if (isBroadcast) {
         filterNodeParams(params, "N" + String(myNodeNumber));

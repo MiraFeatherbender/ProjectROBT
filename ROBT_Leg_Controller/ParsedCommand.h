@@ -5,7 +5,7 @@
 #include <vector>
 #include "SerialInputHandler.h" // For CommandSourceContext
 
-enum class CommandType {None, Set, Query};
+enum class CommandType {Action, Set, Query};
 
 struct ParsedCommand {
     uint8_t nodeNumber;
