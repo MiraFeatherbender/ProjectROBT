@@ -4,15 +4,15 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 34% | In Progress: 36% | Not Started: 31%
+Complete: 33% | In Progress: 36% | Not Started: 31%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
 Complete: 45% | In Progress: 40% | Not Started: 15%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 31% | In Progress: 35% | Not Started: 35%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 30% | In Progress: 35% | Not Started: 35%
 
 ## Task State Legend
 
@@ -84,7 +84,8 @@ Complete: 31% | In Progress: 35% | Not Started: 35%
     - [x] PARK command handler
     - [x] HOME command handler
     - [⏳] E_STOP command handler
-    - [⏳] SERVO_CAL command handler
+    - [⏳] ~~SERVO_CAL command handler~~ replace with 'CAL'
+    - [⏳] CAL command handler
     - [⏳] VERIFY_NVS command handler ('CAL?')
     - [⏳] NODE command handler
     - [⏳] OTA command handler
@@ -96,7 +97,8 @@ Complete: 31% | In Progress: 35% | Not Started: 35%
     - [ ] PARK query 🔀
     - [ ] HOME query 🔀
     - [ ] E_STOP query 🔀
-    - [ ] SERVO_CAL query 🔀 ('CAL')
+    - [ ] ~~SERVO_CAL query 🔀 ('CAL')~~ replace with 'CAL'
+    - [ ] CAL query 🔀
     - [ ] NODE query 🔀
     - [ ] OTA query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
