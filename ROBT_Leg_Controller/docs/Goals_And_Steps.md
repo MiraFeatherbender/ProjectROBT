@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 39% | In Progress: 46% | Not Started: 14%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 46% | In Progress: 39% | Not Started: 15%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 60% | In Progress: 30% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
+Complete: 65% | In Progress: 25% | Not Started: 10%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 34% | In Progress: 51% | Not Started: 16%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 41% | In Progress: 42% | Not Started: 16%
 
 ## Task State Legend
 
@@ -74,7 +74,7 @@ Complete: 34% | In Progress: 51% | Not Started: 16%
 ### Response Consistency
 
 - [⏳] Ensure all command responses are terse, consistent, and include error codes
-  - [⏳] Ensure query responses are always in a consistent, parseable format
+- [x] Ensure query responses are always in a consistent, parseable format
 
 ---
 
@@ -91,23 +91,19 @@ Complete: 34% | In Progress: 51% | Not Started: 16%
   - [x] PARK command handler
   - [x] HOME command handler
   - [⏳] E_STOP command handler
-  - [⏳] ~~SERVO_CAL command handler~~ replace with 'CAL'
   - [⏳] CAL command handler
-  - [⏳] VERIFY_NVS command handler ('CAL?')
-  - [⏳] NODE command handler
   - [⏳] OTA command handler
 - [ ] Add slew parameter support to SMOOTH_STOP command 🔀
 - [x] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
 - [⏳] Add Query support for appropriate commands 🔀
   - [⏳] MOVE query 🔀
-  - [⏳] PARK query 🔀
-  - [⏳] HOME query 🔀
-  - [⏳] E_STOP query 🔀
-  - [⏳] ~~SERVO_CAL query 🔀 ('CAL')~~ replace with 'CAL'
+  - [x] SMOOTH_STOP query 🔀
+  - [x] PARK query 🔀
+  - [x] HOME query 🔀
+  - [x] E_STOP query 🔀
   - [⏳] CAL query 🔀
   - [⏳] NODE query 🔀
-  - [⏳] OTA query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
 - [x] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
 
