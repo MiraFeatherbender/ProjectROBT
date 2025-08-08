@@ -37,23 +37,25 @@ def main():
         print(f"Could not open {goals_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # Extract Goals and Next Steps sections
-    goals_match = re.search(r'## Goals([\s\S]+?)(?=##|$)', content)
-    next_match = re.search(r'## Next Steps([\s\S]+?)(?=##|$)', content)
-    goals = goals_match.group(1) if goals_match else ''
-    next_steps = next_match.group(1) if next_match else ''
 
-    re_x = r'- \[x\]'
-    re_ip = r'- \[(⏳|😰|🧩|🚩)\]'
-    re_n = r'- \[ \]'
+    # Extract Goals and Next Steps sections (including all content until next ## header)
+    goals_match = re.search(r'^## Goals[\s\S]+?(?=^## |\Z)', content, re.MULTILINE)
+    next_match = re.search(r'^## Next Steps[\s\S]+?(?=^## |\Z)', content, re.MULTILINE)
+    goals = goals_match.group(0) if goals_match else ''
+    next_steps = next_match.group(0) if next_match else ''
 
-    g_c = count_matches(goals, re_x)
-    g_i = count_matches(goals, re_ip)
-    g_n = count_matches(goals, re_n)
+    # Count checklist items anywhere within the section, regardless of ### headers
+    re_x = r'^\s*- \[x\]' # completed
+    re_ip = r'^\s*- \[(⏳|😰|🧩|🚩)\]' # in progress
+    re_n = r'^\s*- \[ \]' # not started
 
-    n_c = count_matches(next_steps, re_x)
-    n_i = count_matches(next_steps, re_ip)
-    n_n = count_matches(next_steps, re_n)
+    g_c = len(re.findall(re_x, goals, re.MULTILINE))
+    g_i = len(re.findall(re_ip, goals, re.MULTILINE))
+    g_n = len(re.findall(re_n, goals, re.MULTILINE))
+
+    n_c = len(re.findall(re_x, next_steps, re.MULTILINE))
+    n_i = len(re.findall(re_ip, next_steps, re.MULTILINE))
+    n_n = len(re.findall(re_n, next_steps, re.MULTILINE))
 
     t_c = g_c + n_c
     t_i = g_i + n_i
