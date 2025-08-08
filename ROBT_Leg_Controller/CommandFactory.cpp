@@ -35,7 +35,7 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // Query handler
             defaultQueryHandler
         },
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Booting, SystemState::Stopped, SystemState::Parked}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Parked}}
     };
 
     // MOVE

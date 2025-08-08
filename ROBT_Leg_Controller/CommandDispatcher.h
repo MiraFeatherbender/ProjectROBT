@@ -20,6 +20,9 @@ public:
     // Register a handler and metadata for a command string
     void registerCommand(const std::string& cmd, Handler handler, const CommandInfo& info);
 
+    // Clear all handlers (for test or re-init)
+    void clear();
+
     // Check if a command is allowed in the current state/priority
     bool isAllowed(const CommandInfo& info, SystemState currentState, CommandPriority currentPriority) const;
 
@@ -28,9 +31,6 @@ public:
 
     // Access command metadata (for validation, docs, etc.)
     const CommandInfo* getCommandInfo(const std::string& cmd) const;
-
-    // Clear all handlers (for test or re-init)
-    void clear();
 
 private:
     std::map<std::string, RegisteredCommand> commands_;

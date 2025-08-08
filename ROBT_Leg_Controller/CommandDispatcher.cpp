@@ -4,16 +4,22 @@ void CommandDispatcher::registerCommand(const std::string& cmd, Handler handler,
     commands_[cmd] = RegisteredCommand{handler, info};
 }
 
+void CommandDispatcher::clear() {
+    commands_.clear();
+}
+
 bool CommandDispatcher::isAllowed(const CommandInfo& info, SystemState currentState, CommandPriority currentPriority) const {
-    if (info.priority == CommandPriority::PriorityCritical) {
-        return true;
+    switch (info.priority) {
+        case CommandPriority::PriorityCritical:
+            return true;
+        default:
+            for (auto allowed : info.allowedStates) {
+                if (allowed == currentState) {
+                    return info.priority >= currentPriority;
+                }
+            }
+            return false;
     }
-    for (auto allowed : info.allowedStates) {
-        if (allowed == currentState) {
-            return info.priority >= currentPriority;
-        }
-    }
-    return false;
 }
 
 bool CommandDispatcher::dispatch(const ParsedCommand& cmd, LegSupervisor& supervisor) const {
@@ -45,6 +51,3 @@ const CommandInfo* CommandDispatcher::getCommandInfo(const std::string& cmd) con
     return nullptr;
 }
 
-void CommandDispatcher::clear() {
-    commands_.clear();
-}
