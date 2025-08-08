@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "DriveConfig.h"
 #include "LegSupervisor.h"
 #include "SerialInputHandler.h"

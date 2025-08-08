@@ -141,16 +141,6 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
         CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked, SystemState::Homed}}
     };
 
-    // CAL query: formerly VERIFY_NVS
-    commands["CAL"].handlers.query = [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-        // CAL? (formerly VERIFY_NVS): no parameters required
-        std::vector<StateTransition> transitions = {
-            {SystemState::Maintenance, {}}
-        };
-        supervisor.queueTransitions(transitions);
-        cmd.context.respond("+ACK:CAL? queued");
-    };
-
     // PARK
     commands["PARK"] = {
         {
