@@ -1,8 +1,8 @@
-c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.cpp.o: \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.cpp \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandDispatcher.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ParsedCommand.h \
+C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.cpp.o: \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.cpp \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegControllerCommandMap.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandDispatcher.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ParsedCommand.h \
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\cores\esp32/Arduino.h \
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\cores\esp32/esp_arduino_version.h \
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\tools\esp32-arduino-libs\idf-release_v5.5-b66b5448-v1\esp32c3/include/freertos/FreeRTOS-Kernel/include/freertos/FreeRTOS.h \
@@ -152,13 +152,13 @@ c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegContro
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\cores\esp32/freertos_stats.h \
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\cores\esp32/io_pin_remap.h \
  C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\cores\esp32/Arduino.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\SerialInputHandler.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandInfo.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegSupervisor.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\DriveConfig.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ServoController.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\HallSensorHandler.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ServoCalibration.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\FlashStorageTypes.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandParser.h \
- c:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\NVSManager.h
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\SerialInputHandler.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandInfo.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\LegSupervisor.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\DriveConfig.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ServoController.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\HallSensorHandler.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\ServoCalibration.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\FlashStorageTypes.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandParser.h \
+ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\NVSManager.h
