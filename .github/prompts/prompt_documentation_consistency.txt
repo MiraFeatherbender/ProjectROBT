@@ -1,0 +1,10 @@
+Review Goals_And_Steps.md, Project_Context.md, and README.md for consistency with current code and features.
+- Identify outdated sections and suggest updates to reflect recent calibration and diagnostic changes.
+- Ensure documentation matches the current workflow and project goals.
+- For each major section (features, hardware, usage, calibration, AT commands, goals, next steps, troubleshooting, onboarding), check for alignment and consistency across all files.
+- Verify that terminology, formatting, and naming conventions are consistent.
+- Ensure cross-references (e.g., “see Project_Context.md for details”) are accurate and up-to-date.
+- Confirm that project status, goals, and next steps are aligned between all documents.
+- Check that onboarding instructions and roadmap information are not duplicated or contradictory.
+- Verify that recent changes and current focus are reflected in all relevant files.
+- Suggest improvements for clarity, completeness, and maintainability.

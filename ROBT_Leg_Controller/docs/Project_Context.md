@@ -141,7 +141,13 @@ Last reviewed by Copilot: August 8, 2025
 - Calibration logic refactored and completed: bidirectional center, backlash, linear fit, RMSE, and per-magnet residuals now calculated and stored in SweepSummary
 - Diagnostic and reporting capabilities for calibration accuracy and hardware alignment now scaffolded; residuals and fit results available for future test/report commands
 - Data pipeline for calibration: SweepSummary is created in ServoCalibration, relayed via LegSupervisor, and ready for storage/printing in NVSManager
+- Implemented versatile instruction files for phase-specific guidance and workflow automation
+- Added an automated documentation review workflow to streamline end-of-phase updates, consistency checks, and progress tracking
+- Coordinated Copilot agent actions and VS Code tasks/scripts for hybrid automation (e.g., progress bar updates, checklist management)
+- Began planning for tool sets to support code navigation, diagnostics, and onboarding
+
 - Next: Integrate calibration state logic into LegSupervisor, complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
+- Next: Integrate automated review prompts and workflows for documentation, command reference, and error code updates
 - Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
 - Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 

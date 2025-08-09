@@ -44,6 +44,26 @@
         "panel": "shared"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "Activate Copilot Instructions",
+      "type": "shell",
+      "command": "cmd /c copy \"${fileBasename}\" copilot_instructions.md",
+      "problemMatcher": [],
+      "group": "none",
+      "presentation": {
+        "reveal": "always"
+      },
+      "detail": "Copies the currently open file to copilot_instructions.md in the same directory.",
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "label": "Run Phase Completion Workflow",
+      "type": "shell",
+    "command": "code \"${workspaceFolder}\\ROBT_Leg_Controller\\docs\\Phase_Completion_Workflow_Prompt.md\"",
+      "group": "none"
     }
   ]
 }

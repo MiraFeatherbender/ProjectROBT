@@ -4,15 +4,15 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 50% | In Progress: 38% | Not Started: 12%
+Complete: 49% | In Progress: 37% | Not Started: 14%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
-Complete: 65% | In Progress: 25% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 57% | In Progress: 26% | Not Started: 17%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 46% | In Progress: 41% | Not Started: 13%
+Complete: 47% | In Progress: 40% | Not Started: 13%
 
 ## Task State Legend
 
@@ -38,18 +38,20 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
 
 ## Goals
 
-### Control Dynamics & Hardware
+### Control Dynamics & Hardware Goals
 
 - [x] Implement hardware-based node addressing via address pins (unified firmware for all legs)
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
-- [ ] Implement stepper controller module 🔀
-- [⏳] Integrate servo and stepper motion into custom AT command interface 🔀
+- [⏳] Implement stepper controller module 🔀
+- [🧩] Integrate servo and stepper motion into custom AT command interface 🔀
 - [x] Replace static LEDC fade time calculation with parameterized slew time
   - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
 - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
 
-### Command System & Parser Tasks
+### Command System & Parser Goals
 
+- [ ] Automate status review and checklist updates for phase completion workflow
+- [ ] Integrate fallback code block system for manual patching in documentation workflow
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
 - [x] Define and document a `CommandFactory` for all supported commands 🔀
@@ -57,8 +59,9 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
   - [⏳] Maintain a central documentation standard for each command (name, parameters, responses, error codes)
 - [x] Ensure command handlers support modular differentiation of action, set, and query modes, following AT command conventions 🔀
 
-### Calibration & Storage Tasks
+### Calibration & Storage Goals
 
+- [ ] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
 - [⏳] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
 
 ### Safety & Interlocks
@@ -93,7 +96,7 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
   - [🧩] E_STOP command handler (blocked: needs stepper module)
   - [⏳] CAL command handler
   - [🧩] OTA command handler (blocked: needs OTA module)
-- [ ] Add slew parameter support to SMOOTH_STOP command 🔀
+- [x] Add slew parameter support to SMOOTH_STOP command 🔀
 - [x] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
 - [⏳] Add Query support for appropriate commands 🔀
@@ -106,7 +109,7 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
   - [x] NODE query 🔀
 - [⏳] Document AT command and broadcast payload formats in code and docs (documentation after implementation) 🔀
 - [x] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`) for commands that do not support certain modes 🔀
-- [ ] Implement universal error code map for consistent error responses 🔀
+- [⏳] Implement universal error code map for consistent error responses 🔀
 
 ### Control Dynamics & Hardware Tasks
 
@@ -134,16 +137,17 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
 
-### Documentation & Testing
+### Documentation & Testing Next Steps
 
+- [ ] Expand onboarding documentation to clarify agent-driven review and fallback patch process
+- [ ] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [⏳] Document all commands
   - [⏳] MOVE documentation
   - [⏳] SMOOTH_STOP documentation
   - [⏳] PARK documentation
   - [⏳] HOME documentation
   - [⏳] E_STOP documentation
-  - [⏳] SERVO_CAL documentation
-  - [⏳] VERIFY_NVS documentation
+  - [⏳] CAL documentation
   - [⏳] NODE documentation
   - [⏳] OTA documentation
 - [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
@@ -154,7 +158,7 @@ Complete: 46% | In Progress: 41% | Not Started: 13%
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀
 
-### State Machine & Supervisory Logic
+### State Machine & Supervisory Logic Next Steps
 
 - [x] Prototype SystemState state machine in LegSupervisor
   - [x] Implement Booting state 🔀
