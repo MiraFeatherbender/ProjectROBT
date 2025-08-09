@@ -21,6 +21,7 @@ These instructions guide GitHub Copilot's behavior and responses for this projec
 - When reviewing state machine or calibration logic, ensure edge cases and pipeline integration are addressed.
 - When reviewing, always note if a change impacts other modules or requires updates elsewhere in the codebase or docs.
 - Encourage use of branches for major features, refactors, or hardware integration.
+- When suggesting code snippets, also check for necessary inclusions and suggest adding them if needed.
 
 ## Documentation & Onboarding
 
@@ -35,6 +36,10 @@ These instructions guide GitHub Copilot's behavior and responses for this projec
 - Use prompt files for focused reviews, onboarding checks, and documentation consistency.
 - Reference Project_Context.md for environment, hardware, and coding standards.
 - Reference Goals_And_Steps.md for current priorities and next steps.
+
+## Search and Reference Policy
+
+- Ignore the `archive` folder when searching for or referencing active code, unless the archive is specifically requested for reference.
 
 ---
 

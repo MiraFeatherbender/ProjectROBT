@@ -13,6 +13,7 @@ class CommandParser {
 public:
     CommandParser();
     void setNodeNumber(uint8_t NodeNumber);
+    void getNodeNumber(uint8_t NodeNumber);
     void setDispatchCallback(CommandDispatchCallback cb);
     void parseAndDispatch(const String& inputLine, const CommandSourceContext& context);
 private:

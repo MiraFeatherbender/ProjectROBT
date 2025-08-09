@@ -33,6 +33,7 @@ public:
 
     // Command Handling
     void handleParsedCommand(const ParsedCommand& cmd);
+    void setContext(const CommandSourceContext& ctx) { context_ = ctx; }
 
     // State & Priority Accessors
     CommandPriority getCurrentPriority() const { return currentPriority_; }
@@ -57,6 +58,7 @@ private:
     SystemState currentState_ = SystemState::Booting;
     std::vector<StateTransition> transitionQueue_;
     float parkSteeringAngle_;
+    CommandSourceContext context_;
 
     // Members for ProcessMoveCmd state machine
     bool moveCmdActive_ = false;

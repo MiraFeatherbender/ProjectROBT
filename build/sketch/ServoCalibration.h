@@ -60,7 +60,8 @@ public:
     bool validateSweep();               // True if all 14 sequences are valid
     SweepSummary getSweepSummary();     // Returns SweepSummary for flash storage
     void logSweepEvent(const SweepEvent& event);
-   
+    StateMachine getState() const { return state_; }
+    
 private:
     uint8_t PWMtoMagnetIDX(uint16_t pwm_value);
     uint32_t referencePulseFromIndex(uint8_t magnet_idx);
@@ -78,7 +79,7 @@ private:
 
     static constexpr uint8_t expected_cw_pattern = 0x84;
     static constexpr uint8_t expected_ccw_pattern = 0x48;
-    StateMachine state_;
+    StateMachine state_ = SWEEP_IDLE;
     SweepSummary summary_;
 
 };

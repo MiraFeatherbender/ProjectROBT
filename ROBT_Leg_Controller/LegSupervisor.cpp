@@ -1,4 +1,5 @@
 #include "LegSupervisor.h"
+#include "ParsedCommand.h"
 #include <cmath>
 #include <esp32-hal-ledc.h>
 
@@ -107,7 +108,25 @@ void LegSupervisor::update() {
                 break;
             case SystemState::Calibrating:
                 currentState_ = SystemState::Calibrating;
-                transitionQueue_.erase(transitionQueue_.begin());
+                switch (servoCal_.getState()) {
+                    case SWEEP_IDLE:
+                        servoCal_.begin();
+                        break;
+                    case SWEEP_COMPLETE:
+                        saveSweepSummary();
+                        context_.respond("+CAL_DONE");
+                        context_ = CommandSourceContext(); // Clear context_ to avoid accidental reuse
+                        transitionQueue_.erase(transitionQueue_.begin());
+                        break;
+                    case SWEEP_FAIL:
+                        context_.respond("+CAL_FAIL");
+                        context_ = CommandSourceContext();
+                        transitionQueue_.erase(transitionQueue_.begin());
+                        break;
+                    default:
+                        servoCal_.run();
+                        break;
+                }
                 break;
             case SystemState::Updating:
                 currentState_ = SystemState::Updating;

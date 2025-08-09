@@ -10,8 +10,6 @@ ServoCalibration::ServoCalibration(ServoController& servo, const ServoConfig& se
 } 
 
 bool ServoCalibration::begin() { 
-    state_ = SWEEP_IDLE;
-
     for (int i = 0; i < ServoConfig::kTotalMagnets; ++i) {
         auto& profile = magnet_profiles_[i];
         profile.angle_deg = static_cast<int8_t>(i * 30 + 45);
