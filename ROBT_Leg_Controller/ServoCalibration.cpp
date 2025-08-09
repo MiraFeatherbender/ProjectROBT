@@ -2,6 +2,7 @@
 #include <Arduino.h>  // Needed if using micros(), millis(), etc.
 #include <algorithm>
 
+
 ServoCalibration::ServoCalibration(ServoController& servo, const ServoConfig& servoCFG)
     : servo_(servo), servoCFG_(servoCFG), direction(CW), step_idx(0) {
     // Optional init logic
@@ -114,7 +115,74 @@ bool ServoCalibration::validateSweep() {
     return all_valid;
 }
 
-uint32_t ServoCalibration::idealPulseFromIndex(uint8_t magnet_idx) { 
+void ServoCalibration::computeCentersAndBacklash(std::vector<float>& ref_angles, std::vector<float>& center_pulses, std::vector<float>& backlash_offsets) const {
+    for (int i = 0; i < ServoConfig::kTotalMagnets; ++i) {
+        auto& profile = magnet_profiles_[i];
+        float ref_angle = servoCFG_.motion_window_min + i * servoCFG_.magnet_spacing_deg;
+        float center = 0.5f * (profile.cw_center_us + profile.ccw_center_us);
+        float backlash = std::abs(profile.cw_center_us - profile.ccw_center_us);
+
+        ref_angles.push_back(ref_angle);
+        center_pulses.push_back(center);
+        backlash_offsets.push_back(backlash);
+    }
+}
+
+LinearFitResult ServoCalibration::fitMeasuredCenters(const std::vector<float>& ref_angles, const std::vector<float>& center_pulses, const std::vector<float>& backlash_offsets) const {
+    size_t n = ref_angles.size();
+    if (n == 0) return {0, 0, 0, 0};
+
+    float sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+    for (size_t i = 0; i < n; ++i) {
+        sum_x += ref_angles[i];
+        sum_y += center_pulses[i];
+        sum_xx += ref_angles[i] * ref_angles[i];
+        sum_xy += ref_angles[i] * center_pulses[i];
+    }
+    float slope = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
+    float intercept = (sum_y - slope * sum_x) / n;
+
+    float rmse = 0;
+    for (size_t i = 0; i < n; ++i) {
+        float pred = slope * ref_angles[i] + intercept;
+        rmse += (center_pulses[i] - pred) * (center_pulses[i] - pred);
+    }
+    rmse = sqrt(rmse / n);
+
+    float avg_backlash = 0;
+    for (const auto& b : backlash_offsets) avg_backlash += b;
+    avg_backlash /= n;
+
+    return {slope, intercept, rmse, avg_backlash};
+}
+
+void ServoCalibration::finalizeSweepSummary() {
+    // Update magnet profile centers and backlash
+    for (int i = 0; i < ServoConfig::kTotalMagnets; ++i) {
+        auto& profile = magnet_profiles_[i];
+        profile.cw_center_us = (profile.cw_sweep[1] + profile.cw_sweep[2]) / 2;
+        profile.ccw_center_us = (profile.ccw_sweep[1] + profile.ccw_sweep[2]) / 2;
+        profile.backlash_offset_us = std::abs(profile.cw_center_us - profile.ccw_center_us);
+
+        summary_.cw_center_us[i] = profile.cw_center_us;
+        summary_.ccw_center_us[i] = profile.ccw_center_us;
+        summary_.backlash_offset[i] = profile.backlash_offset_us;
+
+        // Residual calculation
+        float measured_pulse = (profile.cw_center_us + profile.ccw_center_us) / 2;
+        float ideal_pulse = referencePulseFromIndex(i);
+        summary_.residuals[i] = measured_pulse - ideal_pulse;
+    }
+
+    // Modular fit and storage
+    std::vector<float> ref_angles, center_pulses, backlash_offsets;
+    computeCentersAndBacklash(ref_angles, center_pulses, backlash_offsets);
+    LinearFitResult fit = fitMeasuredCenters(ref_angles, center_pulses, backlash_offsets);
+    summary_.fit_result = fit;
+}
+
+
+uint32_t ServoCalibration::referencePulseFromIndex(uint8_t magnet_idx) { 
     float angle_span = servoCFG_.angle_max_deg - servoCFG_.angle_min_deg;
     float pulse_span = servoCFG_.pulse_max_us - servoCFG_.pulse_min_us;
 
@@ -128,6 +196,7 @@ uint32_t ServoCalibration::idealPulseFromIndex(uint8_t magnet_idx) {
     return static_cast<uint32_t>(magnet_idx * slope + intercept);
 }
 
+/*
 void ServoCalibration::finalizeSweepSummary() {
     for (int i = 0; i < ServoConfig::kTotalMagnets; ++i) {
         auto& profile = magnet_profiles_[i];
@@ -141,6 +210,7 @@ void ServoCalibration::finalizeSweepSummary() {
         summary_.backlash_offset[i] = profile.backlash_offset_us;
     }
 }
+*/
 
 SweepSummary ServoCalibration::getSweepSummary(){
     return summary_;

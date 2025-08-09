@@ -3,13 +3,20 @@
 
 #include "DriveConfig.h"  // Grants access to ServoConfig::kTotalMagnets
 
+// --- Calibration Fit Result Struct ---
+struct LinearFitResult {
+    float slope;
+    float intercept;
+    float rmse;
+    float avg_backlash;
+};
+
 struct SweepSummary {
     uint32_t cw_center_us[ServoConfig::kTotalMagnets];
     uint32_t ccw_center_us[ServoConfig::kTotalMagnets];
     int16_t backlash_offset[ServoConfig::kTotalMagnets];
-    float slope;
-    float intercept;
-    float linearity_rmse;
+    LinearFitResult fit_result;
+    float residuals[ServoConfig::kTotalMagnets]; // Per-magnet calibration residuals
     bool validated;
 };
 

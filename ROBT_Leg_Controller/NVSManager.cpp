@@ -22,8 +22,8 @@ void NVSManager::printSweepSummaryToSerial(const SweepSummary& summary) {
         Serial.print(", CCW center = "); Serial.print(summary.ccw_center_us[i]);
         Serial.print(", Backlash = "); Serial.println(summary.backlash_offset[i]);
     }
-    Serial.print("  Slope: "); Serial.println(summary.slope);
-    Serial.print("  Intercept: "); Serial.println(summary.intercept);
-    Serial.print("  Linearity RMSE: "); Serial.println(summary.linearity_rmse);
+    Serial.print("  Slope: "); Serial.println(summary.fit_result.slope);
+    Serial.print("  Intercept: "); Serial.println(summary.fit_result.intercept);
+    Serial.print("  Linearity RMSE: "); Serial.println(summary.fit_result.rmse);
     Serial.print("  Validated: "); Serial.println(summary.validated ? "true" : "false");
 }

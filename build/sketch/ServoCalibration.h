@@ -2,6 +2,7 @@
 #ifndef SERVO_CALIBRATION_H
 #define SERVO_CALIBRATION_H
 
+#include <vector>
 #include "ServoController.h"
 #include "DriveConfig.h"
 #include "FlashStorageTypes.h"
@@ -62,8 +63,12 @@ public:
    
 private:
     uint8_t PWMtoMagnetIDX(uint16_t pwm_value);
-    uint32_t idealPulseFromIndex(uint8_t magnet_idx);
+    uint32_t referencePulseFromIndex(uint8_t magnet_idx);
     void finalizeSweepSummary();
+
+    // Calibration fit and analysis helpers
+    void computeCentersAndBacklash(std::vector<float>& ref_angles, std::vector<float>& center_pulses, std::vector<float>& backlash_offsets) const;
+    LinearFitResult fitMeasuredCenters(const std::vector<float>& ref_angles, const std::vector<float>& center_pulses, const std::vector<float>& backlash_offsets) const;
 
     ServoController& servo_;            // Servo interface for getPulseUS and setAngleRaw
     const ServoConfig& servoCFG_;
