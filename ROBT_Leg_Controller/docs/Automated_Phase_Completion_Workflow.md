@@ -40,8 +40,9 @@ This workflow coordinates your end-of-phase documentation review and updates. Ea
 
 ## Step 6: Generate Phase Completion Report
 
-**Action:** Summarize updates, pending actions, and next steps.
-**Review Point:** Copilot presents draft report for your review, suggests additions or edits, and you approve or edit the report.
+**Action:** Summarize updates, pending actions, and next steps. Save the phase completion report by overwriting the previous report file (e.g., `Phase_Completion_Report.md`) so it remains pinned and up-to-date for easy reference.
+
+**Review Point:** Copilot presents the draft report for your review, suggests additions or edits, and you approve or edit the report. The final version is saved over the last report file.
 
 ---
 
