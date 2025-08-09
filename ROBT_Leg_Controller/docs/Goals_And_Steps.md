@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 48% | In Progress: 37% | Not Started: 15%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 50% | In Progress: 38% | Not Started: 12%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
 Complete: 65% | In Progress: 25% | Not Started: 10%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 43% | In Progress: 41% | Not Started: 16%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 46% | In Progress: 41% | Not Started: 13%
 
 ## Task State Legend
 
@@ -45,8 +45,8 @@ Complete: 43% | In Progress: 41% | Not Started: 16%
 - [ ] Implement stepper controller module 🔀
 - [⏳] Integrate servo and stepper motion into custom AT command interface 🔀
 - [x] Replace static LEDC fade time calculation with parameterized slew time
-      - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
-  - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
+  - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
+- [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
 
 ### Command System & Parser Tasks
 
@@ -59,7 +59,7 @@ Complete: 43% | In Progress: 41% | Not Started: 16%
 
 ### Calibration & Storage Tasks
 
-- [⏳] Add flash storage for calibration data, including center pulse time and backlash offset 🔀
+- [⏳] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
 
 ### Safety & Interlocks
 
@@ -124,14 +124,15 @@ Complete: 43% | In Progress: 41% | Not Started: 16%
 
 ### Calibration & Storage
 
-- [ ] Implement flash write and read routines for calibration data 🔀
-  - [ ] NVS based. Use "SweepProfile" 🔀
+- [⏳] Implement flash write and read routines for calibration data 🔀
+  - [x] NVS based. Use "SweepProfile" 🔀
   - [ ] Test boot-time retrieval of calibration data 🔀
   - [x] Move "SweepProfile" to independent "FlashStorageTypes.h"
   - [⏳] Implement SweepProfile transfer flow: 🔀
-    - [⏳] ServoCalibration creates SweepSummary
-    - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter
-    - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash
+    - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
+    - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
+    - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
+- [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
 
 ### Documentation & Testing
 
@@ -147,6 +148,7 @@ Complete: 43% | In Progress: 41% | Not Started: 16%
   - [⏳] OTA documentation
 - [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
 - [⏳] Add diagnostic/test commands for hardware and storage modules 🔀
+- [⏳] Document new calibration fit, residuals, and reporting features
 - [⏳] Integrate servo calibration triggers into custom AT command interface 🔀
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
@@ -155,13 +157,13 @@ Complete: 43% | In Progress: 41% | Not Started: 16%
 ### State Machine & Supervisory Logic
 
 - [x] Prototype SystemState state machine in LegSupervisor
-  - [⏳] Implement Booting state 🔀
+  - [x] Implement Booting state 🔀
   - [x] Implement Home state
   - [x] Implement Parked state
   - [x] Implement Stopped state
   - [x] Implement ProcessMoveCMD state
   - [x] Implement Moving state
-  - [⏳] Implement Calibrating state 🔀
+  - [⏳] Implement Calibrating state (calibration logic complete and ready for integration) 🔀
   - [x] Implement EStop state 🔀
   - [⏳] Implement Maintenance state 🔀
   - [⏳] Implement Updating state 🔀

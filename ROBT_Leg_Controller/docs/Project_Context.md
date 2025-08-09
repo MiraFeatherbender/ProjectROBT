@@ -138,7 +138,10 @@ Last reviewed by Copilot: August 8, 2025
 - Added roadmap entry for universal error code map to support consistent error responses
 - Manual and automated edits validated for patch reliability and documentation integrity
 - Comments and code structure reviewed and cleaned for maintainability
-- Next: Implement calibration state logic, NVS data saving/retrieval, stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
+- Calibration logic refactored and completed: bidirectional center, backlash, linear fit, RMSE, and per-magnet residuals now calculated and stored in SweepSummary
+- Diagnostic and reporting capabilities for calibration accuracy and hardware alignment now scaffolded; residuals and fit results available for future test/report commands
+- Data pipeline for calibration: SweepSummary is created in ServoCalibration, relayed via LegSupervisor, and ready for storage/printing in NVSManager
+- Next: Integrate calibration state logic into LegSupervisor, complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
 - Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
 - Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 
