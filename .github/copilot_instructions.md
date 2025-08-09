@@ -1,41 +1,50 @@
-# Copilot Instructions for ProjectROBT
+# Leg Controller Calibration Pipeline Copilot Instructions
 
-These instructions guide GitHub Copilot's behavior and responses for this project. They reflect the project's coding style, collaboration goals, and documentation standards.
+*For project-wide coding style, review, and documentation standards, see [Leg_Controller_copilot_instructions.md](./Leg_Controller_copilot_instructions.md).*
 
-## Coding Style & Preferences
+## Incremental Development and Testing
 
-- Use modern C++ idioms and strong typing for all code except where Arduino syntax is required (main .ino file).
-- Prefer modular, maintainable code with clear separation of hardware, configuration, and logic.
-- Follow naming conventions: camelCase or snake_case for variables/functions, PascalCase for structs/classes, clear and scoped constants/enums.
-- Maintain consistent indentation, spacing, and grouped/commented sections for clarity.
-- Use inline comments for logic explanation and block comments for section/class/struct descriptions.
-- Prefer switch/case statements over if statements where it improves readability and clarity.
-- When if statements are needed, use zero nesting if possible and minimal nesting otherwise.
-
-## Collaboration & Review
-
-- Focus reviews on modularity, maintainability, and diagnostic/reporting capability.
-- When reviewing documentation, check for onboarding clarity, technical completeness, and actionable troubleshooting tips.
-- Summarize changes in documentation after major code edits or refactors.
-- Prefer concise, actionable feedback and suggestions over lengthy explanations.
-- When reviewing state machine or calibration logic, ensure edge cases and pipeline integration are addressed.
-- When reviewing, always note if a change impacts other modules or requires updates elsewhere in the codebase or docs.
-- Encourage use of branches for major features, refactors, or hardware integration.
-
-## Documentation & Onboarding
-
-- Ensure documentation (README.md, Project_Context.md, Goals_And_Steps.md) is consistent, up-to-date, and cross-referenced.
-- Highlight missing information, unclear instructions, or technical gaps for onboarding and future development.
-- Suggest concrete edits or additions to improve onboarding experience and documentation quality.
-- After major code changes, prompt for documentation updates in Project_Context.md and Goals_And_Steps.md.
-- When onboarding or reviewing, ensure that new features and changes are reflected in the onboarding guide.
-
-## Workflow
-
-- Use prompt files for focused reviews, onboarding checks, and documentation consistency.
-- Reference Project_Context.md for environment, hardware, and coding standards.
-- Reference Goals_And_Steps.md for current priorities and next steps.
+- Use test modules and serial print statements to validate logic and hardware interactions before implementing full methods.
+- Prototype new features or hardware routines with simple, traceable outputs to the serial console.
+- Replace placeholders and test code with robust implementations as each stage of the pipeline is validated.
+- Document test results and observations in code comments or project notes for future reference.
 
 ---
 
-Copilot should periodically prompt to review and update this instructions file for relevance and applicability.
+## Calibration Pipeline Completion Checklist
+
+### Servo Calibration Logic
+
+- Ensure modular calibration routines: sweep, fit, residual calculation.
+- Store calibration results (center pulse, backlash, fit coefficients, residuals) in a summary struct (e.g., `SweepSummary`).
+
+### LegSupervisor Integration
+
+- Relay calibration summary from `ServoCalibration` to `LegSupervisor`.
+- Implement logic to trigger calibration, collect results, and prepare for storage.
+
+### NVSManager Storage
+
+- Implement function to write `SweepSummary` to ESP32 NVS (non-volatile storage).
+- Ensure data is serialized/deserialized correctly for storage and retrieval.
+- Add error handling for NVS write/read operations.
+
+### NVS Retrieval
+
+- Implement function to read calibration data from NVS at boot or on demand.
+- Validate retrieved data and apply to system (e.g., set servo parameters, update state).
+
+### Diagnostic/Reporting
+
+- Add commands or routines to print calibration summary and residuals for diagnostics.
+- Ensure reporting is clear and actionable for hardware alignment and troubleshooting.
+
+### Testing
+
+- Test full pipeline: calibration → summary creation → NVS storage → NVS retrieval → system update.
+- Validate with hardware-in-the-loop and simulated data.
+
+### Documentation
+
+- Update onboarding and context docs to reflect calibration pipeline, NVS storage, and retrieval process.
+- Document commands, error codes, and troubleshooting steps.

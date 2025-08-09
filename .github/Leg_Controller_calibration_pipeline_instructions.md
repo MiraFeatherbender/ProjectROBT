@@ -1,5 +1,6 @@
+# Leg Controller Calibration Pipeline Copilot Instructions
 
-# Leg Controller Calibration Pipeline Instructions
+*For project-wide coding style, review, and documentation standards, see [Leg_Controller_copilot_instructions.md](./Leg_Controller_copilot_instructions.md).*
 
 ## Incremental Development and Testing
 
