@@ -4,16 +4,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 49% | In Progress: 37% | Not Started: 14%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 54% | In Progress: 36% | Not Started: 10%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 57% | In Progress: 26% | Not Started: 17%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 61% | In Progress: 30% | Not Started: 9%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 47% | In Progress: 40% | Not Started: 13%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 52% | In Progress: 38% | Not Started: 10%
 
 ## Task State Legend
 
@@ -51,8 +51,8 @@ Complete: 47% | In Progress: 40% | Not Started: 13%
 
 ### Command System & Parser Goals
 
-- [ ] Automate status review and checklist updates for phase completion workflow
-- [ ] Integrate fallback code block system for manual patching in documentation workflow
+- [⏳] Automate status review and checklist updates for phase completion workflow
+- [x] Integrate fallback code block system for manual patching in documentation workflow
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
 - [x] Define and document a `CommandFactory` for all supported commands 🔀
@@ -134,14 +134,14 @@ Complete: 47% | In Progress: 40% | Not Started: 13%
   - [x] Move "SweepProfile" to independent "FlashStorageTypes.h"
   - [⏳] Implement SweepProfile transfer flow: 🔀
     - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
-    - [⏳] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
+    - [x] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
 
 ### Documentation & Testing Next Steps
 
-- [ ] Expand onboarding documentation to clarify agent-driven review and fallback patch process
-- [ ] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
+- [x] Expand onboarding documentation to clarify agent-driven review and fallback patch process
+- [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [⏳] Document all commands
   - [⏳] MOVE documentation
   - [⏳] SMOOTH_STOP documentation
@@ -168,7 +168,7 @@ Complete: 47% | In Progress: 40% | Not Started: 13%
   - [x] Implement Stopped state
   - [x] Implement ProcessMoveCMD state
   - [x] Implement Moving state
-  - [⏳] Implement Calibrating state (calibration logic complete and ready for integration) 🔀
+  - [x] Implement Calibrating state 🔀
   - [x] Implement EStop state 🔀
   - [⏳] Implement Maintenance state 🔀
   - [⏳] Implement Updating state 🔀

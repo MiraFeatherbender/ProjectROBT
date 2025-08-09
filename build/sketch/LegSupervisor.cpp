@@ -121,8 +121,9 @@ void LegSupervisor::update() {
                         break;
                     case SWEEP_FAIL:
                         context_.respond("+CAL_FAIL");
-                        context_ = CommandSourceContext();
-                        transitionQueue_.erase(transitionQueue_.begin());
+                        currentState_ = SystemState::EStop; // Immediately enter emergency stop
+                        transitionQueue_.clear();            // Remove all pending transitions
+                        context_ = CommandSourceContext();   // Clear context to avoid accidental reuse
                         break;
                     default:
                         servoCal_.run();
