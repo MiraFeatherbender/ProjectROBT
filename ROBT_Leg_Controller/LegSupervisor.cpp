@@ -1,3 +1,9 @@
+// Calibration Pipeline: Troubleshooting Summary
+// - Integrated sweep event handling and summary transfer
+// - Relayed events to ServoCalibration and managed calibration state
+// - Coordinated diagnostics, debugging, and NVSManager integration
+// - Lessons learned documented in code and markdown
+
 #include "LegSupervisor.h"
 #include "ParsedCommand.h"
 #include <cmath>
@@ -11,6 +17,8 @@ LegSupervisor::LegSupervisor(const ServoConfig& ServoCFG)
       parkSteeringAngle_(135.0f) {}
 
 bool LegSupervisor::begin() {
+    hallSensor_.setSupervisor(this);
+    hallSensor_.begin();
     if (!attachLEDC(servo_.getLEDCConfig())) return false;
     return true;
 }
@@ -33,6 +41,10 @@ void LegSupervisor::captureInitialAngle(uint16_t raw_mv) {
 
 bool LegSupervisor::attachLEDC(const LEDCConfig& cfg) {
     return ledcAttach(cfg.pin, cfg.frequency, cfg.resolution_bits);
+}
+
+void LegSupervisor::handleSweepEventFromISR(const SweepEvent& event) {
+    servoCal_.logSweepEvent(event);
 }
 
 // State Machine & Transitions
@@ -111,10 +123,11 @@ void LegSupervisor::update() {
                 switch (servoCal_.getState()) {
                     case SWEEP_IDLE:
                         Serial.println("[Calibrating] State: SWEEP_IDLE - Starting calibration.");
-                        servoCal_.begin();
+                        
                         servoCal_.run();
                         break;
                     case SWEEP_COMPLETE:
+                        servoCal_.run();
                         Serial.println("[Calibrating] State: SWEEP_COMPLETE - Calibration finished successfully.");
                         saveSweepSummary();
                         context_.respond("+CAL_DONE");
@@ -125,14 +138,11 @@ void LegSupervisor::update() {
                         servoCal_.run();
                         Serial.println("[Calibrating] State: SWEEP_FAIL - Calibration failed, entering E_STOP.");
                         context_.respond("+CAL_FAIL");
-                        currentState_ = SystemState::EStop; // Immediately enter emergency stop
+                        currentState_ = SystemState::Stopped; // Immediately enter emergency stop
                         transitionQueue_.clear();            // Remove all pending transitions
                         context_ = CommandSourceContext();   // Clear context to avoid accidental reuse
                         break;
                     default:
-                        // Serial.print("[Calibrating] State: ");
-                        // Serial.print(servoCal_.getState());
-                        // Serial.println(" - Running calibration step.");
                         servoCal_.run();
                         break;
                 }

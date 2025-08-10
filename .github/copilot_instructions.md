@@ -15,6 +15,17 @@
 
 *Reference the group numbers in the Numbered Primary File References by Topic for each subheading below:*
 
+### Hall Sensor ISR Event Pipeline (Groups 1, 2, 3)
+
+- Implement and document the event flow for hall sensor calibration:
+  - HallSensorHandler ISR triggers on state change and debounces events (Group 2)
+  - ISR constructs a SweepEvent and calls LegSupervisor::handleSweepEventFromISR (Group 1)
+  - LegSupervisor forwards the event to ServoCalibration::logSweepEvent for sweep logging and calibration validation (Group 3)
+- Troubleshooting steps:
+  - Confirm ISR is firing and SweepEvents are generated
+  - Validate pattern bits and magnet profile updates in ServoCalibration
+  - Add serial debug output for missed events or calibration failures
+
 ### Servo Calibration Logic (Group 1)
 
 - Ensure modular calibration routines: sweep, fit, residual calculation.

@@ -135,7 +135,13 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // CAL action: no parameters required
             makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 supervisor.setContext(cmd.context);
+                supervisor.startCalibration();
+                float calStart = 0.0f;
+                float slewTime = supervisor.getSafeTiming(calStart);
                 return std::vector<StateTransition>{
+                    // Fourth param 1.0f triggers raw movement for homing
+                    {SystemState::ProcessMoveCmd, {calStart, 0.0f, slewTime, 1.0f}},
+                    {SystemState::Stopped, {}},
                     {SystemState::Calibrating, {}},
                     {SystemState::Stopped, {}}
                 };

@@ -18,6 +18,7 @@ public:
     bool begin();  // Initializes the servo LEDC
     void initADC(ADCConfig& cfg, void (*callback)());
     void captureInitialAngle(uint16_t raw_mv);  // Converts voltage to angle and injects it
+    void handleSweepEventFromISR(const SweepEvent& event);
 
     // State Machine & Transitions
     void update(); // Processes state transitions and acts on hardware
@@ -29,6 +30,9 @@ public:
     void setSteeringAngle(float angle);
     void setRawSteeringAngle(float angle);
     uint32_t getSafeTiming(float prescribedAngle) const; // Returns safe fade/slew time for a prescribed angle
+    uint32_t getServoPulseUS() const { return servo_.getPulseUS(); }
+    void startCalibration() { servoCal_.begin(); }
+
 
     // Command Handling
     void handleParsedCommand(const ParsedCommand& cmd);
@@ -37,6 +41,7 @@ public:
     // State & Priority Accessors
     CommandPriority getCurrentPriority() const { return currentPriority_; }
     SystemState getCurrentState() const { return currentState_; }
+    StateMachine getCalibrationState() const { return servoCal_.getState(); }
 
     // Park Angle Accessors
     float getParkSteeringAngle() const { return parkSteeringAngle_; }

@@ -1,3 +1,10 @@
+// Calibration Pipeline: Troubleshooting Summary
+// - Diagnosed ISR event propagation and sweep event mapping issues
+// - Debugged PWM-to-magnet index logic and summary calculation
+// - Added serial output for pattern bits and sweep arrays
+// - Fixed validation flag assignment and confirmed traceability
+// - Lessons learned documented in code and markdown
+
 #include "ServoCalibration.h" 
 #include <Arduino.h>  // Needed if using micros(), millis(), etc.
 #include <algorithm>
@@ -9,6 +16,7 @@ ServoCalibration::ServoCalibration(ServoController& servo, const ServoConfig& se
 } 
 
 bool ServoCalibration::begin() { 
+    state_=SWEEP_IDLE;
     for (int i = 0; i < ServoConfig::kTotalMagnets; ++i) {
         auto& profile = magnet_profiles_[i];
         profile.angle_deg = static_cast<int8_t>(i * 30 + 45);
@@ -20,20 +28,20 @@ bool ServoCalibration::begin() {
 void ServoCalibration::run() {
     switch (state_) {
         case SWEEP_IDLE:
-            servo_.setAngleRaw(0.0f, 150); // 0°
-            if (servo_.getPulseUS() <= 510) {
+            //servo_.setAngleRaw(0.0f, servo_.calculateFadeTimeMs(0.0f, servo_.getAngle())*2); // 0°
+            //if (servo_.getPulseUS() <= 510) {
                 step_idx = 0;
                 direction = CW;
                 state_ = SWEEP_CW_ACTIVE;
-                servo_.setAngleRaw(270.0f, 3500);
-            }
+                servo_.setAngleRaw(270.0f, servo_.calculateFadeTimeMs(270.0f, servo_.getAngle())*1.5f);
+            //}
             break;
 
         case SWEEP_CW_ACTIVE:
             if (servo_.getPulseUS() >= 2490) {
                 direction = CCW;
                 state_ = SWEEP_CCW_ACTIVE;
-                servo_.setAngleRaw(0.0f, 3500);
+                servo_.setAngleRaw(0.0f, servo_.calculateFadeTimeMs(0.0f, servo_.getAngle())*1.5f);
             }
             break;
 
@@ -47,14 +55,14 @@ void ServoCalibration::run() {
             if (validateSweep()) {
                 state_ = SWEEP_COMPLETE;
             } else {
-                state_ = SWEEP_FAIL;
-                // for (const auto& profile : magnet_profiles_) {
-                //     if (profile.retry_count > 3) { //3 is placeholder
-                //         state_ = SWEEP_FAIL;
-                //         return;
-                //     }
-                // }
-                //state_ = SWEEP_IDLE; // Retry logic resumes
+                //state_ = SWEEP_FAIL;
+                for (const auto& profile : magnet_profiles_) {
+                    if (profile.retry_count > 8) { //8 is placeholder
+                        state_ = SWEEP_FAIL;
+                        return;
+                    }
+                }
+                state_ = SWEEP_IDLE; // Retry logic resumes
             }
             break;
 
@@ -70,21 +78,31 @@ void ServoCalibration::run() {
 }
 
 void ServoCalibration::logSweepEvent(const SweepEvent& event) {
-    uint8_t idx = PWMtoMagnetIDX(event.us_value);
+    if(state_ != SWEEP_CW_ACTIVE && state_ != SWEEP_CCW_ACTIVE) {
+        // Ignore events if not in active sweep states
+        return;
+    }
+    int idx = PWMtoMagnetIDX(event.us_value);
+    if (idx < 0 || idx >= ServoConfig::kTotalMagnets) return; // Ignore out-of-range
+    Serial.println("Current Index: " + String(idx));
     auto& profile = magnet_profiles_[idx];
     uint8_t i = step_idx++ % 4;  // Wrap index for safe array access
 
     // Only overwrite if this direction hasn't already been marked valid
     if (!profile.valid[direction]) {
-        switch (direction) {
-            case CW:
-                profile.cw_sweep[i] = event.us_value; 
+        switch (state_) {
+            case SWEEP_CW_ACTIVE:
+                profile.cw_sweep[i] = event.us_value;
+                Serial.println("CW Sweep: " + String(profile.cw_sweep[i]) + " at index " + String(i));
+                if (i == 0) profile.cw_pattern_bits = 0;
                 profile.cw_pattern_bits <<= 2;
                 profile.cw_pattern_bits |= (event.hall_bits & 0x03);
                 break;
 
-            case CCW:
+            case SWEEP_CCW_ACTIVE:
                 profile.ccw_sweep[i] = event.us_value;
+                Serial.println("CCW Sweep: " + String(profile.ccw_sweep[i]) + " at index " + String(i));
+                if (i == 0) profile.ccw_pattern_bits = 0;
                 profile.ccw_pattern_bits <<= 2;
                 profile.ccw_pattern_bits |= (event.hall_bits & 0x03);
                 break;
@@ -94,28 +112,25 @@ void ServoCalibration::logSweepEvent(const SweepEvent& event) {
     }
 }
 
-uint8_t ServoCalibration::PWMtoMagnetIDX(uint16_t pwm_value){
+int ServoCalibration::PWMtoMagnetIDX(uint16_t pwm_value){
     uint16_t min = servoCFG_.pulse_min_us;
     uint16_t max = servoCFG_.pulse_max_us;
     uint16_t bins = servoCFG_.angle_max_deg / servoCFG_.magnet_spacing_deg;
-    int MagnetIDX = floor((pwm_value - min) * (static_cast<float>(bins) / static_cast<float>(max - min))) - 1;
-    return std::clamp(MagnetIDX, 0, ServoConfig::kTotalMagnets - 1);
+    int MagnetIDX = ((pwm_value - min) * (static_cast<float>(bins) / static_cast<float>(max - min)));
+    return std::clamp(MagnetIDX-1, 0, ServoConfig::kTotalMagnets - 1); // Adjust for 0-based index
 }
 
 bool ServoCalibration::validateSweep() {
     bool all_valid = true;
-    for (size_t i = 0; i < magnet_profiles_.size(); ++i) {
-        auto& profile = magnet_profiles_[i];
+    for (auto& profile : magnet_profiles_) {
         bool cw_ok = (profile.cw_pattern_bits == expected_cw_pattern);
         bool ccw_ok = (profile.ccw_pattern_bits == expected_ccw_pattern);
         profile.valid[CW] = cw_ok;
         profile.valid[CCW] = ccw_ok;
         all_valid &= (cw_ok && ccw_ok);
 
-        // Serial debug output for patterns
-        Serial.print("[ValidateSweep] Magnet ");
-        Serial.print(i);
-        Serial.print(" CW: actual=0x");
+        // Serial debug output for patterns (no magnet number)
+        Serial.print("[ValidateSweep] CW: actual=0x");
         Serial.print(profile.cw_pattern_bits, HEX);
         Serial.print(" expected=0x");
         Serial.print(expected_cw_pattern, HEX);
@@ -124,6 +139,7 @@ bool ServoCalibration::validateSweep() {
         Serial.print(" expected=0x");
         Serial.println(expected_ccw_pattern, HEX);
     }
+    summary_.validated = all_valid;
     return all_valid;
 }
 
@@ -179,6 +195,12 @@ void ServoCalibration::finalizeSweepSummary() {
         summary_.cw_center_us[i] = profile.cw_center_us;
         summary_.ccw_center_us[i] = profile.ccw_center_us;
         summary_.backlash_offset[i] = profile.backlash_offset_us;
+        Serial.println("Magnet " + String(i) + ": CW Center = " + String(profile.cw_center_us) + ", CCW Center = " + String(profile.ccw_center_us) + ", Backlash = " + String(profile.backlash_offset_us));
+        Serial.println("Magnet " + String(i) + ": CW Sweep = " + String(profile.cw_sweep[0]) + ", " + String(profile.cw_sweep[1]) + ", " + String(profile.cw_sweep[2]));
+        Serial.println("Magnet " + String(i) + ": CCW Sweep = " + String(profile.ccw_sweep[0]) + ", " + String(profile.ccw_sweep[1]) + ", " + String(profile.ccw_sweep[2]));
+        Serial.println("Magnet " + String(i) + ": Summary CW Center = " + String(summary_.cw_center_us[i]));
+        Serial.println("Magnet " + String(i) + ": Summary CCW Center = " + String(summary_.ccw_center_us[i]));
+        Serial.println("Magnet " + String(i) + ": Summary Backlash = " + String(summary_.backlash_offset[i]));
 
         // Residual calculation
         float measured_pulse = (profile.cw_center_us + profile.ccw_center_us) / 2;

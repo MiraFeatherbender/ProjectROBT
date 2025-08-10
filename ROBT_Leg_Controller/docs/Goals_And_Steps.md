@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 55% | In Progress: 35% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
+Complete: 62% | In Progress: 29% | Not Started: 9%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 61% | In Progress: 30% | Not Started: 9%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
+Complete: 65% | In Progress: 26% | Not Started: 9%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 53% | In Progress: 36% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 61% | In Progress: 29% | Not Started: 9%
 
 ## Task State Legend
 
@@ -43,7 +43,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
 - [x] Implement hardware-based node addressing via address pins (unified firmware for all legs)
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
 - [⏳] Implement stepper controller module 🔀
-  - [🧩] Integrate servo and stepper motion into custom AT command interface 🔀
+   [🧩] Integrate servo and stepper motion into custom AT command interface 🔀
 - [x] Replace static LEDC fade time calculation with parameterized slew time
   - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
 - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
@@ -61,6 +61,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
 
 ### Calibration & Storage Goals
 
+- [x] Complete servo calibration and verify results
 - [ ] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
 - [⏳] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
 
@@ -93,7 +94,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
   - [x] SMOOTH_STOP command handler
   - [x] PARK command handler
   - [x] HOME command handler
-  - [🧩] E_STOP command handler (blocked: needs stepper module)
+  - [x] E_STOP command handler
   - [x] CAL command handler
   - [🧩] OTA command handler (blocked: needs OTA module)
 - [x] Add slew parameter support to SMOOTH_STOP command 🔀
@@ -127,11 +128,19 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
 
 ### Calibration & Storage
 
+- [x] Troubleshoot and verify calibration pipeline:
+  - [x] Diagnose Hall sensor ISR event propagation
+  - [x] Debug sweep event mapping and PWM-to-magnet index logic
+  - [x] Fix calibration summary calculation and state handling
+  - [x] Add and interpret debug prints for sweep arrays and summary struct
+  - [x] Correct summary validation flag assignment
+  - [x] Confirm event-to-summary traceability
+  - [x] Document troubleshooting steps and lessons learned
 - [⏳] Implement flash write and read routines for calibration data 🔀
   - [x] NVS based. Use "SweepProfile" 🔀
   - [ ] Test boot-time retrieval of calibration data 🔀
   - [x] Move "SweepProfile" to independent "FlashStorageTypes.h"
-  - [⏳] Implement SweepProfile transfer flow: 🔀
+  - [x] Implement SweepProfile transfer flow: 🔀
     - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
     - [x] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
@@ -153,7 +162,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
 - [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
 - [⏳] Add diagnostic/test commands for hardware and storage modules 🔀
 - [⏳] Document new calibration fit, residuals, and reporting features
-- [⏳] Integrate servo calibration triggers into custom AT command interface 🔀
+- [x] Integrate servo calibration triggers into custom AT command interface 🔀
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀

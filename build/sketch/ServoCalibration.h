@@ -63,7 +63,7 @@ public:
     StateMachine getState() const { return state_; }
     
 private:
-    uint8_t PWMtoMagnetIDX(uint16_t pwm_value);
+    int PWMtoMagnetIDX(uint16_t pwm_value);
     uint32_t referencePulseFromIndex(uint8_t magnet_idx);
     void finalizeSweepSummary();
 

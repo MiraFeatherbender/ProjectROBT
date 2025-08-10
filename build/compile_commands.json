@@ -71,89 +71,11 @@
    "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp",
    "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp.o"
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp.o"
   ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp"
- },
- {
-  "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
-  "arguments": [
-   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411/bin/riscv32-esp-elf-g++",
-   "-MMD",
-   "-c",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/cpp_flags",
-   "-w",
-   "-Os",
-   "-Werror=return-type",
-   "-DF_CPU=160000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_NOLOGO_ESP32C3_SUPER_MINI",
-   "-DARDUINO_ARCH_ESP32",
-   "-DARDUINO_BOARD=\"NOLOGO_ESP32C3_SUPER_MINI\"",
-   "-DARDUINO_VARIANT=\"nologo_esp32c3_super_mini\"",
-   "-DARDUINO_PARTITION_default",
-   "-DARDUINO_HOST_OS=\"windows\"",
-   "-DARDUINO_FQBN=\"esp32:esp32:nologo_esp32c3_super_mini:USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none\"",
-   "-DESP32=ESP32",
-   "-DCORE_DEBUG_LEVEL=0",
-   "-DARDUINO_USB_MODE=1",
-   "-DARDUINO_USB_CDC_ON_BOOT=1",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/defines",
-   "-IC:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
-   "-iprefix",
-   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/include/",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/includes",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/qio_qspi/include",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
-   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
-   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp",
-   "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp.o"
-  ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp"
- },
- {
-  "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
-  "arguments": [
-   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411/bin/riscv32-esp-elf-g++",
-   "-MMD",
-   "-c",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/cpp_flags",
-   "-w",
-   "-Os",
-   "-Werror=return-type",
-   "-DF_CPU=160000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_NOLOGO_ESP32C3_SUPER_MINI",
-   "-DARDUINO_ARCH_ESP32",
-   "-DARDUINO_BOARD=\"NOLOGO_ESP32C3_SUPER_MINI\"",
-   "-DARDUINO_VARIANT=\"nologo_esp32c3_super_mini\"",
-   "-DARDUINO_PARTITION_default",
-   "-DARDUINO_HOST_OS=\"windows\"",
-   "-DARDUINO_FQBN=\"esp32:esp32:nologo_esp32c3_super_mini:USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none\"",
-   "-DESP32=ESP32",
-   "-DCORE_DEBUG_LEVEL=0",
-   "-DARDUINO_USB_MODE=1",
-   "-DARDUINO_USB_CDC_ON_BOOT=1",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/defines",
-   "-IC:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
-   "-iprefix",
-   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/include/",
-   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/includes",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/qio_qspi/include",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
-   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
-   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
-   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp",
-   "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp.o"
-  ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp"
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp"
  },
  {
   "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
@@ -227,11 +149,50 @@
    "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp",
    "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp.o"
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp.o"
   ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp"
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp"
+ },
+ {
+  "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
+  "arguments": [
+   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411/bin/riscv32-esp-elf-g++",
+   "-MMD",
+   "-c",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/cpp_flags",
+   "-w",
+   "-Os",
+   "-Werror=return-type",
+   "-DF_CPU=160000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_NOLOGO_ESP32C3_SUPER_MINI",
+   "-DARDUINO_ARCH_ESP32",
+   "-DARDUINO_BOARD=\"NOLOGO_ESP32C3_SUPER_MINI\"",
+   "-DARDUINO_VARIANT=\"nologo_esp32c3_super_mini\"",
+   "-DARDUINO_PARTITION_default",
+   "-DARDUINO_HOST_OS=\"windows\"",
+   "-DARDUINO_FQBN=\"esp32:esp32:nologo_esp32c3_super_mini:USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none\"",
+   "-DESP32=ESP32",
+   "-DCORE_DEBUG_LEVEL=0",
+   "-DARDUINO_USB_MODE=1",
+   "-DARDUINO_USB_CDC_ON_BOOT=1",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/defines",
+   "-IC:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
+   "-iprefix",
+   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/include/",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/includes",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/qio_qspi/include",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
+   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
+   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp",
+   "-o",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp.o"
+  ],
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp"
  },
  {
   "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
@@ -305,11 +266,11 @@
    "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp",
    "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp.o"
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp.o"
   ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp"
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp"
  },
  {
   "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
@@ -344,11 +305,11 @@
    "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
    "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp",
    "-o",
-   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp.o"
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp.o"
   ],
-  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp"
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp"
  },
  {
   "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
@@ -388,5 +349,44 @@
    "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoController.cpp.o"
   ],
   "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoController.cpp"
+ },
+ {
+  "directory": "c:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT",
+  "arguments": [
+   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411/bin/riscv32-esp-elf-g++",
+   "-MMD",
+   "-c",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/cpp_flags",
+   "-w",
+   "-Os",
+   "-Werror=return-type",
+   "-DF_CPU=160000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_NOLOGO_ESP32C3_SUPER_MINI",
+   "-DARDUINO_ARCH_ESP32",
+   "-DARDUINO_BOARD=\"NOLOGO_ESP32C3_SUPER_MINI\"",
+   "-DARDUINO_VARIANT=\"nologo_esp32c3_super_mini\"",
+   "-DARDUINO_PARTITION_default",
+   "-DARDUINO_HOST_OS=\"windows\"",
+   "-DARDUINO_FQBN=\"esp32:esp32:nologo_esp32c3_super_mini:USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none\"",
+   "-DESP32=ESP32",
+   "-DCORE_DEBUG_LEVEL=0",
+   "-DARDUINO_USB_MODE=1",
+   "-DARDUINO_USB_CDC_ON_BOOT=1",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/defines",
+   "-IC:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
+   "-iprefix",
+   "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/include/",
+   "@C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/flags/includes",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3/qio_qspi/include",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
+   "-IC:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
+   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/build_opt.h",
+   "@C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build/file_opts",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp",
+   "-o",
+   "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp.o"
+  ],
+  "file": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp"
  }
 ]

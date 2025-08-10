@@ -4,16 +4,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
-Complete: 55% | In Progress: 35% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 57% | In Progress: 33% | Not Started: 10%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 61% | In Progress: 30% | Not Started: 9%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 64% | In Progress: 27% | Not Started: 9%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 53% | In Progress: 36% | Not Started: 10%
+Complete: 55% | In Progress: 35% | Not Started: 10%
 
 ## Task State Legend
 
@@ -44,7 +44,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
 - [x] Implement hardware-based node addressing via address pins (unified firmware for all legs)
 - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
 - [⏳] Implement stepper controller module 🔀
-  - [🧩] Integrate servo and stepper motion into custom AT command interface 🔀
+   [🧩] Integrate servo and stepper motion into custom AT command interface 🔀
 - [x] Replace static LEDC fade time calculation with parameterized slew time
   - [x] Refactor fade time logic in ServoController to accept direct values from commands, shifting safety responsibility to command logic
 - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
@@ -94,7 +94,7 @@ Complete: 53% | In Progress: 36% | Not Started: 10%
   - [x] SMOOTH_STOP command handler
   - [x] PARK command handler
   - [x] HOME command handler
-  - [🧩] E_STOP command handler (blocked: needs stepper module)
+  - [x] E_STOP command handler
   - [x] CAL command handler
   - [🧩] OTA command handler (blocked: needs OTA module)
 - [x] Add slew parameter support to SMOOTH_STOP command 🔀
