@@ -3,6 +3,7 @@
     "ostream": "cpp",
     "cmath": "cpp"
   },
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
+  "vscord.app.name": "Visual Studio Code"
   //  "C_Cpp.errorSquiggles": "disabled",
 }
