@@ -130,7 +130,7 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 
 ## Recent Changes & Current Focus
 
-Last reviewed by Copilot: August 8, 2025
+Last reviewed by Copilot: August 10, 2025
 
 - Refactored command handler and dispatcher to use CommandFactory with a helper for boilerplate, preserving documentation and streamlining new command creation
 - All custom AT commands (except OTA) are now ready for use; unified +OK response and error handling pattern implemented
@@ -138,18 +138,20 @@ Last reviewed by Copilot: August 8, 2025
 - Added roadmap entry for universal error code map to support consistent error responses
 - Manual and automated edits validated for patch reliability and documentation integrity
 - Comments and code structure reviewed and cleaned for maintainability
-- Calibration logic refactored and completed: bidirectional center, backlash, linear fit, RMSE, and per-magnet residuals now calculated and stored in SweepSummary
-- Diagnostic and reporting capabilities for calibration accuracy and hardware alignment now scaffolded; residuals and fit results available for future test/report commands
+- Calibration pipeline troubleshooting, verification, and documentation completed and merged
+- Calibration state logic fully integrated into LegSupervisor; summary and diagnostics confirmed
+- Progress bars, checklists, and documentation updated to reflect milestone
+- Diagnostic and reporting capabilities for calibration accuracy and hardware alignment now operational
 - Data pipeline for calibration: SweepSummary is created in ServoCalibration, relayed via LegSupervisor, and ready for storage/printing in NVSManager
 - Implemented versatile instruction files for phase-specific guidance and workflow automation
 - Added an automated documentation review workflow to streamline end-of-phase updates, consistency checks, and progress tracking
 - Coordinated Copilot agent actions and VS Code tasks/scripts for hybrid automation (e.g., progress bar updates, checklist management)
 - Began planning for tool sets to support code navigation, diagnostics, and onboarding
 
-- Next: Integrate calibration state logic into LegSupervisor, complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
-- Next: Integrate automated review prompts and workflows for documentation, command reference, and error code updates
-- Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
-- Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
+Next: Complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality
+Next: Integrate automated review prompts and workflows for documentation, command reference, and error code updates
+Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
+Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 
 ---
 
@@ -193,5 +195,6 @@ _Arduino IDE is supported as a secondary method._
 
 - See [Goals_And_Steps.md](Goals_And_Steps.md) for current development priorities
 - See [ESP-NOW_Command_OTA_Migration_Plan.md](ESP-NOW_Command_OTA_Migration_Plan.md) for migration details
+- See [Phase_Completion_Report.md](Phase_Completion_Report.md) for milestone summary and verification details
 
 ---
