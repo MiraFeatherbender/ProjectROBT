@@ -20,7 +20,7 @@ CommandHandler unsupportedHandler = [](const ParsedCommand& cmd, LegSupervisor&)
 
 // Default query handler: returns system state in format "+<command>? <systemstate>"
 CommandHandler defaultQueryHandler = [](const ParsedCommand& cmd, LegSupervisor& supervisor) {
-    String response = "+" + cmd.command + "? " + String(static_cast<int>(supervisor.getCurrentState()));
+    String response = "+" + cmd.command + "? " + SystemStateText.at(supervisor.getCurrentState()).c_str();
     cmd.context.respond(response);
 };
 

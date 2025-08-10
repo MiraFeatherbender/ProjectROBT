@@ -110,21 +110,29 @@ void LegSupervisor::update() {
                 currentState_ = SystemState::Calibrating;
                 switch (servoCal_.getState()) {
                     case SWEEP_IDLE:
+                        Serial.println("[Calibrating] State: SWEEP_IDLE - Starting calibration.");
                         servoCal_.begin();
+                        servoCal_.run();
                         break;
                     case SWEEP_COMPLETE:
+                        Serial.println("[Calibrating] State: SWEEP_COMPLETE - Calibration finished successfully.");
                         saveSweepSummary();
                         context_.respond("+CAL_DONE");
                         context_ = CommandSourceContext(); // Clear context_ to avoid accidental reuse
                         transitionQueue_.erase(transitionQueue_.begin());
                         break;
                     case SWEEP_FAIL:
+                        servoCal_.run();
+                        Serial.println("[Calibrating] State: SWEEP_FAIL - Calibration failed, entering E_STOP.");
                         context_.respond("+CAL_FAIL");
                         currentState_ = SystemState::EStop; // Immediately enter emergency stop
                         transitionQueue_.clear();            // Remove all pending transitions
                         context_ = CommandSourceContext();   // Clear context to avoid accidental reuse
                         break;
                     default:
+                        // Serial.print("[Calibrating] State: ");
+                        // Serial.print(servoCal_.getState());
+                        // Serial.println(" - Running calibration step.");
                         servoCal_.run();
                         break;
                 }

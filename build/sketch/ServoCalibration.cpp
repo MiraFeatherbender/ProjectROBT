@@ -21,12 +21,12 @@ bool ServoCalibration::begin() {
 void ServoCalibration::run() {
     switch (state_) {
         case SWEEP_IDLE:
-            servo_.setAngleRaw(0.0f); // 0°
+            servo_.setAngleRaw(0.0f, 150); // 0°
             if (servo_.getPulseUS() <= 510) {
                 step_idx = 0;
                 direction = CW;
                 state_ = SWEEP_CW_ACTIVE;
-                servo_.setAngleRaw(270.0f);
+                servo_.setAngleRaw(270.0f, 3500);
             }
             break;
 
@@ -34,7 +34,7 @@ void ServoCalibration::run() {
             if (servo_.getPulseUS() >= 2490) {
                 direction = CCW;
                 state_ = SWEEP_CCW_ACTIVE;
-                servo_.setAngleRaw(0.0f);
+                servo_.setAngleRaw(0.0f, 3500);
             }
             break;
 
@@ -48,13 +48,14 @@ void ServoCalibration::run() {
             if (validateSweep()) {
                 state_ = SWEEP_COMPLETE;
             } else {
-                for (const auto& profile : magnet_profiles_) {
-                    if (profile.retry_count > 3) { //3 is placeholder
-                        state_ = SWEEP_FAIL;
-                        return;
-                    }
-                }
-                state_ = SWEEP_IDLE; // Retry logic resumes
+                state_ = SWEEP_FAIL;
+                // for (const auto& profile : magnet_profiles_) {
+                //     if (profile.retry_count > 3) { //3 is placeholder
+                //         state_ = SWEEP_FAIL;
+                //         return;
+                //     }
+                // }
+                //state_ = SWEEP_IDLE; // Retry logic resumes
             }
             break;
 
@@ -104,12 +105,25 @@ uint8_t ServoCalibration::PWMtoMagnetIDX(uint16_t pwm_value){
 
 bool ServoCalibration::validateSweep() {
     bool all_valid = true;
-    for (auto& profile : magnet_profiles_) {
+    for (size_t i = 0; i < magnet_profiles_.size(); ++i) {
+        auto& profile = magnet_profiles_[i];
         bool cw_ok = (profile.cw_pattern_bits == expected_cw_pattern);
         bool ccw_ok = (profile.ccw_pattern_bits == expected_ccw_pattern);
         profile.valid[CW] = cw_ok;
         profile.valid[CCW] = ccw_ok;
         all_valid &= (cw_ok && ccw_ok);
+
+        // Serial debug output for patterns
+        Serial.print("[ValidateSweep] Magnet ");
+        Serial.print(i);
+        Serial.print(" CW: actual=0x");
+        Serial.print(profile.cw_pattern_bits, HEX);
+        Serial.print(" expected=0x");
+        Serial.print(expected_cw_pattern, HEX);
+        Serial.print(" | CCW: actual=0x");
+        Serial.print(profile.ccw_pattern_bits, HEX);
+        Serial.print(" expected=0x");
+        Serial.println(expected_ccw_pattern, HEX);
     }
     return all_valid;
 }
