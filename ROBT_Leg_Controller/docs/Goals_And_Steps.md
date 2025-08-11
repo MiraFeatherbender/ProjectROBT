@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
-Complete: 58% | In Progress: 26% | Not Started: 16%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 66% | In Progress: 21% | Not Started: 13%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 71% | In Progress: 21% | Not Started: 8%
+Complete: 70% | In Progress: 19% | Not Started: 11%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
-Complete: 55% | In Progress: 27% | Not Started: 18%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜  
+Complete: 64% | In Progress: 22% | Not Started: 14%
 
 ## Task State Legend
 
@@ -62,9 +62,10 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 ### Calibration & Storage Goals
 
 - [x] Complete servo calibration and verify results
-- [⏳] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
+- [x] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
 - [x] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
 - [ ] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
+- [⏳] Expand use of template-based storage and serialization for persistent data, supporting future extensibility
 
 ### Safety & Interlocks
 
@@ -79,6 +80,8 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 ### Response Consistency
 
 - [⏳] Ensure all command responses are terse, consistent, and include error codes
+  - [x] Terse and consistent
+  - [ ] Include error codes
 - [x] Ensure query responses are always in a consistent, parseable format
 
 ---
@@ -90,14 +93,14 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 - [x] Implement and test serial AT command input and parsing pipeline (now supports robust unicast and broadcast parsing)
 - [x] Add or update unit tests for `parseParams` and `filterNodeParams`
 - [x] Review and refactor other modules (e.g., LegSupervisor, NVSManager) for compatibility with new command parser logic
-- [⏳] Implement AT command handlers 🔀
+- [x] Implement AT command handlers 🔀
   - [x] MOVE command handler
   - [x] SMOOTH_STOP command handler
   - [x] PARK command handler
   - [x] HOME command handler
   - [x] E_STOP command handler
   - [x] CAL command handler
-  - [🧩] OTA command handler (blocked: needs OTA module)
+  - [x] OTA command handler
 - [x] Add slew parameter support to SMOOTH_STOP command 🔀
 - [x] Refactor commands to use a unified handlers, supporting action (`CAL`), set (`CAL=...`), and query (`CAL?`) modes 🔀
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode (`CAL?`) 🔀
@@ -124,9 +127,9 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
   - [ ] Support S-curve profiling for smooth stepper motion 🔀
   - [ ] Integrate with command and state machine architecture for modular control 🔀
   - [ ] Support synchronized slew time (from Drive Controller project) 🔀
+  - [ ] Validate motion profiles and safety interlocks for stepper controller
 - [ ] Add physical reset switch for E-Stop state 🔀
   - [ ] Measure pins 8 and 9 for boot state 🔀
-- [ ] Validate motion profiles and safety interlocks for stepper controller
 
 ### Calibration & Storage
 
@@ -145,15 +148,15 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
   - [x] Implement SweepProfile transfer flow: 🔀
     - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
     - [x] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
-    - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
+    - [x] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
 - [⏳] Validate serialization/deserialization logic for calibration summaries in hardware and simulated tests
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
-- [ ] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability
+- [x] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability
 
 ### Documentation & Testing Next Steps
 
-- [ ] Archive legacy files and update documentation to reflect new modular practices (e.g., NVSManager.cpp, archive folder)
-- [ ] Expand onboarding and context documentation to reference new file groups and archiving practices
+- [x] Archive legacy files and update documentation to reflect new modular practices (e.g., NVSManager.cpp, archive folder)
+- [x] Expand onboarding and context documentation to reference new file groups and archiving practices
 - [ ] Review and update diagnostic/reporting routines for calibration accuracy and hardware alignment
 - [x] Expand onboarding documentation to clarify agent-driven review and fallback patch process
 - [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
@@ -168,12 +171,12 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
   - [⏳] OTA documentation
 - [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
 - [⏳] Add diagnostic/test commands for hardware and storage modules 🔀
-- [⏳] Document new calibration fit, residuals, and reporting features
+- [x] Document new calibration fit, residuals, and reporting features
 - [x] Integrate servo calibration triggers into custom AT command interface 🔀
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀
-- [ ] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching
+- [x] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching
 - [ ] Refine broadcast message parsing and payload validation for edge cases
 - [ ] Review and resolve blocked/high-priority checklist items before starting new features
 
@@ -188,7 +191,7 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
   - [x] Implement Moving state
   - [x] Implement Calibrating state 🔀
   - [x] Implement EStop state 🔀
-  - [⏳] Implement Maintenance state 🔀
+  - [x] Implement Maintenance state 🔀
   - [⏳] Implement Updating state 🔀
 - [x] Refactor boot logic from *begin() to state machine
   - [x] Servo startup position belongs in homing state

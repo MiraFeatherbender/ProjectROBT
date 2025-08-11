@@ -81,20 +81,23 @@ This document provides a comprehensive reference for the environment, hardware, 
 
 ## Coding Style & Preferences
 
-- **Style:**
-  - Prefer standard C++ style (classes, strong typing, modern idioms) for most of the codebase
-  - Use Arduino syntax only when necessary (e.g., for main entry point or features not easily done in C++)
-- **Naming Conventions:**
-  - Descriptive, camelCase or snake_case for variables and functions
-  - Structs and classes use PascalCase
-  - Constants and enums are clearly named and scoped
-- **Formatting:**
-  - Consistent indentation and spacing
-  - Grouped and commented sections for clarity
-- **Comments:**
-  - Inline comments for logic explanation
-  - Block comments for section headers and struct/class descriptions
-  - Comments are clear, concise, and technical
+**Style:**
+
+- Prefer standard C++ style (classes, strong typing, modern idioms) for most of the codebase
+- Use Arduino syntax only when necessary (e.g., for main entry point or features not easily done in C++)
+- Prefer switch/case statements over if-else chains for state management
+- Use minimal or zero nesting in if statements; favor early returns and guard clauses to reduce complexity
+**Naming Conventions:**
+- Descriptive, camelCase or snake_case for variables and functions
+- Structs and classes use PascalCase
+- Constants and enums are clearly named and scoped
+**Formatting:**
+- Consistent indentation and spacing
+- Grouped and commented sections for clarity
+**Comments:**
+- Inline comments for logic explanation
+- Block comments for section headers and struct/class descriptions
+- Comments are clear, concise, and technical
 
 ---
 
@@ -142,20 +145,21 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 
 ## Recent Changes & Current Focus
 
-Last reviewed by Copilot: August 10, 2025
+Last reviewed by Copilot: August 11, 2025
 
-- Refactored command handler and dispatcher to use CommandFactory with a helper for boilerplate, preserving documentation and streamlining new command creation
+- Major refactor: Calibration pipeline and persistent storage now use expanded template-based methods in NVSManager for modular, type-safe storage and retrieval
+- Modular serialization/deserialization for calibration summaries implemented in `FlashStorageTypes.cpp`
+- File group system adopted for targeted review, troubleshooting, and automation
+- Command handler and dispatcher refactored to use CommandFactory with boilerplate helper, streamlining new command creation
 - All custom AT commands (except OTA) are now ready for use; unified +OK response and error handling pattern implemented
 - Documentation and progress tracking updated for automation compatibility and clarity
-- Added roadmap entry for universal error code map to support consistent error responses
+- Roadmap entry added for universal error code map to support consistent error responses
 - Manual and automated edits validated for patch reliability and documentation integrity
 - Comments and code structure reviewed and cleaned for maintainability
 - NVSManager.cpp archived; all NVS operations now use header-only, template-based methods in NVSManager.h
-- Added `FlashStorageTypes.cpp` for modular serialization/deserialization of calibration summaries
 - Expanded file group mapping and onboarding documentation to reference new archive and modular storage practices
 
-Next: Complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality and OTA handler
-Next: Integrate automated review prompts and workflows for documentation, command reference, and error code updates
+Current focus: Complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality and OTA handler. Integrate automated review prompts and workflows for documentation, command reference, and error code updates.
 Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
 Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
 
@@ -195,7 +199,13 @@ _Arduino IDE is supported as a secondary method._
 | AT+NODE?        |                            | Query node assignment              | +NODE? ... / +ERR       |
 | AT+OTA          |                            | Begin OTA update                   | +OK / +ERR              |
 
----
+### Error Code Reference (Template)
+
+| Error Code         | Description (Plain Text)         |
+|--------------------|----------------------------------|
+| `+ERR:<code>`      | error description                |
+
+_Add error codes and descriptions here as new codes are implemented._
 
 ## Migration & Goals Reference
 
