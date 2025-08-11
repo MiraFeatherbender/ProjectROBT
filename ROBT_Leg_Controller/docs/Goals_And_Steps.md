@@ -64,7 +64,7 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 - [x] Complete servo calibration and verify results
 - [⏳] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
 - [x] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
-- [ ] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks 
+- [ ] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
 
 ### Safety & Interlocks
 
@@ -126,7 +126,7 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
   - [ ] Support synchronized slew time (from Drive Controller project) 🔀
 - [ ] Add physical reset switch for E-Stop state 🔀
   - [ ] Measure pins 8 and 9 for boot state 🔀
-- [ ] Validate motion profiles and safety interlocks for stepper controller   <!-- NEW -->
+- [ ] Validate motion profiles and safety interlocks for stepper controller
 
 ### Calibration & Storage
 
@@ -148,7 +148,7 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
 - [⏳] Validate serialization/deserialization logic for calibration summaries in hardware and simulated tests
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
-- [ ] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability   <!-- NEW -->
+- [ ] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability
 
 ### Documentation & Testing Next Steps
 
@@ -173,9 +173,9 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀
-- [ ] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching   <!-- NEW -->
-- [ ] Refine broadcast message parsing and payload validation for edge cases   <!-- NEW -->
-- [ ] Review and resolve blocked/high-priority checklist items before starting new features   <!-- NEW -->
+- [ ] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching
+- [ ] Refine broadcast message parsing and payload validation for edge cases
+- [ ] Review and resolve blocked/high-priority checklist items before starting new features
 
 ### State Machine & Supervisory Logic Next Steps
 
@@ -196,4 +196,4 @@ Complete: 55% | In Progress: 27% | Not Started: 18%
 
 ### State Machine & Supervisory Goals
 
-- [ ] Document and test error handling and state transitions for maintenance/updating states, with unit test coverage   <!-- NEW -->
+- [ ] Document and test error handling and state transitions for maintenance/updating states, with unit test coverage

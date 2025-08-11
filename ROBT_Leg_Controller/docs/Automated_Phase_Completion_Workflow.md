@@ -14,10 +14,11 @@ This workflow coordinates your end-of-phase documentation review and updates. Ea
 ## Step 2: Scan Documentation for TODOs, Outdated, or Stale Sections
 
 **Action:** Compare changed files against documentation, goals, and steps. Flag any checklist items, goals, or project context sections that do not reflect recent changes, even if not explicitly marked as TODO/FIXME. Ensure the following documents are kept up to date:
-	- `Goals_And_Steps.md` (goals, next steps, and progress tracking)
-	- `Project_Context.md` (onboarding and project context)
-	- `README.md` (file overview, features, and usage)
-	- Update documentation file references, file group listings, and onboarding instructions to reflect new, archived, or changed files and milestone-based archiving.
+
+- `Goals_And_Steps.md` (goals, next steps, and progress tracking)
+- `Project_Context.md` (onboarding and project context)
+- `README.md` (file overview, features, and usage)
+- Update documentation file references, file group listings, and onboarding instructions to reflect new, archived, or changed files and milestone-based archiving.
 Present suggestions for updates, additions, or removals.
 
 **Review Point:** Copilot presents results for your review and suggests updates or edits as needed. You confirm if any flagged items need updates, and specify which files require changes.
