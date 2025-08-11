@@ -1,63 +1,76 @@
-# Migration Plan: Bringing Custom Commands, ESP-NOW, and OTA Updates to ROBT_Leg_Controller
+# ESP-NOW & OTA Migration Plan for Leg Controller
 
-## Overview
-This document outlines the steps and considerations for migrating the custom command interface, ESP-NOW communication, and OTA update functionality from the anchor node codebase to the leg controller codebase. The goal is to maintain architectural consistency while adapting features to the leg controller's unique requirements.
+## 1. Network Architecture & Roles
 
----
+- **Drive Coordinator (Parent):** Manages ESP-NOW network, acts as the central node for Leg Controllers.
+- **Leg Controller (Child):** Modular firmware, accepts commands from any source (serial, ESP-NOW, future protocols) via unified command parsing.
 
-## 1. Custom Command Interface
-- **Files to Adapt:**
-  - ~~`CustomCommandClasses.cpp/h`~~
-  - ~~`CustomCommandFactory.cpp/h`~~
-- **Actions:**
-  - ~~Copy the command base class and factory pattern.~~
-  - ~~Remove anchor-specific commands; implement leg-controller-specific commands (e.g., servo calibration, diagnostics).~~
-  - ~~Register new commands in the factory.~~
+## 2. Migration Steps
 
-**See also:** ~~[AT-Command_Migration_Plan.md](AT-Command_Migration_Plan.md) for a detailed step-by-step plan to migrate the serial AT command input and processing system.~~
+### 2.1. ESP-NOW Integration
 
-## 2. ESP-NOW Communication
-- **Files to Adapt:**
-  - `EspNowHandler.cpp/h`
-  - `ExternDefinitions.h` (as needed)
-  - `Utils.cpp/h` (as needed)
-- **Actions:**
-  - Copy ESP-NOW handler and initialization logic.
-  - Adjust peer management and message parsing for the leg controller's role.
-  - Update callbacks and payload handling for new commands.
-  - Ensure use of updated ESP-NOW callback signatures.
+#### a. Module Adaptation
 
-## 3. OTA Updater
-- **Files to Adapt:**
-  - `OTAUpdater.cpp/h`
-- **Actions:**
-  - Copy OTA updater module.
-  - Integrate into the main `.ino` file and state machine.
+- Migrate/adapt `EspNowHandler.cpp/h` from Anchor Nodes.
+- Refactor for Leg Controller’s modular architecture. Do not route ESP-NOW directly to the state machine.
 
-## 4. Integration Points
-- **Files to Adapt:**
-  - `ROBT_Leg_Controller.ino`
-  - `StateMachine.cpp/h` (if present)
-  - `ExternDefinitions.h`
-- **Actions:**
-  - Initialize ESP-NOW, OTA, and command factory in setup.
-  - Route received ESP-NOW and serial commands to the command factory.
-  - Ensure the state machine can handle new command results and OTA events.
+#### b. Initialization
 
-## 5. Testing & Debugging
-- Add serial and ESP-NOW debug output for new commands and features.
-- Test command execution and OTA updates in isolation before full integration.
+- Initialize ESP-NOW in `LegSupervisor`.
+- Set up peer management: add Drive Coordinator as parent, optionally other Leg Controllers as peers.
 
-## 6. Summary Table
-| Feature         | Files to Adapt/Copy                | What to Change for Leg Controller                |
-|-----------------|-----------------------------------|--------------------------------------------------|
-| Custom Commands | CustomCommandClasses.* / Factory.* | Implement new commands, update factory           |
-| ESP-NOW         | EspNowHandler.*, Utils.*, Extern*  | Adjust peer roles, message parsing, callbacks    |
-| OTA Updater     | OTAUpdater.*                      | Minimal changes, just integrate                  |
-| Integration     | .ino, StateMachine.*, Extern*      | Initialize modules, route commands, handle state |
+#### c. Message Handling
 
----
+- On ESP-NOW message receipt, `EspNowHandler` should construct a `CommandSourceContext` with `source = esp_now_` and broadcast/unicast info.
+- Pass the received command and context directly to `CommandParser` for unified parsing and dispatch.
+- `CommandParser` uses the context to differentiate source and handle broadcast/unicast payloads appropriately.
 
-## Notes
-- Do not begin migration until core interfaces (LegSupervisor, NVSManager, ServoCalibration) are stable.
-- Use this plan as a living document; update as needed during migration.
+#### d. Testing
+
+- Validate that commands received via ESP-NOW are parsed and dispatched identically to serial commands.
+- Use diagnostic output to confirm source-agnostic command handling.
+
+### 2.2. OTA Integration
+
+#### a. Module Adaptation
+
+- Migrate/adapt `OTAUpdater.cpp/h` from Anchor Nodes.
+- Integrate with `LegSupervisor` for event-driven updates.
+
+#### b. Event Routing
+
+- Route OTA events through `LegSupervisor`, not directly to the state machine.
+- Ensure OTA status and errors are reported via diagnostics.
+
+#### c. Testing
+
+- Simulate OTA update events and validate firmware update flow.
+- Confirm that OTA can be triggered and monitored via both serial and ESP-NOW commands.
+
+## 3. Command System Integration
+
+- Ensure `CommandFactory` and `CommandParser` are source-agnostic.
+- All command sources (serial, ESP-NOW) should use the same parsing and dispatch pipeline.
+- Update documentation to reflect unified command handling.
+
+## 4. Hierarchical Plan Breakdown
+
+1. **Prepare Leg Controller for ESP-NOW:**
+   - Refactor `EspNowHandler` for modular integration.
+   - Add Drive Coordinator as parent peer.
+
+2. **Integrate ESP-NOW with Command Pipeline:**
+   - Route ESP-NOW payloads to `CommandParser` for unified parsing.
+   - Validate command execution from both sources.
+
+3. **Integrate OTAUpdater:**
+   - Refactor for event-driven updates via `LegSupervisor`.
+   - Ensure OTA can be triggered by any command source.
+
+4. **Testing & Validation:**
+   - Test command handling and OTA updates from both serial and ESP-NOW.
+   - Use diagnostics to confirm correct routing and execution.
+
+5. **Documentation & Maintenance:**
+   - Update migration plan and code comments to reflect new architecture.
+   - Periodically review integration after major changes.

@@ -9,12 +9,14 @@
 - Onboarding/context: `docs/Project_Context.md`
 - Goals/checklists: `docs/Goals_And_Steps.md`
 - Workflow automation: `docs/Automated_Phase_Completion_Workflow.md`
+- Migration/network integration: `docs/ESP-NOW_Command_OTA_Migration_Plan.md`
 
 ## Integration & Automation
 - Build firmware: VS Code Arduino extension, Arduino CLI (`.vscode/tasks.json`)
 - Diff/review: "Diff Against Main" VS Code task
 - Progress bars: `docs/update_progress.py` (run via VS Code task)
 - Phase completion: Follow steps in `docs/Automated_Phase_Completion_Workflow.md`
+- Migration/network integration: Reference `docs/ESP-NOW_Command_OTA_Migration_Plan.md` for ESP-NOW and OTA migration steps, network hierarchy, and integration details.
 
 *For project-wide coding style, review, and documentation standards, see [Leg_Controller_copilot_instructions.md](./Leg_Controller_copilot_instructions.md).*
 

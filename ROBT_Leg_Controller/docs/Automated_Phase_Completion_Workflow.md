@@ -18,6 +18,7 @@ This workflow coordinates your end-of-phase documentation review and updates. Ea
 - `Goals_And_Steps.md` (goals, next steps, and progress tracking)
 - `Project_Context.md` (onboarding and project context)
 - `README.md` (file overview, features, and usage)
+- `ESP-NOW_Command_OTA_Migration_Plan.md` (migration, network hierarchy, and integration)
 - Update documentation file references, file group listings, and onboarding instructions to reflect new, archived, or changed files and milestone-based archiving.
 Present suggestions for updates, additions, or removals.
 
