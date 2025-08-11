@@ -1,25 +1,24 @@
+# Calibration Pipeline Completion Report
 
-# Phase Completion Report
-
-**Phase:** Modular Calibration & Storage Pipeline Completion
 **Date:** August 10, 2025
 
 ## Summary of Updates
 
-- Finalized modular calibration and storage pipeline for ESP32 Leg Controller
-- Refactored NVSManager to header-only, template-based operation; legacy file archived
-- Added and documented extensible summary types and modular serialization/deserialization in FlashStorageTypes.cpp/h
-- Updated file group mapping and onboarding documentation for traceability and automation
-- Archived legacy files and expanded documentation to reflect new practices
-- Progress bars and checklists updated to reflect milestone
-- Diagnostic and reporting routines for calibration accuracy and hardware alignment improved
-- All command documentation and workflow steps reviewed and confirmed up to date
+- Calibration pipeline phase completed and merged:
+  - Troubleshooting, verification, and documentation finalized for calibration routines
+  - Key fixes and lessons learned summarized in code and markdown
+  - Serial diagnostics and validation logic confirmed
+  - Checklist and progress bars updated to reflect milestone
+- Progress bars and stats have been updated to reflect current project status
+- Goals and next steps have been reviewed, clarified, and reorganized for consistency
+- Obsolete commands (`SERVO_CAL`, `VERIFY_NVS`) have been transitioned to `CAL`/`CAL?` and checklist entries updated
+- Command documentation has been reviewed and confirmed to match the codebase; no discrepancies found
+- Section headers have been differentiated for clarity (Goals/Next Steps)
+- All active commands and workflow steps are documented and up to date
 
 ## Pending Actions
 
 - Continue work on blocked and in-progress checklist items (e.g., stepper controller integration, calibration storage routines)
-- Validate serialization/deserialization logic for calibration summaries in hardware and simulated tests
-- Review and update diagnostic/reporting routines for calibration accuracy and hardware alignment
 - Address any remaining documentation or onboarding improvements
 - Monitor for new commands or features that require documentation updates
 - Periodically review and update progress bars and checklists as work advances

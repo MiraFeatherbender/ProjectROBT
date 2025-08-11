@@ -3,16 +3,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
-Complete: 62% | In Progress: 29% | Not Started: 9%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 57% | In Progress: 27% | Not Started: 16%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜  
-Complete: 65% | In Progress: 26% | Not Started: 9%
+Complete: 67% | In Progress: 25% | Not Started: 8%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 61% | In Progress: 29% | Not Started: 9%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
+Complete: 55% | In Progress: 27% | Not Started: 18%
 
 ## Task State Legend
 
@@ -62,8 +62,9 @@ Complete: 61% | In Progress: 29% | Not Started: 9%
 ### Calibration & Storage Goals
 
 - [x] Complete servo calibration and verify results
-- [ ] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
-- [⏳] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
+- [⏳] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
+- [x] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
+- [ ] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks 
 
 ### Safety & Interlocks
 
@@ -125,6 +126,7 @@ Complete: 61% | In Progress: 29% | Not Started: 9%
   - [ ] Support synchronized slew time (from Drive Controller project) 🔀
 - [ ] Add physical reset switch for E-Stop state 🔀
   - [ ] Measure pins 8 and 9 for boot state 🔀
+- [ ] Validate motion profiles and safety interlocks for stepper controller   <!-- NEW -->
 
 ### Calibration & Storage
 
@@ -144,10 +146,15 @@ Complete: 61% | In Progress: 29% | Not Started: 9%
     - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
     - [x] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
+- [⏳] Validate serialization/deserialization logic for calibration summaries in hardware and simulated tests
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
+- [ ] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability   <!-- NEW -->
 
 ### Documentation & Testing Next Steps
 
+- [ ] Archive legacy files and update documentation to reflect new modular practices (e.g., NVSManager.cpp, archive folder)
+- [ ] Expand onboarding and context documentation to reference new file groups and archiving practices
+- [ ] Review and update diagnostic/reporting routines for calibration accuracy and hardware alignment
 - [x] Expand onboarding documentation to clarify agent-driven review and fallback patch process
 - [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [⏳] Document all commands
@@ -166,6 +173,9 @@ Complete: 61% | In Progress: 29% | Not Started: 9%
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀
+- [ ] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching   <!-- NEW -->
+- [ ] Refine broadcast message parsing and payload validation for edge cases   <!-- NEW -->
+- [ ] Review and resolve blocked/high-priority checklist items before starting new features   <!-- NEW -->
 
 ### State Machine & Supervisory Logic Next Steps
 
@@ -183,3 +193,7 @@ Complete: 61% | In Progress: 29% | Not Started: 9%
 - [x] Refactor boot logic from *begin() to state machine
   - [x] Servo startup position belongs in homing state
 - [x] Implement HOME command for external use and internal self injection
+
+### State Machine & Supervisory Goals
+
+- [ ] Document and test error handling and state transitions for maintenance/updating states, with unit test coverage   <!-- NEW -->
