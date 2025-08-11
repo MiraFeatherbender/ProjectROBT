@@ -9,7 +9,7 @@
 
 ### 2.1. ESP-NOW Integration
 
-#### a. Module Adaptation
+#### a. ESP-NOW Module Adaptation
 
 - Migrate/adapt `EspNowHandler.cpp/h` from Anchor Nodes.
 - Refactor for Leg Controller’s modular architecture. Do not route ESP-NOW directly to the state machine.
@@ -32,7 +32,7 @@
 
 ### 2.2. OTA Integration
 
-#### a. Module Adaptation
+#### a. OTA Module Adaptation
 
 - Migrate/adapt `OTAUpdater.cpp/h` from Anchor Nodes.
 - Integrate with `LegSupervisor` for event-driven updates.
