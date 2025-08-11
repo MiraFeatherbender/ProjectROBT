@@ -4,15 +4,15 @@ This workflow coordinates your end-of-phase documentation review and updates. Ea
 
 ---
 
-## Step 1: Scan Documentation for TODOs and Outdated Sections
+## Step 1: Review File Changes Since Last Phase
 
-**Action:** Automatically search key docs (e.g., `Goals_And_Steps.md`, `Project_Context.md`, and other phase-relevant markdown files) for TODO, FIXME, or outdated comments.
+**Action:** List all files and modules changed since the previous phase completion. Summarize main updates and refactors. Use this change list to inform targeted review of documentation and checklists.  
+**Review Point:** Copilot presents the change summary for your review and confirmation. You may specify files or modules for deeper review.
+
+## Step 2: Scan Documentation for TODOs, Outdated, or Stale Sections
+
+**Action:** Compare changed files against documentation, goals, and steps. Flag any checklist items, goals, or project context sections that do not reflect recent changes, even if not explicitly marked as TODO/FIXME. Present suggestions for updates, additions, or removals.  
 **Review Point:** Copilot presents results for your review and suggests updates or edits as needed. You confirm if any flagged items need updates, and specify which files require changes.
-
-## Step 2: Summarize Recent Changes
-
-**Action:** List files/modules changed since last phase and summarize main updates.
-**Review Point:** Copilot presents summary for your review, suggests additions or edits, and you can edit or expand the summary.
 
 ## Step 3: Review and Expand Goals and Steps (Goals_And_Steps.md)
 
@@ -26,22 +26,31 @@ This workflow coordinates your end-of-phase documentation review and updates. Ea
 - **Action:** Based on recent workflow and project context, suggest new checklist entries for `Goals_And_Steps.md` that reflect work done or new priorities not yet listed as goals or steps.
 - **Review Point:** Copilot presents suggested new entries for your approval or edits. You decide which to add to the checklist.
 
-*Note: This step is specific to the review and expansion of `Goals_And_Steps.md` and ensures both status updates and new entries are handled distinctly before moving to subsequent workflow steps.*
+*Note: This step is specific to the review and expansion of `Goals_And_Steps.md` and ensures both status updates and new entries are handled distinctly before moving to subsequent workflow steps. Do not remove or archive obsolete items; this file is a historical record.*
 
-## Step 4: Check Command Documentation
+## Step 4: Review and Update Project Context
 
-**Action:** Compare command reference with codebase for new/changed commands. If discrepancies are found (e.g., commands present in code but not docs, or obsolete commands in docs), Copilot suggests additions, removals, or archival.
+**Action:** Ensure project context, onboarding, and environment documentation reflect the latest architecture, refactors, and milestones.  
+**Review Point:** Copilot presents suggested updates for your review and confirmation.
+
+## Step 5: Check Command Documentation
+
+**Action:** Compare command reference with codebase for new/changed commands. If discrepancies are found (e.g., commands present in code but not docs, or obsolete commands in docs), Copilot suggests additions, removals, or archival.  
 **Review Point:** Copilot presents discrepancies and suggestions for your review and update. You confirm, edit, or archive command documentation as needed.
 
-## Step 5: Run Progress Bar Update Script
+## Step 6: Run Progress Bar Update Script
 
-**Action:** Trigger VS Code task/script to update progress bars in documentation.
+**Action:** Trigger VS Code task/script to update progress bars in documentation.  
 **Review Point:** Copilot confirms completion and suggests corrections if needed. You verify progress bars are correct.
 
-## Step 6: Generate Phase Completion Report
+## Step 7: Archive Previous Phase Completion Report
 
-**Action:** Summarize updates, pending actions, and next steps. Save the phase completion report by overwriting the previous report file (e.g., `Phase_Completion_Report.md`) so it remains pinned and up-to-date for easy reference.
+**Action:** Before generating a new phase completion report, copy the existing `Phase_Completion_Report.md` to the archive folder. Name the archived file to concisely reflect the completed phase (e.g., `Cal_Phase_Completion_Report.md` for calibration phase completion).  
+**Review Point:** Copilot confirms the archive step is complete before proceeding to the next step.
 
+## Step 8: Generate New Phase Completion Report Using Template
+
+**Action:** Use the structure, headers, and subheaders of the previous `Phase_Completion_Report.md` as a template for the new report. Populate the new report with updated content for the current phase. Present the draft for your review and confirmation. Once confirmed, save the new report as `Phase_Completion_Report.md`.  
 **Review Point:** Copilot presents the draft report for your review, suggests additions or edits, and you approve or edit the report. The final version is saved over the last report file.
 
 ---

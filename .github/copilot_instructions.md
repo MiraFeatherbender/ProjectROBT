@@ -64,7 +64,7 @@ Use these reference numbers to map checklist headings and discussion topics to t
 #### 1. Calibration Pipeline
 
 - `ServoCalibration.cpp` / `ServoCalibration.h` – Calibration logic, state machine, summary creation
-- `FlashStorageTypes.h` – Calibration data structs, fit results, residuals
+- `FlashStorageTypes.h` / `FlashStorageTypes.cpp` – Calibration data structs, fit results, residuals, extensible summary types with static namespace strings
 
 #### 2. State Machine & Supervisory Logic
 
@@ -79,7 +79,10 @@ Use these reference numbers to map checklist headings and discussion topics to t
 
 #### 4. Persistent Storage (NVS)
 
-- `NVSManager.cpp` / `NVSManager.h` – Calibration data storage/retrieval
+- `FlashStorageTypes.h` / `FlashStorageTypes.cpp` – Serialization/deserialization and modular summary support for calibration and future expanded use
+- `NVSManager.h` – Header-only, template methods for preview, storage, and retrieval of any summary type using its namespace
+- `archive/NVSManager.cpp` – Archived, with comments explaining its deprecation
+- `archive/` – Folder for historical files
 
 Reference these numbers in checklists or conversation (e.g., "Focus on group 1 for calibration changes") for targeted analysis and automation.
 
