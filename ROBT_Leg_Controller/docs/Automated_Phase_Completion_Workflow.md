@@ -59,9 +59,14 @@ Present suggestions for updates, additions, or removals.
 **Action:** Before generating a new phase completion report, copy the existing `Phase_Completion_Report.md` to the archive folder. Name the archived file to concisely reflect the topic or milestone of the completed phase (e.g., `Calibration_Pipeline_Completion_Report.md` for calibration pipeline completion, not by date). Confirm archived reports are named by milestone/topic and referenced in onboarding/documentation.
 **Review Point:** Copilot confirms the archive step is complete before proceeding to the next step. If automation fails, Copilot will present fallback code blocks for manual action.
 
-## Step 9: Generate New Phase Completion Report Using Template
+## Step 9: Finalize Phase Title and Summary
 
-**Action:** Use the structure, headers, and subheaders of the previous `Phase_Completion_Report.md` as a template for the new report. Populate the new report with updated content for the current phase, including a summary of changes to goals, steps, file structure, and documentation practices. Present the draft for your review and confirmation. Once confirmed, save the new report as `Phase_Completion_Report.md`.
+**Action:** Review all changes, documentation, and decisions from Steps 1–8. Copilot and user collaborate to phrase a concise, context-rich title and summary for the phase being completed. The finalized title should be adapted for use as the archive file name in the next workflow, ensuring clear and consistent milestone/topic-based archiving. This ensures the completion report and its archive accurately reflect the scope and accomplishments of the phase.
+**Review Point:** Copilot presents candidate phase titles and summary phrasing for your review and edits. You confirm or refine the title and summary, and approve the archive file name format before proceeding.
+
+## Step 10: Generate New Phase Completion Report Using Template
+
+**Action:** Use the finalized phase title and summary, along with the structure, headers, and subheaders of the previous `Phase_Completion_Report.md`, to generate the new report. Populate the new report with updated content for the current phase, including a summary of changes to goals, steps, file structure, and documentation practices. Present the draft for your review and confirmation. Once confirmed, save the new report as `Phase_Completion_Report.md`.
 **Review Point:** Copilot presents the draft report for your review, suggests additions or edits, and you approve or edit the report. The final version is saved over the last report file. If automation fails, Copilot will present fallback code blocks for manual action.
 
 ---

@@ -75,12 +75,6 @@
           "executable": "powershell.exe"
         }
       }
-    },
-    {
-      "label": "Run Phase Completion Workflow",
-      "type": "shell",
-    "command": "code \"${workspaceFolder}\\ROBT_Leg_Controller\\docs\\Phase_Completion_Workflow_Prompt.md\"",
-      "group": "none"
     }
   ]
 }

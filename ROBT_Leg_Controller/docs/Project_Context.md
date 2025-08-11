@@ -2,12 +2,11 @@
 
 Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits. Key context:
 
-- Main entry: `ROBT_Leg_Controller.ino` (Arduino sketch)
-- All hardware, config, and logic are separated into .cpp/.h modules
-- AT command interface is documented below; see Command Reference
-- Node addressing, calibration, and state machine logic are central to operation
-- See 'Recent Changes & Current Focus' for what’s actively being developed
-- If you need more context, check linked migration and goals docs
+- Start with the "Project Context Reference" and "Development Environment" sections below.
+- Follow the README "Getting Started" steps for environment setup.
+- Review "Goals & Next Steps" for current priorities and roadmap.
+- Use the "Troubleshooting" and "Known Issues" sections for common problems.
+- All major modules and workflows are documented in the `docs` folder.
 
 ## Project Context Reference
 
@@ -33,9 +32,39 @@ This document provides a comprehensive reference for the environment, hardware, 
   - 1x 30kg servo
   - 1x NEMA23 stepper motor with driver
   - 1x custom dual edge detection hall sensor circuit (for servo direction calibration)
+
+## Usage Overview
+
+- Follow the steps in the README "Getting Started" section for initial setup.
+- On boot, the firmware samples the servo potentiometer via ADC, calibrates using hall sensor feedback, and sets node address from digital pins.
+- Use the Serial Monitor for debugging and status messages.
+- For hardware setup, refer to "Hardware Overview" and "Pin Assignments" above.
+- For troubleshooting, see "Known Issues" and "Troubleshooting" below.
+  - LED indicators (for diagnostics and hardware-in-the-loop testing)
 - **Pin Assignments:** Defined in DriveConfig.h and README.md
 - **Node Addressing:** Node address is set via three digital input pins (see DriveConfig.h and ROBT_Leg_Controller.ino), read at startup and used to set the node number in CommandParser.
 - **ADC Usage:** ADC is used for servo potentiometer at boot, then deinitialized; address selection uses digital pins only.
+
+---
+
+## Calibration Pipeline
+
+- Via AT+CAL command the system sweeps the servo and uses hall sensor feedback to detect magnet positions.
+- Calibration logic is modular, with results stored in a summary struct and saved to NVS using NVSManager.h.
+- Automatic backlash compensation is applied based on calibration results.
+- For implementation details, see `ServoCalibration.cpp/h`, `FlashStorageTypes.h/cpp`, `NVSManager.h`, and `LegSupervisor.cpp/h`.
+- Troubleshooting: If calibration does not complete, check hall sensor wiring, magnet placement, and review serial output for missed events or storage errors.
+
+---
+
+## AT Command System
+
+- All AT commands are registered and dispatched using the modular `CommandFactory`, `CommandParser`, and `CommandDispatcher` system.
+- Commands support unified response patterns: `+OK` for success, `+ERR:<code>` for errors.
+- For a full list of commands, parameters, and responses, see the README "AT Command Reference" section.
+- Error codes are documented below and updated as new codes are added.
+- For onboarding, usage, and troubleshooting, refer to the relevant sections above.
+- Planned/experimental commands (e.g., stepper control, OTA) are listed as appropriate.
 
 ---
 
@@ -143,7 +172,7 @@ Refer to this checklist when adding new features or refactoring code to avoid co
 
 ---
 
-## Recent Changes & Current Focus
+## Recent Changes
 
 Last reviewed by Copilot: August 11, 2025
 
@@ -159,9 +188,12 @@ Last reviewed by Copilot: August 11, 2025
 - NVSManager.cpp archived; all NVS operations now use header-only, template-based methods in NVSManager.h
 - Expanded file group mapping and onboarding documentation to reference new archive and modular storage practices
 
-Current focus: Complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality and OTA handler. Integrate automated review prompts and workflows for documentation, command reference, and error code updates.
-Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed
-Reminder: Branch for major features, refactors, troubleshooting, and hardware integration
+## Goals & Next Steps
+
+- See [Goals_And_Steps.md](Goals_And_Steps.md) for the current development roadmap, progress bars, and milestone verification.
+- Current priorities: Complete modular calibration pipeline, expand persistent storage, implement stepper controller, and migrate ESP-NOW/OTA functionality.
+- Next steps: Integrate automated review and documentation workflows, expand error code support, and add unit tests.
+- Branch for major features, refactors, troubleshooting, and hardware integration.
 
 ---
 
@@ -175,37 +207,6 @@ Reminder: Branch for major features, refactors, troubleshooting, and hardware in
 - Use the **Serial Monitor** at 115200 baud for debugging.
 
 _Arduino IDE is supported as a secondary method._
-
----
-
-## Command Reference (AT Commands)
-
-| Command         | Parameters                 | Description                        | Response                |
-|-----------------|----------------------------|------------------------------------|-------------------------|
-| AT+MOVE?        |                            | Query current move state           | +MOVE? ... / +ERR       |
-| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +OK / +ERR              |
-| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +OK / +ERR              |
-| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +SMOOTH_STOP? ... / +ERR|
-| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +OK / +ERR              |
-| AT+E_STOP       |                            | Immediate emergency stop           | +OK / +ERR              |
-| AT+E_STOP?      |                            | Query E-Stop state                 | +E_STOP? ... / +ERR     |
-| AT+PARK         |                            | Move to park position              | +OK / +ERR              |
-| AT+PARK?        |                            | Query park state                   | +PARK? ... / +ERR       |
-| AT+HOME         |                            | Move to neutral/home position      | +OK / +ERR              |
-| AT+HOME?        |                            | Query home state                   | +HOME? ... / +ERR       |
-| AT+CAL          |                            | Start servo calibration            | +OK / +ERR              |
-| AT+CAL?         |                            | Query calibration data             | +CAL? ... / +ERR        |
-| AT+CAL=         | calibration params         | Set calibration parameters         | +OK / +ERR              |
-| AT+NODE?        |                            | Query node assignment              | +NODE? ... / +ERR       |
-| AT+OTA          |                            | Begin OTA update                   | +OK / +ERR              |
-
-### Error Code Reference (Template)
-
-| Error Code         | Description (Plain Text)         |
-|--------------------|----------------------------------|
-| `+ERR:<code>`      | error description                |
-
-_Add error codes and descriptions here as new codes are implemented._
 
 ## Migration & Goals Reference
 

@@ -28,6 +28,7 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 - **LM393** Dual Comparator
 - Misc. buck converters, N-channel MOSFETs, 2N2222A NPN BJT
 - **10x4x2mm neodymium magnets** (7, for hall sensor calibration)
+- **LED indicators** (for hardware-in-the-loop testing and diagnostics)
 
 ---
 
@@ -59,7 +60,7 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 6. **Click Upload to flash via USB (OTA update planned)**
 7. **Use the Serial Monitor at 115200 baud for debugging**
 
-_Arduino IDE is supported as a secondary method._
+_Arduino IDE is supported as a secondary method. If using Arduino IDE, ensure board support and pin assignments match those in `DriveConfig.h`._
 
 ---
 
@@ -69,14 +70,27 @@ _Arduino IDE is supported as a secondary method._
 - The servo is controlled via the `LegSupervisor` and `ServoController` classes.
 - Pin modes and assignments are configured in `DriveConfig.h`.
 - Hall sensor and magnet sweep logic enable automatic calibration and backlash compensation.
+- Node addressing is set via three digital input pins at startup (see `DriveConfig.h` and `ROBT_Leg_Controller.ino`).
+- For hardware setup, see the "Hardware Requirements" and "Pinout" sections above.
+
+## Onboarding
+
+- New contributors should start by reading `Project_Context.md` for environment, hardware, and workflow overview.
+- Follow the "Getting Started" section above to set up the development environment.
+- Review the "Goals & Next Steps" and "Migration & Goals Reference" sections in `Project_Context.md` for current priorities and roadmap.
+- For troubleshooting, see the "Troubleshooting" section above and the "Known Issues" section in `Project_Context.md`.
+- All major modules and workflows are documented in the `docs` folder.
 
 ---
 
 ## Calibration
 
-- The system captures the initial angle from the servo’s potentiometer at startup.
-- Dual-edge hall sensor logic enables precise calibration using neodymium magnets.
-- Backlash compensation is applied automatically.
+- Calibration is triggered manually via the AT+CAL command.
+- The servo performs a sweep, and the dual-edge hall sensor detects magnet positions for precise calibration.
+- The calibration pipeline calculates fit and residuals, applies automatic backlash compensation, and stores results in a modular summary struct.
+- Calibration data is saved to non-volatile storage using the NVSManager (header-only, template-based).
+- For details, see `ServoCalibration.cpp/h`, `FlashStorageTypes.h/cpp`, `NVSManager.h`, and `LegSupervisor.cpp/h`.
+- Troubleshooting: If calibration fails (missed hall events, storage errors), check wiring, magnet placement, and review serial output for diagnostic messages.
 
 ---
 
@@ -112,27 +126,47 @@ All logic is separated into `.cpp/.h` modules for hardware abstraction and maint
 
 ## AT Command Reference
 
-| Command         | Description               |
-|-----------------|---------------------------|
-| AT+MOVE         | Move leg with parameters  |
-| AT+HOME         | Move to home position     |
-| AT+SMOOTH_STOP  | Ramp velocity to 0, stop  |
-| AT+E_STOP       | Emergency stop            |
-| AT+CAL          | Start servo calibration   |
-| AT+CAL?         | Verify calibration data   |
-| AT+PARK         | Move to park position     |
-| AT+NODE         | Responds with node number |
-| AT+OTA          | Begin OTA update          |
+| Command         | Parameters                 | Description                        | Response                |
+|-----------------|----------------------------|------------------------------------|-------------------------|
+| AT+MOVE?        |                            | Query current move state           | +MOVE? ... / +ERR       |
+| AT+MOVE=        | steering, velocity, slew   | Move leg with given params         | +OK / +ERR              |
+| AT+SMOOTH_STOP  |                            | Action to 0 in default time, stop  | +OK / +ERR              |
+| AT+SMOOTH_STOP? |                            | Query smooth stop state            | +SMOOTH_STOP? ... / +ERR|
+| AT+SMOOTH_STOP= | slew                       | Ramp velocity to 0, stop           | +OK / +ERR              |
+| AT+E_STOP       |                            | Immediate emergency stop           | +OK / +ERR              |
+| AT+E_STOP?      |                            | Query E-Stop state                 | +E_STOP? ... / +ERR     |
+| AT+PARK         |                            | Move to park position              | +OK / +ERR              |
+| AT+PARK?        |                            | Query park state                   | +PARK? ... / +ERR       |
+| AT+HOME         |                            | Move to neutral/home position      | +OK / +ERR              |
+| AT+HOME?        |                            | Query home state                   | +HOME? ... / +ERR       |
+| AT+CAL          |                            | Start servo calibration            | +OK / +ERR              |
+| AT+CAL?         |                            | Query calibration data             | +CAL? ... / +ERR        |
+| AT+CAL=         | calibration params         | Set calibration parameters         | +OK / +ERR              |
+| AT+NODE?        |                            | Query node assignment              | +NODE? ... / +ERR       |
+| AT+OTA          |                            | Begin OTA update                   | +OK / +ERR              |
 
-See `Project_Context.md` for full details.
+- All commands use a unified response pattern: `+OK` for success, `+ERR:<code>` for errors.
+- The command system is modular, using `CommandFactory`, `CommandParser`, and `CommandDispatcher` for registration, parsing, and dispatch.
+- For onboarding, usage, and troubleshooting, see `Project_Context.md`.
+- Error codes and descriptions are maintained in the error code reference below.
+- Planned/experimental commands (e.g., stepper control, OTA) are listed as appropriate.
+
+### Error Code Reference (Template INW)
+
+| Error Code         | Description (Plain Text)         |
+|--------------------|----------------------------------|
+| `+ERR:<code>`      | error description                |
+
+_Add error codes and descriptions here as new codes are implemented._
 
 ---
 
 ## Project Status
 
-- Major refactor complete, codebase ready for expansion.
-- Stepper controller and expanded AT command support planned.
-- See [Goals_And_Steps.md](ROBT_Leg_Controller/docs/Goals_And_Steps.md) for roadmap and progress tracking.
+- Current focus: Complete NVS data saving/retrieval, implement stepper controller module, verify/refine servo logic, and migrate ESP-NOW functionality and OTA handler.
+- Next steps: Integrate automated review prompts and workflows for documentation, command reference, and error code updates.
+- Continue expanding handler logic, add unit tests and mock modules, and update documentation/query support as features are completed.
+- See [Goals_And_Steps.md](ROBT_Leg_Controller/docs/Goals_And_Steps.md) for detailed roadmap, progress tracking, and milestone verification.
 
 ---
 
@@ -140,6 +174,13 @@ See `Project_Context.md` for full details.
 
 - Use Serial Monitor (115200 baud) for output and debugging.
 - Hardware-in-the-loop testing with LED indicators and physical motion.
+
+---
+
+## Troubleshooting
+
+- **USB Device Conflicts:** If VS Code fails to detect the ESP32-C3 board, unplug any non-standard USB devices (e.g., game controllers) and retry.
+- **Hall Sensor Wiring:** Ensure hall sensor power and signal wires are correctly connected; use pull-up resistors as shown in wiring diagram.
 
 ---
 
