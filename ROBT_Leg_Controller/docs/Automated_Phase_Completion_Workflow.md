@@ -2,7 +2,7 @@
 
 This workflow coordinates your end-of-phase documentation review and updates. Each step is performed one at a time, with clear review points and instructions for your input. Copilot will make suggestions for updates, additions, or edits as appropriate for each step. If a patch fails, Copilot will present the attempted patch as a code block for easy copying and manual application.
 
-**Before starting:** Commit all changes to the current branch so file changes can be referenced during review.
+**Before starting:** Copilot will prompt you to commit any uncommitted changes to the current branch. Once all changes are committed, Copilot will run the diff against main so file changes can be referenced during review.
 
 ---
 
