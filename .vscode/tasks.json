@@ -48,13 +48,13 @@
     {
       "label": "Activate Copilot Instructions",
       "type": "shell",
-      "command": "cmd /c copy \"${fileBasename}\" copilot_instructions.md",
+      "command": "cmd /c copy \"${fileBasename}\" copilot-instructions.md",
       "problemMatcher": [],
       "group": "none",
       "presentation": {
         "reveal": "always"
       },
-      "detail": "Copies the currently open file to copilot_instructions.md in the same directory.",
+      "detail": "Copies the currently open file to copilot-instructions.md in the same directory.",
       "options": {
         "cwd": "${fileDirname}"
       }
