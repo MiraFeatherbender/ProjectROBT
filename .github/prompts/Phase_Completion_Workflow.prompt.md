@@ -13,7 +13,7 @@ For each workflow step:
 4. Explicitly prompt for user confirmation, edits, or input before continuing.
 5. Repeat until all steps are complete and a final report is presented.
 
-Begin with Step 1. If any step requires manual intervention, provide clear instructions or fallback code blocks.
+Begin with "Before starting", then proceed to "Step 1". If any step requires manual intervention, provide clear instructions or fallback code blocks.
 
 ---
 
