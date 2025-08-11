@@ -27,12 +27,10 @@ public:
 
     // Servo Control
     float getCurrentAngle() const;             // Returns current angle from servo
-    void setSteeringAngle(float angle);
-    void setRawSteeringAngle(float angle);
+    void setSteeringAngle(float angle, uint32_t time);
+    void setRawSteeringAngle(float angle, uint32_t time);
     uint32_t getSafeTiming(float prescribedAngle) const; // Returns safe fade/slew time for a prescribed angle
     uint32_t getServoPulseUS() const { return servo_.getPulseUS(); }
-    void startCalibration() { servoCal_.begin(); }
-
 
     // Command Handling
     void handleParsedCommand(const ParsedCommand& cmd);
@@ -67,7 +65,7 @@ private:
     // Members for ProcessMoveCmd state machine
     bool moveCmdActive_ = false;
     unsigned long moveCmdStartTime_ = 0;
-    float moveCmdSlewTime_ = 0.0f;
+    uint32_t moveCmdSlewTime_ = 0;
 
     // Hall LED blink state
     bool hallLedState_ = false;

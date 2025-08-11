@@ -3,8 +3,7 @@
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
 #include "CommandDispatcher.h"
-#include "CommandFactory.h" // Replaces LegControllerCommandMap.h
-// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
+#include "CommandFactory.h"
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
@@ -88,12 +87,12 @@ void loop() {
           ctx.source = CommandSourceContext::serial_;
           ctx.respond = [](const String& resp) { Serial.println(resp); };
           parser.parseAndDispatch("AT+HOME", ctx);
+          supervisor.update();
       }
       boot_state = RUNNING;
       break;
 
     case RUNNING:
-      
       serialHandler.update();
       supervisor.update();
       break;

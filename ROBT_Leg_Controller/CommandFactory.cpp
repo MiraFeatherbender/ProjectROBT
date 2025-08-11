@@ -134,13 +134,12 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // CAL action: no parameters required
             makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor& supervisor) {
                 supervisor.setContext(cmd.context);
-                supervisor.startCalibration();
                 float calStart = 0.0f;
                 float slewTime = supervisor.getSafeTiming(calStart);
                 return std::vector<StateTransition>{
                     // Fourth param 1.0f triggers raw movement for homing
                     {SystemState::ProcessMoveCmd, {calStart, 0.0f, slewTime, 1.0f}},
-                    {SystemState::Stopped, {}},
+                    {SystemState::Maintenance, {}},
                     {SystemState::Calibrating, {}},
                     {SystemState::Stopped, {}}
                 };
@@ -162,7 +161,7 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
                 cmd.context.respond("+CAL? info not implemented");
             }
         },
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Maintenance, SystemState::Parked, SystemState::Homed}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Parked, SystemState::Homed}}
     };
 
     // PARK
@@ -181,7 +180,7 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             unsupportedHandler, // Set
             defaultQueryHandler // Query
         },
-        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Stopped, SystemState::Homed}}
+        CommandInfo{CommandPriority::PriorityNormal, {SystemState::Parked, SystemState::Stopped, SystemState::Homed}}
     };
 
     // NODE query command
@@ -203,13 +202,14 @@ std::map<std::string, RegisteredCommand> CommandFactory::createCommands(LegSuper
             // OTA command: no parameters required
             makeTransitionHandler([](const ParsedCommand& cmd, LegSupervisor&) {
                 return std::vector<StateTransition>{
+                    {SystemState::Maintenance, {}},
                     {SystemState::Updating, {}}
                 };
             }),
             unsupportedHandler, // Set
             unsupportedHandler  // Query
         },
-        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Maintenance}}
+        CommandInfo{CommandPriority::PriorityHigh, {SystemState::Stopped, SystemState::Parked, SystemState::Homed}}
     };
 
     return commands;

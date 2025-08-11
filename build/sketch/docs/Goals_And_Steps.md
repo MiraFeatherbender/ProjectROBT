@@ -4,16 +4,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 57% | In Progress: 33% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜  
+Complete: 58% | In Progress: 26% | Not Started: 16%
 
 **Goals Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 64% | In Progress: 27% | Not Started: 9%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜  
+Complete: 71% | In Progress: 21% | Not Started: 8%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜  
-Complete: 55% | In Progress: 35% | Not Started: 10%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜  
+Complete: 55% | In Progress: 27% | Not Started: 18%
 
 ## Task State Legend
 
@@ -51,7 +51,7 @@ Complete: 55% | In Progress: 35% | Not Started: 10%
 
 ### Command System & Parser Goals
 
-- [⏳] Automate status review and checklist updates for phase completion workflow
+- [x] Automate status review and checklist updates for phase completion workflow
 - [x] Integrate fallback code block system for manual patching in documentation workflow
 - [x] Ensure command parser is modular and future-proof for new command types and parameter formats
 - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field (set/query)
@@ -62,14 +62,16 @@ Complete: 55% | In Progress: 35% | Not Started: 10%
 
 ### Calibration & Storage Goals
 
-- [ ] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
-- [⏳] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
+- [x] Complete servo calibration and verify results
+- [⏳] Document calibration data transfer pipeline in both code and markdown (ensure traceability for future audits)
+- [x] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals 🔀
+- [ ] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
 
 ### Safety & Interlocks
 
 - [x] Implement interlocks: E-stop overrides all, calibration blocks movement, and both require specific states/modes
 - [x] Restrict access to critical commands in maintenance mode
-  - [x] Only allow entering maintenance mode when safely parked
+- [x] Only allow entering maintenance mode when safely parked
 
 ### Communications & Migration
 
@@ -125,21 +127,35 @@ Complete: 55% | In Progress: 35% | Not Started: 10%
   - [ ] Support synchronized slew time (from Drive Controller project) 🔀
 - [ ] Add physical reset switch for E-Stop state 🔀
   - [ ] Measure pins 8 and 9 for boot state 🔀
+- [ ] Validate motion profiles and safety interlocks for stepper controller
 
 ### Calibration & Storage
 
+- [x] Troubleshoot and verify calibration pipeline:
+  - [x] Diagnose Hall sensor ISR event propagation
+  - [x] Debug sweep event mapping and PWM-to-magnet index logic
+  - [x] Fix calibration summary calculation and state handling
+  - [x] Add and interpret debug prints for sweep arrays and summary struct
+  - [x] Correct summary validation flag assignment
+  - [x] Confirm event-to-summary traceability
+  - [x] Document troubleshooting steps and lessons learned
 - [⏳] Implement flash write and read routines for calibration data 🔀
   - [x] NVS based. Use "SweepProfile" 🔀
   - [ ] Test boot-time retrieval of calibration data 🔀
   - [x] Move "SweepProfile" to independent "FlashStorageTypes.h"
-  - [⏳] Implement SweepProfile transfer flow: 🔀
+  - [x] Implement SweepProfile transfer flow: 🔀
     - [x] ServoCalibration creates SweepSummary (now includes fit results and residuals)
     - [x] LegSupervisor relays SweepSummary to NVSManager via getter (pipeline scaffolded, ready for integration)
     - [⏳] NVSManager accepts SweepSummary from LegSupervisor to store in flash (print logic in place; ready for full data transfer and storage)
+- [⏳] Validate serialization/deserialization logic for calibration summaries in hardware and simulated tests
 - [⏳] Add diagnostic/test commands for hardware and storage modules (calibration accuracy and residuals reporting now possible) 🔀
+- [ ] Expand documentation of calibration pipeline troubleshooting, verification, and lessons learned for traceability
 
 ### Documentation & Testing Next Steps
 
+- [ ] Archive legacy files and update documentation to reflect new modular practices (e.g., NVSManager.cpp, archive folder)
+- [ ] Expand onboarding and context documentation to reference new file groups and archiving practices
+- [ ] Review and update diagnostic/reporting routines for calibration accuracy and hardware alignment
 - [x] Expand onboarding documentation to clarify agent-driven review and fallback patch process
 - [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [⏳] Document all commands
@@ -154,10 +170,13 @@ Complete: 55% | In Progress: 35% | Not Started: 10%
 - [⏳] Update documentation and code comments for new/changed commands and error codes 🔀
 - [⏳] Add diagnostic/test commands for hardware and storage modules 🔀
 - [⏳] Document new calibration fit, residuals, and reporting features
-- [⏳] Integrate servo calibration triggers into custom AT command interface 🔀
+- [x] Integrate servo calibration triggers into custom AT command interface 🔀
 - [x] Write unit tests for command dispatcher and registration logic
 - [x] Implement dynamic command registration in CommandDispatcher (optional)
 - [ ] Develop mock modules for test builds 🔀
+- [ ] Update onboarding guides to include agent-driven review and explicit workflow steps for actionable suggestions/manual patching
+- [ ] Refine broadcast message parsing and payload validation for edge cases
+- [ ] Review and resolve blocked/high-priority checklist items before starting new features
 
 ### State Machine & Supervisory Logic Next Steps
 
@@ -175,3 +194,7 @@ Complete: 55% | In Progress: 35% | Not Started: 10%
 - [x] Refactor boot logic from *begin() to state machine
   - [x] Servo startup position belongs in homing state
 - [x] Implement HOME command for external use and internal self injection
+
+### State Machine & Supervisory Goals
+
+- [ ] Document and test error handling and state transitions for maintenance/updating states, with unit test coverage

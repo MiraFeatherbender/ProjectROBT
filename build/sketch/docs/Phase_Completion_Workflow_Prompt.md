@@ -15,4 +15,4 @@ Begin with Step 1. If any step requires manual intervention, provide clear instr
 
 ---
 
-**To start:** Open this file and instruct Copilot to “run the phase completion workflow.”
+**To start:** Open this file and instruct Copilot to “recursively run the phase completion workflow.”

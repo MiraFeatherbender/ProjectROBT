@@ -160,5 +160,6 @@ C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandFa
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\FlashStorageTypes.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandParser.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\NVSManager.h \
+ C:\Users\jonat\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.0\libraries\Preferences\src/Preferences.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandInfo.h \
  C:\Users\jonat\OneDrive\Old\ Documents\GitHub\ProjectROBT\build\sketch\CommandDispatcher.h

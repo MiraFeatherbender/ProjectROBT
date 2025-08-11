@@ -25,8 +25,19 @@ struct SweepSummary {
 
 using NVSValue = std::variant<int32_t, float, std::string>;
 
-// Serialization helpers for SweepSummary
-// Generic serialization interface
+
+// --- Helper serialization/deserialization for LinearFitResult ---
+std::map<std::string, NVSValue> serializeFitResult(const LinearFitResult& fit);
+void deserializeFitResult(const std::map<std::string, NVSValue>& kv, LinearFitResult& fit);
+
+// --- SweepSummary serialization/deserialization ---
 std::map<std::string, NVSValue> serializeSummary(const SweepSummary& summary);
-// Generic deserialization interface
 void deserializeSummary(const std::map<std::string, NVSValue>& kv, SweepSummary& summary);
+
+// --- FitResultSummary type and serialization/deserialization ---
+struct FitResultSummary {
+    static constexpr const char* nvs_namespace = "servo_calibration";
+    LinearFitResult fit_result;
+};
+std::map<std::string, NVSValue> serializeSummary(const FitResultSummary& summary);
+void deserializeSummary(const std::map<std::string, NVSValue>& kv, FitResultSummary& summary);

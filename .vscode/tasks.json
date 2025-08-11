@@ -60,6 +60,23 @@
       }
     },
     {
+      "label": "Diff Against Main",
+      "type": "shell",
+      "command": "git diff main...$(git rev-parse --abbrev-ref HEAD) > branch_diff.txt",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      }
+    },
+    {
       "label": "Run Phase Completion Workflow",
       "type": "shell",
     "command": "code \"${workspaceFolder}\\ROBT_Leg_Controller\\docs\\Phase_Completion_Workflow_Prompt.md\"",

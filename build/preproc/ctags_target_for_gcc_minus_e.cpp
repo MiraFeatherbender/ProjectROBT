@@ -5,7 +5,6 @@
 # 5 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
 # 6 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
 # 7 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino" 2
-// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
 
 ADCConfig adc_cfg; // From DriveConfig.h
 
@@ -89,12 +88,12 @@ void loop() {
           ctx.source = CommandSourceContext::serial_;
           ctx.respond = [](const String& resp) { HWCDCSerial.println(resp); };
           parser.parseAndDispatch("AT+HOME", ctx);
+          supervisor.update();
       }
       boot_state = RUNNING;
       break;
 
     case RUNNING:
-
       serialHandler.update();
       supervisor.update();
       break;

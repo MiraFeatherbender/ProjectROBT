@@ -74,12 +74,12 @@ void LegSupervisor::update() {
                     if (transition.params.size() >= 3) {
                         float steering = transition.params[0];
                         float velocity = transition.params[1];
-                        float slew = transition.params[2];
+                        uint32_t slew = transition.params[2];
                         bool useRaw = (transition.params.size() >= 4) ? (transition.params[3] != 0.0f) : false;
                         if (useRaw) {
-                            setRawSteeringAngle(steering);
+                            setRawSteeringAngle(steering, slew); // Use raw angle setting for direct control
                         } else {
-                            setSteeringAngle(steering);
+                            setSteeringAngle(steering, slew);
                         }
                         // TODO: setDriveVelocity(velocity, slew); // Placeholder for future stepper logic
                         moveCmdActive_ = true;
@@ -117,25 +117,40 @@ void LegSupervisor::update() {
             case SystemState::Maintenance:
                 currentState_ = SystemState::Maintenance;
                 transitionQueue_.erase(transitionQueue_.begin());
+                if (transitionQueue_.empty()) break;
+                switch (transitionQueue_.front().nextState) {
+                    case SystemState::Calibrating:
+                        // If calibration is requested, start it
+                        servoCal_.begin();
+                        break;
+                    case SystemState::Updating:
+                        // TODO: Handle any update logic here; requires OTA support
+                        Serial.println("[Maintenance] State: Updating - OTA update logic not yet implemented.");
+                        break;
+                    default:
+                        Serial.println("[Maintenance] State: Idle - No specific action.");
+                        // No specific maintenance action, just clear the queue
+                        break;
+                }
                 break;
             case SystemState::Calibrating:
                 currentState_ = SystemState::Calibrating;
+                servoCal_.run(); // Call once at the start
                 switch (servoCal_.getState()) {
                     case SWEEP_IDLE:
                         Serial.println("[Calibrating] State: SWEEP_IDLE - Starting calibration.");
-                        
-                        servoCal_.run();
                         break;
                     case SWEEP_COMPLETE:
-                        servoCal_.run();
                         Serial.println("[Calibrating] State: SWEEP_COMPLETE - Calibration finished successfully.");
-                        saveSweepSummary();
-                        context_.respond("+CAL_DONE");
+                        if (saveSweepSummary()) {
+                            context_.respond("+CAL_DONE");
+                        } else {
+                            context_.respond("+ERR:SAVE_FAILED");
+                        }
                         context_ = CommandSourceContext(); // Clear context_ to avoid accidental reuse
                         transitionQueue_.erase(transitionQueue_.begin());
                         break;
                     case SWEEP_FAIL:
-                        servoCal_.run();
                         Serial.println("[Calibrating] State: SWEEP_FAIL - Calibration failed, entering E_STOP.");
                         context_.respond("+CAL_FAIL");
                         currentState_ = SystemState::Stopped; // Immediately enter emergency stop
@@ -143,11 +158,11 @@ void LegSupervisor::update() {
                         context_ = CommandSourceContext();   // Clear context to avoid accidental reuse
                         break;
                     default:
-                        servoCal_.run();
                         break;
                 }
                 break;
             case SystemState::Updating:
+                Serial.println("[Updating] State: Updating - OTA update logic not yet implemented.");
                 currentState_ = SystemState::Updating;
                 transitionQueue_.erase(transitionQueue_.begin());
                 break;
@@ -173,12 +188,12 @@ void LegSupervisor::clearTransitionQueue() {
 }
 
 // Servo Control
-void LegSupervisor::setSteeringAngle(float angle) {
-    servo_.setAngle(angle);
+void LegSupervisor::setSteeringAngle(float angle,uint32_t time) {
+    servo_.setAngle(angle, time);
 }
 
-void LegSupervisor::setRawSteeringAngle(float angle){
-    servo_.setAngleRaw(angle);
+void LegSupervisor::setRawSteeringAngle(float angle,uint32_t time){
+    servo_.setAngleRaw(angle,time);
 }
 
 float LegSupervisor::getCurrentAngle() const {
@@ -206,5 +221,5 @@ void LegSupervisor::handleParsedCommand(const ParsedCommand& cmd) {
 // Persistence
 bool LegSupervisor::saveSweepSummary(){
     SweepSummary summary = servoCal_.getSweepSummary();
-    return NVSManager::storeSweepSummary(summary);
+    return NVSManager::printSummaryToSerial(summary);
 }

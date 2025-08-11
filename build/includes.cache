@@ -11,6 +11,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ROBT_Leg_Controller.ino.cpp",
+    "Include": "Preferences.h",
+    "Includepath": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\Preferences\\src"
+  },
+  {
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ROBT_Leg_Controller.ino.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -30,17 +35,17 @@
     "Includepath": null
   },
   {
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\FlashStorageTypes.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp",
     "Include": "",
     "Includepath": null
   },
   {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\NVSManager.cpp",
     "Include": "",
     "Includepath": null
   },
@@ -56,6 +61,11 @@
   },
   {
     "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoController.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\Preferences\\src\\Preferences.cpp",
     "Include": "",
     "Includepath": null
   }

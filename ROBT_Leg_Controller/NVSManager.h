@@ -30,7 +30,7 @@ public:
 
     // Generic template for printing any summary type
     template<typename SummaryType>
-    static void printSummaryToSerial(const SummaryType& summary) {
+    static bool printSummaryToSerial(const SummaryType& summary) {
         Serial.print("[NVSManager] Namespace: ");
         Serial.println(SummaryType::nvs_namespace);
         Serial.println("[NVSManager] Summary contents:");
@@ -46,6 +46,7 @@ public:
                 Serial.println(std::get<std::string>(pair.second).c_str());
             }
         }
+        return true;
     }
 
     // Generic template for reading and deserializing any summary type

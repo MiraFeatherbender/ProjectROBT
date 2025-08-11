@@ -5,18 +5,17 @@
 #include "SerialInputHandler.h"
 #include "CommandParser.h"
 #include "CommandDispatcher.h"
-#include "CommandFactory.h" // Replaces LegControllerCommandMap.h
-// #include "LegControllerCommandMap.h" // Outdated, replaced by CommandFactory.h
+#include "CommandFactory.h"
 
 ADCConfig adc_cfg;  // From DriveConfig.h
 
-#line 11 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void adcComplete();
-#line 24 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 23 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void setup();
-#line 67 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 66 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void loop();
-#line 11 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
+#line 10 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ROBT_Leg_Controller.ino"
 void ARDUINO_ISR_ATTR adcComplete() {
   adc_cfg.conversion_done = true;
 }
@@ -97,12 +96,12 @@ void loop() {
           ctx.source = CommandSourceContext::serial_;
           ctx.respond = [](const String& resp) { Serial.println(resp); };
           parser.parseAndDispatch("AT+HOME", ctx);
+          supervisor.update();
       }
       boot_state = RUNNING;
       break;
 
     case RUNNING:
-      
       serialHandler.update();
       supervisor.update();
       break;

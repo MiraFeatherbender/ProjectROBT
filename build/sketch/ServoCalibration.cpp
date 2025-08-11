@@ -1,4 +1,11 @@
 #line 1 "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller\\ServoCalibration.cpp"
+// Calibration Pipeline: Troubleshooting Summary
+// - Diagnosed ISR event propagation and sweep event mapping issues
+// - Debugged PWM-to-magnet index logic and summary calculation
+// - Added serial output for pattern bits and sweep arrays
+// - Fixed validation flag assignment and confirmed traceability
+// - Lessons learned documented in code and markdown
+
 #include "ServoCalibration.h" 
 #include <Arduino.h>  // Needed if using micros(), millis(), etc.
 #include <algorithm>
@@ -133,6 +140,7 @@ bool ServoCalibration::validateSweep() {
         Serial.print(" expected=0x");
         Serial.println(expected_ccw_pattern, HEX);
     }
+    summary_.validated = all_valid;
     return all_valid;
 }
 

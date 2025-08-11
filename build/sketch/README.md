@@ -95,8 +95,9 @@ The project is organized into modular C++ files for clarity and maintainability.
 - `HallSensorHandler.cpp/h` – Hall sensor and magnet sweep logic
 - `ServoController.cpp/h` – Servo control logic
 - `ServoCalibration.cpp/h` – Servo calibration logic and summary generation
-- `FlashStorageTypes.h` – Data structures for flash storage
-- `NVSManager.cpp/h` – Flash storage and calibration data management
+- `FlashStorageTypes.h/cpp` – Modular data structures and serialization for flash storage (new)
+- `NVSManager.h` – Header-only, template-based flash storage and calibration data management (legacy `NVSManager.cpp` archived)
+- `docs/archive/` – Archived legacy files and milestone reports for traceability
 
 All logic is separated into `.cpp/.h` modules for hardware abstraction and maintainability.
 
