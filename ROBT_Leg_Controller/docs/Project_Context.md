@@ -100,7 +100,7 @@ This document provides a comprehensive reference for the environment, hardware, 
 ## Communication Interfaces
 
 - **Current:** Serial (for bench testing)
-- **Planned:** ESP-NOW (primary), with a custom AT command interface (already developed elsewhere, to be extended here)
+- **Planned:** ESP-NOW (primary)
 - **Protocols/Formats:** Custom AT command syntax
 
 ---
