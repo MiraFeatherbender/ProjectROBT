@@ -88,6 +88,13 @@ This document provides a comprehensive reference for the environment, hardware, 
 - **File Organization:** All logic is in .cpp/.h files, with configuration and hardware abstraction separated for clarity.
 - **Archived Files:** NVSManager.cpp (legacy, see archive folder for historical reference)
 
+- **Automation & Workflow Integration:**
+  - **Phase Completion Chat Mode:** `.github/chatmodes/Phase_Completion.chatmode.md` enables Copilot-driven, step-by-step phase completion workflow with dedicated instructions and toolset.
+  - **Toolset Manifest:** `phase_completion.toolsets.jsonc` defines a focused set of Copilot tools for review, automation, and archiving.
+  - **Workflow Instructions:** `ROBT_Leg_Controller/docs/Automated_Phase_Completion_Workflow.md` and related files provide detailed steps and context for end-of-phase review.
+  - **VS Code Tasks:** `.vscode/tasks.json` automates diffing, archiving, and documentation progress bar updates.
+  - **Onboarding:** Updated guides and documentation reference the new chat mode and automation features for contributors and Copilot.
+
 ---
 
 ## Communication Interfaces
