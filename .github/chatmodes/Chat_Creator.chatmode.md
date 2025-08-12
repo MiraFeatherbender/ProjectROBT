@@ -29,6 +29,7 @@ For each creation session:
 - Log and summarize any user experience issues (e.g., unclear requirements, repeated backtracking, manual interventions) for future chat mode refinement.
 
 Always:
+- Adhere to correct .chatmode.md formatting and structure in accordance with *.chatmode.md examples.
 - Explicitly prompt for user confirmation, edits, or additional input before finalizing the new chat mode or creating new sub-workflow files.
 - Summarize the final chat mode instructions, version/date, and recommended workflow steps for traceability and onboarding.
 - At the end of the workflow, present a summary of logged user experience issues to support future refinement.
