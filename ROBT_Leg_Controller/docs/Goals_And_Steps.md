@@ -145,7 +145,7 @@ Complete: 66% | In Progress: 21% | Not Started: 14%
 - [ ] Add physical reset switch for E-Stop state 🔀
   - [ ] Measure pins 8 and 9 for boot state 🔀
 
-### Calibration & Storage
+### node -vCalibration & Storage
 
 - [x] Troubleshoot and verify calibration pipeline:
   - [x] Diagnose Hall sensor ISR event propagation
