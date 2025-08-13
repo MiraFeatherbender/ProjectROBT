@@ -7,16 +7,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 45% | In Progress: 30% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 50% | In Progress: 25% | Not Started: 24%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
 Complete: 33% | In Progress: 33% | Not Started: 33%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 46% | In Progress: 29% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 52% | In Progress: 25% | Not Started: 24%
 
 ## Task State Legend
 
@@ -55,10 +55,9 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
   - [⏳] Maintain a central documentation standard for each command
   - [ ] Add missing command definitions
 - [⏳] Command Handlers
-  - [⏳] Modular differentiation of action, set, and query modes
-    - [⏳] Add query support:
-      - [⏳] MOVE
-      - [⏳] CAL
+  - [⏳] Add query support:
+    - [⏳] MOVE
+    - [⏳] CAL
 - [⏳] Safety & Consistency
   - [⏳] Implement universal error code map for consistent error responses
   - [⏳] Ensure all command responses are terse, consistent, and include error codes
@@ -79,31 +78,27 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 ### For: Establish Persistent Storage
 
 - [⏳] Persistent Storage & Serialization
-  - [⏳] Ensure persistent storage of calibration data via `NVSManager`
   - [⏳] Expand use of template-based storage and serialization for persistent data
-  - [⏳] Validate serialization/deserialization logic for calibration summaries
   - [⏳] Add diagnostic/test commands for hardware and storage modules
-- [⏳] Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
+  - [⏳] Finalize and validate flash storage routines for calibration data
+    - [ ] Boot-time retrieval
+    - [ ] Integrity checks
+    - [⏳] Ensure persistent storage of calibration data via `NVSManager`
 
 ### For: Refine Hardware Abstraction Layer
 
 - [⏳] Hardware Modules
   - [⏳] Review and optimize:
-    - [⏳] DriveConfig
-    - [⏳] HallSensorHandler
-    - [⏳] ServoController
     - [⏳] StepperController
+      - [⏳] Implement stepper controller module
+      - [🧩] Integrate servo and stepper motion into custom AT command interface
+  - [⏳] Test hardware abstraction with real devices
   - [ ] Add inline comments for hardware logic
-  - [ ] Test hardware abstraction with real devices
-- [⏳] Stepper Controller Integration
-  - [⏳] Implement stepper controller module
-    - [🧩] Integrate servo and stepper motion into custom AT command interface
 - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
 
 ### For: Migrate ESP-NOW Communication
 
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase
-- [ ] Design migration plan for ESP-NOW protocol
 - [ ] Implement ESP-NOW handlers in relevant modules:
   - [ ] Anchor Nodes
   - [ ] Leg Controller
@@ -121,12 +116,10 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 
 ### For: Update Documentation & Onboarding
 
-- [⏳] Review and update `Project_Context.md`, onboarding guides
 - [ ] Add missing documentation for new modules
 - [ ] Standardize formatting across docs
 - [ ] Develop mock modules for test builds
 - [ ] Refine broadcast message parsing and payload validation for edge cases
-- [ ] Review and resolve blocked/high-priority checklist items before starting new features
 
 ### For: Wireless Infrastructure & Network Coordination
 
@@ -168,6 +161,7 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
   - [x] Refactor command processing to strip AT+ from cmd.command and parse '='/'?' into a cmd.type field
   - [x] Define and document a `CommandFactory` for all supported commands
   - [x] Ensure all commands use consistent parameter mapping and error code conventions
+  - [x] Implement dynamic command registration in CommandDispatcher (optional)
 
 - Safety & Consistency
   - [x] Implement default error responses (`+ERR:UNSUPPORTED_COMMAND_MODE`)
@@ -179,21 +173,21 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 - Ensure all command responses are terse, consistent, and include error codes
   - [x] Terse and consistent
   
-- Modular differentiation of action, set, and query modes
-  - Add query support
-    - [x] SMOOTH_STOP
-    - [x] PARK
-    - [x] HOME
-    - [x] E_STOP
-    - [x] NODE
-  - [x] Implement command handlers:
-    - [x] MOVE
-    - [x] SMOOTH_STOP
-    - [x] PARK
-    - [x] HOME
-    - [x] E_STOP
-    - [x] CAL
-    - [x] OTA
+- [x] Modular differentiation of action, set, and query modes
+- Add query support
+  - [x] SMOOTH_STOP
+  - [x] PARK
+  - [x] HOME
+  - [x] E_STOP
+  - [x] NODE
+- [x] Implement command handlers:
+  - [x] MOVE
+  - [x] SMOOTH_STOP
+  - [x] PARK
+  - [x] HOME
+  - [x] E_STOP
+  - [x] CAL
+  - [x] OTA
 - [x] Add slew parameter support to SMOOTH_STOP command
 - [x] Refactor commands to use unified handlers, supporting action, set, and query modes
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode
@@ -207,6 +201,9 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 
 #### 4. Establish Persistent Storage
 
+- Persistent Storage & Serialization
+  - Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
+    - [x] Validate serialization/deserialization logic for calibration summaries
 - [x] Implement NVSManager and FlashStorageTypes
 - [x] Validate data retention across reboots
 - [x] Add flash storage for calibration data
@@ -214,6 +211,10 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 #### 5. Refine Hardware Abstraction Layer
 
 - Hardware Modules
+  - Review and optimize:
+    - [x] DriveConfig
+    - [x] HallSensorHandler
+    - [x] ServoController
 - [x] Node Addressing & Broadcast
   - [x] Implement hardware-based node addressing via address pins
   - [x] Support advanced broadcast AT command payloads with per-node and all-node parameter blocks
@@ -223,15 +224,17 @@ Complete: 46% | In Progress: 29% | Not Started: 25%
 
 #### 6. Migrate ESP-NOW Communication
 
+- [x] Design migration plan for ESP-NOW protocol
+
 #### 7. Implement OTA Update System
 
 #### 8. Update Documentation & Onboarding
 
+- [x] Review and update `Project_Context.md`, onboarding guides
 - [x] Archive legacy files and update documentation to reflect new modular practices
 - [x] Expand onboarding and context documentation to reference new file groups and archiving practices
 - [x] Expand onboarding documentation to clarify agent-driven review and fallback patch process
 - [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [x] Write unit tests for command dispatcher and registration logic
-- [x] Implement dynamic command registration in CommandDispatcher (optional)
 
 #### 9. Wireless Infrastructure & Network Coordination
