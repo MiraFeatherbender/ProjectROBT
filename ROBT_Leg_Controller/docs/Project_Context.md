@@ -30,8 +30,32 @@ This document provides a comprehensive reference for the environment, hardware, 
 - **Planned Network:** Will act as a child MCU to two Unexpected Maker FeatherS3 modules (parents) via ESP-NOW
 - **Peripherals:**
   - 1x 30kg servo
-  - 1x NEMA23 stepper motor with driver
   - 1x custom dual edge detection hall sensor circuit (for servo direction calibration)
+  - 1x NEMA23 stepper motor
+    - **Driver:** DM542T Full Digital Stepper Driver
+
+### LEDC & Driver Settings
+
+- LEDC reference clock: 1 MHz (REF_TICK)
+- Microstepping: 1600 microsteps/rev (DM542T DIP SW5–SW8: OFF, OFF, ON, ON)
+- Gear ratio: 4:1
+- Wheel diameter: 130 mm (circumference ≈ 408.41 mm)
+- Stepper: NEMA23, 1.8°/step
+- Maximum velocity: 2.3 m/s
+
+### Stepper Velocity Resolution (LEDC, REF_TICK, 8–16 bits)
+
+ | Bit Depth | Freq Step (Hz) | Velocity Step (mm/s) | Max Velocity Error (mm/s) | Steps from 0 to 2,300 mm/s |
+ |-----------|----------------|----------------------|---------------------------|----------------------------|
+ | 8         | 3,906.25       | 1.247                | ±0.624                    | ~1,844                     |
+ | 9         | 1,953.13       | 0.623                | ±0.312                    | ~3,692                     |
+ | 10        | 976.56         | 0.312                | ±0.156                    | ~7,372                     |
+ | 11        | 488.28         | 0.156                | ±0.078                    | ~14,744                    |
+ | 12        | 244.14         | 0.078                | ±0.039                    | ~29,487                    |
+ | 13        | 122.07         | 0.039                | ±0.019                    | ~58,974                    |
+ | 14        | 61.04          | 0.019                | ±0.010                    | ~117,948                   |
+ | 15        | 30.52          | 0.010                | ±0.005                    | ~235,896                   |
+ | 16        | 15.26          | 0.005                | ±0.002                    | ~471,792                   |
 
 ## Usage Overview
 
