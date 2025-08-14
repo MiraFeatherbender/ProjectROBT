@@ -36,26 +36,46 @@ This document provides a comprehensive reference for the environment, hardware, 
 
 ### LEDC & Driver Settings
 
-- LEDC reference clock: 1 MHz (REF_TICK)
-- Microstepping: 1600 microsteps/rev (DM542T DIP SW5–SW8: OFF, OFF, ON, ON)
-- Gear ratio: 4:1
+- Hardware Timer pulse_us reference: 1M/PPS
+- Microstepping: 400 microsteps/rev (DM542T DIP SW5–SW8: OFF, ON, ON, ON)
+- Gear ratio: 0.25 (4:1)
 - Wheel diameter: 130 mm (circumference ≈ 408.41 mm)
 - Stepper: NEMA23, 1.8°/step
-- Maximum velocity: 2.3 m/s
+- Maximum velocity: 1.7 m/s
+- Maximum PPS: 6,667Hz
 
-### Stepper Velocity Resolution (LEDC, REF_TICK, 8–16 bits)
+### Microstep Resolution (SW5–SW8)
 
- | Bit Depth | Freq Step (Hz) | Velocity Step (mm/s) | Max Velocity Error (mm/s) | Steps from 0 to 2,300 mm/s |
- |-----------|----------------|----------------------|---------------------------|----------------------------|
- | 8         | 3,906.25       | 1.247                | ±0.624                    | ~1,844                     |
- | 9         | 1,953.13       | 0.623                | ±0.312                    | ~3,692                     |
- | 10        | 976.56         | 0.312                | ±0.156                    | ~7,372                     |
- | 11        | 488.28         | 0.156                | ±0.078                    | ~14,744                    |
- | 12        | 244.14         | 0.078                | ±0.039                    | ~29,487                    |
- | 13        | 122.07         | 0.039                | ±0.019                    | ~58,974                    |
- | 14        | 61.04          | 0.019                | ±0.010                    | ~117,948                   |
- | 15        | 30.52          | 0.010                | ±0.005                    | ~235,896                   |
- | 16        | 15.26          | 0.005                | ±0.002                    | ~471,792                   |
+| Steps/rev (1.8° motor) | SW5 | SW6 | SW7 | SW8 |
+|-----------------------|------|------|------|------|
+| 400                   | OFF  | ON   | ON   | ON   |
+| 800                   | ON   | OFF  | ON   | ON   |
+| 1600                  | OFF  | OFF  | ON   | ON   |
+| 3200                  | ON   | ON   | OFF  | ON   |
+| 6400                  | OFF  | ON   | OFF  | ON   |
+| 12800                 | ON   | OFF  | OFF  | ON   |
+| 25600                 | OFF  | OFF  | OFF  | ON   |
+| 1000                  | ON   | ON   | ON   | OFF  |
+| 2000                  | OFF  | ON   | ON   | OFF  |
+| 4000                  | ON   | OFF  | ON   | OFF  |
+| 5000                  | OFF  | OFF  | ON   | OFF  |
+| 8000                  | ON   | ON   | OFF  | OFF  |
+| 10000                 | OFF  | ON   | OFF  | OFF  |
+| 20000                 | ON   | OFF  | OFF  | OFF  |
+| 25000                 | OFF  | OFF  | OFF  | OFF  |
+
+### Dynamic Current Setting (SW1–SW3)
+
+| Peak Current | RMS Current | SW1 | SW2 | SW3 |
+|--------------|-------------|------|------|------|
+| 1.00A        | 0.71A       | ON   | ON   | ON   |
+| 1.46A        | 1.04A       | OFF  | ON   | ON   |
+| 1.91A        | 1.36A       | ON   | OFF  | ON   |
+| 2.37A        | 1.69A       | OFF  | OFF  | ON   |
+| 2.84A        | 2.03A       | ON   | ON   | OFF  |
+| 3.31A        | 2.36A       | OFF  | ON   | OFF  |
+| 3.76A        | 2.69A       | ON   | OFF  | OFF  |
+| 4.20A        | 3.00A       | OFF  | OFF  | OFF  |
 
 ## Usage Overview
 

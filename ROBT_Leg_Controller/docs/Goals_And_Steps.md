@@ -1,5 +1,5 @@
 # Goals & Steps (Phase-Aligned)
-
+<!-- markdownlint-disable-file MD033 -->
 **Version:** 2025-08-12
 
 ---
@@ -8,15 +8,15 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 49% | In Progress: 25% | Not Started: 25%
+Complete: 50% | In Progress: 26% | Not Started: 24%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
 Complete: 33% | In Progress: 33% | Not Started: 33%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 50% | In Progress: 25% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 51% | In Progress: 26% | Not Started: 23%
 
 ## Task State Legend
 
@@ -45,11 +45,15 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 
 ## Next Steps
 
-### For: Complete Servo Calibration Pipeline
+<details>
+<summary>For: Complete Servo Calibration Pipeline</summary>
 
 - [ ] Document calibration workflow
 
-### For: Finalize Command System Implementation
+</details>
+
+<details>
+<summary>For: Finalize Command System Implementation</summary>
 
 - [⏳] Command System Core
   - [⏳] Maintain a central documentation standard for each command
@@ -73,9 +77,14 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
     - [⏳] NODE documentation
     - [⏳] OTA documentation
 
-### For: Integrate State Machine & Supervisor
+</details>
 
-### For: Establish Persistent Storage
+<details>
+<summary>For: Integrate State Machine & Supervisor</summary>
+</details>
+
+<details>
+<summary>For: Establish Persistent Storage</summary>
 
 - [⏳] Persistent Storage & Serialization
   - [⏳] Expand use of template-based storage and serialization for persistent data
@@ -85,7 +94,10 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
     - [ ] Integrity checks
     - [⏳] Ensure persistent storage of calibration data via `NVSManager`
 
-### For: Refine Hardware Abstraction Layer
+</details>
+
+<details>
+<summary>For: Refine Hardware Abstraction Layer</summary>
 
 - [⏳] Hardware Modules
   - [⏳] Test hardware abstraction with real devices
@@ -95,14 +107,18 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
     - [🧩] Integrate servo and stepper motion into custom AT command interface
     - [⏳] Implement stepper controller module
       - [⏳] Validate step/dir signal timing and pulse width (≥2.5μs) per DM542T manual
-        - [⏳] Set LEDC frequency to 6,6667 Hz for 1.7m/s drive rate
-        - [⏳] LEDC frequency granularity and velocity error (REF_TICK, 8–16 bits):
-
+        - Set LEDC frequency to 6,6667 Hz for 1.7m/s drive rate
+        - [⏳] Hardware timer setup: Select and configure ESP32 hardware timer (timerBegin, timerAttachInterrupt, timerAlarmWrite) for step pulse generation.
+        - [⏳] Pulse interval calculation: Use $\text{pulse\_interval\_us} = \frac{1{,}000{,}000}{\text{PPS}}$ to set timer for desired step rate. Reference DM542T driver PPS requirements and minimum pulse width (≥2.5μs).
+        - [⏳] Reference ESP32 Arduino Core timer documentation and DM542T manual for timing, interrupt, and reliability best practices.
       - [ ] Link DM542T troubleshooting/FAQ table to hardware test workflow
-      - [ ] Document DM542T DIP switch settings for microstep and current
-      - [ ] Confirm and record standstill current DIP switch (SW4) setting
+      - [x] Document DM542T DIP switch settings for microstep and current
+      - [x] Confirm and record standstill current DIP switch (SW4) setting
 
-### For: Migrate ESP-NOW Communication
+</details>
+
+<details>
+<summary>For: Migrate ESP-NOW Communication</summary>
 
 - [⏳] Migrate ESP-NOW and OTAUpdater from anchor node codebase
 - [ ] Implement ESP-NOW handlers in relevant modules:
@@ -111,7 +127,10 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
   - [ ] Central Coordinator
 - [ ] Validate communication reliability
 
-### For: Implement OTA Update System
+</details>
+
+<details>
+<summary>For: Implement OTA Update System</summary>
 
 - [ ] Design OTA update workflow
 - [ ] Integrate OTA logic into command system
@@ -120,14 +139,20 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
   - [ ] Test OTA update on all node types
   - [ ] Document OTA update process
 
-### For: Update Documentation & Onboarding
+</details>
+
+<details>
+<summary>For: Update Documentation & Onboarding</summary>
 
 - [ ] Add missing documentation for new modules
 - [ ] Standardize formatting across docs
 - [ ] Develop mock modules for test builds
 - [ ] Refine broadcast message parsing and payload validation for edge cases
 
-### For: Wireless Infrastructure & Network Coordination
+</details>
+
+<details>
+<summary>For: Wireless Infrastructure & Network Coordination</summary>
 
 - [ ] Implement Modular Communication Manager class
   - [ ] Support runtime switching between ESP-NOW and WiFi Station mode
@@ -138,11 +163,14 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [ ] Document integration patterns for UWB, anchor nodes, and central coordinator
 - [ ] Test wireless mode switching and reliability
 
+</details>
+
 ---
 
 ### Archive
 
-#### 1. Complete Servo Calibration Pipeline
+<details>
+<summary>1. Complete Servo Calibration Pipeline</summary>
 
 - Persistent Storage & Serialization
   - [x] Add flash storage for calibration data, including center pulse time, backlash offset, fit results, and per-magnet residuals
@@ -158,7 +186,10 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
     - [x] Document troubleshooting steps and lessons learned
   - [x] Review and validate calibration logic in `ServoCalibration.cpp/h`
 
-#### 2. Finalize Command System Implementation
+</details>
+
+<details>
+<summary>2. Finalize Command System Implementation</summary>
 
 - Command System Core
   - [x] Audit command parsing and dispatch in `CommandFactory`, `CommandParser`, `CommandDispatcher`  
@@ -198,14 +229,20 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [x] Refactor commands to use unified handlers, supporting action, set, and query modes
 - [x] Reassign the "VERIFY_NVS" command to be handled as the calibration query mode
 
-#### 3. Integrate State Machine & Supervisor
+</details>
+
+<details>
+<summary>3. Integrate State Machine & Supervisor</summary>
 
 - [x] Prototype SystemState state machine in LegSupervisor
 - [x] Refactor boot logic from *begin() to state machine
 - [x] Implement HOME command for external use and internal self injection
 - [x] Refactor state transitions in `LegSupervisor` and `ROBT_Leg_Controller.ino`
 
-#### 4. Establish Persistent Storage
+</details>
+
+<details>
+<summary>4. Establish Persistent Storage</summary>
 
 - Persistent Storage & Serialization
   - Finalize and validate flash storage routines for calibration data, including boot-time retrieval and integrity checks
@@ -214,7 +251,10 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [x] Validate data retention across reboots
 - [x] Add flash storage for calibration data
 
-#### 5. Refine Hardware Abstraction Layer
+</details>
+
+<details>
+<summary>5. Refine Hardware Abstraction Layer</summary>
 
 - Hardware Modules
   - Review and optimize:
@@ -231,13 +271,20 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
   - [x] Verify power supply voltage and current rating before powering up
   - [x] Physically check and document signal/motor wire separation for noise immunity
 
-#### 6. Migrate ESP-NOW Communication
+</details>
 
-- [x] Design migration plan for ESP-NOW protocol
+<details>
+<summary>6. Migrate ESP-NOW Communication</summary>
 
-#### 7. Implement OTA Update System
+[x] Design migration plan for ESP-NOW protocol
+</details>
 
-#### 8. Update Documentation & Onboarding
+<details>
+<summary>7. Implement OTA Update System</summary>
+</details>
+
+<details>
+<summary>8. Update Documentation & Onboarding</summary>
 
 - [x] Review and update `Project_Context.md`, onboarding guides
 - [x] Archive legacy files and update documentation to reflect new modular practices
@@ -246,4 +293,8 @@ Complete: 50% | In Progress: 25% | Not Started: 25%
 - [x] Add explicit workflow step for agent to present actionable suggestions and code blocks when automation fails
 - [x] Write unit tests for command dispatcher and registration logic
 
-#### 9. Wireless Infrastructure & Network Coordination
+</details>
+
+<details>
+<summary>9. Wireless Infrastructure & Network Coordination</summary>
+</details>
