@@ -112,7 +112,7 @@ Complete: 50% | In Progress: 26% | Not Started: 24%
         - [⏳] Hardware timer setup: Select and configure ESP32 hardware timer (timerBegin, timerAttachInterrupt, timerAlarmWrite) for step pulse generation.
         - [⏳] Pulse interval calculation: Use $\text{alarm\_value} = \frac{1{,}000{,}000}{\text{PPS}}$ to set timer for desired step rate. Reference DM542T driver PPS requirements and minimum pulse width (≥2.5μs).
         - [⏳] Reference ESP32 Arduino Core timer documentation and DM542T manual for timing, interrupt, and reliability best practices.
-        - [⏳] Implement PPS based control of velocity/acceleration etc. for linear relationship. 
+        - [⏳] Implement PPS based control of velocity/acceleration etc. for linear relationship.
       - [ ] Link DM542T troubleshooting/FAQ table to hardware test workflow
 
 </details>
