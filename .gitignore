@@ -1,0 +1,7 @@
+# Ignore math_review folder and its contents
+ROBT_Leg_Controller/archive/math_review/
+
+# Common ignores
+*.log
+*.tmp
+build/

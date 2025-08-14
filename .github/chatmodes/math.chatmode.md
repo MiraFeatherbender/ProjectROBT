@@ -64,3 +64,4 @@ model: GPT-4.1
 	- For any unfamiliar or complex formula, use Context7’s `resolve-library-id` and `get-library-docs` to find and cite the most relevant reference.
 	- Always include the source and context of any referenced formula or principle in the workflow.
 	- Code integration or examples may be referenced or generated only if requested; the primary focus is mathematical reasoning and reference integrity.
+	- For formal math, symbolic computation, or advanced engineering analysis, prioritize Mathlib4 and Mathematics in Lean as authoritative references. Use them for matrix math, calculus, differential equations, and rigorous validation. Cite Lean references in workflows for error checking and formal proofs.
