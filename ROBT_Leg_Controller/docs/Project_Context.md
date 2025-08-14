@@ -1,12 +1,29 @@
 # Copilot Onboarding
 
-Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits. Key context:
+Welcome, Copilot (or collaborator)! This project uses modular C++ for an ESP32-based robotic leg controller. Please read this file top-to-bottom before making suggestions or edits.
 
-- Start with the "Project Context Reference" and "Development Environment" sections below.
-- Follow the README "Getting Started" steps for environment setup.
-- Review "Goals & Next Steps" for current priorities and roadmap.
-- Use the "Troubleshooting" and "Known Issues" sections for common problems.
-- All major modules and workflows are documented in the `docs` folder.
+---
+
+## Table of Contents
+
+- [Project Context Reference](#project-context-reference)
+- [Development Environment](#development-environment)
+- [Hardware Overview](#hardware-overview)
+- [Calibration Pipeline](#calibration-pipeline)
+- [AT Command System](#at-command-system)
+- [Project Structure](#project-structure)
+- [Communication Interfaces](#communication-interfaces)
+- [Persistent Storage](#persistent-storage)
+- [Coding Style & Preferences](#coding-style--preferences)
+- [Testing & Debugging](#testing--debugging)
+- [Documentation & Archive](#documentation--archive)
+- [Known Issues, Constraints, and Preferences](#known-issues-constraints-and-preferences)
+- [Recent Changes](#recent-changes)
+- [Goals & Next Steps](#goals--next-steps)
+- [How to Run / Build](#how-to-run--build)
+- [Migration & Goals Reference](#migration--goals-reference)
+
+---
 
 ## Project Context Reference
 
@@ -26,15 +43,45 @@ This document provides a comprehensive reference for the environment, hardware, 
 
 ## Hardware Overview
 
-- **Main MCU:** ESP32-C3 Super Mini
-- **Planned Network:** Will act as a child MCU to two Unexpected Maker FeatherS3 modules (parents) via ESP-NOW
-- **Peripherals:**
-  - 1x 30kg servo
-  - 1x custom dual edge detection hall sensor circuit (for servo direction calibration)
-  - 1x NEMA23 stepper motor
-    - **Driver:** DM542T Full Digital Stepper Driver
+ **Main MCU:** 11x ESP32-C3 Super Mini
+ **Parent MCUs:** 2–3x Unexpected Maker FeatherS3 modules (ESP-NOW network)
+ **Peripherals:**
 
-### LEDC & Driver Settings
+- 6x 30kg·cm servo motors (one per leg)
+- 6x custom dual edge detection hall sensor circuits (servo calibration)
+- 6x NEMA23 stepper motors
+  - **Drivers:** 6x DM542T Full Digital Stepper Drivers
+- 6x steel rods (8mm × 100mm, one per leg)
+- Various sensors (see module docs)
+- Power wiring and distribution
+- 2x 12V 25Ah LiFePO4 batteries (main power, ~2.86 kg each)
+
+### Hardware Weight Breakdown (Estimated)
+
+ | Component                        | Quantity | Unit Weight (kg) | Total Weight (kg) |
+ |-----------------------------------|----------|------------------|-------------------|
+ | NEMA23 Stepper Motor              | 6        | 0.75             | 4.50              |
+ | DM542T Stepper Driver             | 6        | 0.20 (est.)      | 1.20              |
+ | ESP32-C3 Super Mini               | 11       | 0.01 (est.)      | 0.11              |
+ | UM FeatherS3                      | 2–3      | 0.02 (est.)      | 0.04–0.06         |
+ | 30kg·cm Servo                     | 6        | 0.06 (est.)      | 0.36              |
+ | Steel Rod (8mm × 100mm)           | 6        | 0.40 (est.)      | 2.40              |
+ | LiFePO4 Battery (12V 25Ah)        | 2        | 2.86             | 5.72              |
+ | Sensors, Wiring, Chassis, Wheels  | —        | —                | 4.00 (est.)       |
+ | **Estimated Total**               |          |                  | **18.33–18.35**   |
+
+ *All weights are approximate. Update as needed for final build.*
+
+### Performance Summary (Torque & Velocity)
+
+ | Scenario      | Motor PPS | Motor Torque (N·m) | Max Mass (kg) | Velocity (m/s) |
+ |---------------|-----------|--------------------|---------------|---------------|
+ | Flat Land     | 5000      | 0.5                | >18.3         | 1.28          |
+ | Curb Climb    | 1000      | 1.1                | 18.3          | 0.26          |
+
+ *For curb climbing, reduce speed (PPS) to maximize available torque. For flatland, higher speeds are possible with ample torque margin.*
+
+### Timer & Driver Settings
 
 - Hardware Timer pulse_us reference: 1M/PPS
 - Microstepping: 400 microsteps/rev (DM542T DIP SW5–SW8: OFF, ON, ON, ON)
@@ -257,7 +304,7 @@ Last reviewed by Copilot: August 11, 2025
 - Click **Upload** to flash via USB (OTA update planned).
 - Use the **Serial Monitor** at 115200 baud for debugging.
 
-_Arduino IDE is supported as a secondary method._
+*Arduino IDE is supported as a secondary method.*
 
 ## Migration & Goals Reference
 

@@ -1,6 +1,6 @@
 ---
 description: Engineering and physics math mode for iterative calculations, step-by-step reasoning, and technical discussion. Supports unit tracking/conversion, equation rendering, and deep workflow review using Copilot submodes. Math-first, code only if requested. Encourages creative, dynamic tandem mode combinations for advanced math workflows.
-tools: ['think', 'problems', 'openSimpleBrowser', 'fetch', 'searchResults', 'editFiles', 'search', 'context7', 'sequentialthinking']
+tools: ['codebase', 'think', 'problems', 'openSimpleBrowser', 'fetch', 'searchResults', 'editFiles', 'search', 'context7', 'sequentialthinking']
 model: GPT-4.1
 ---
 

@@ -98,6 +98,7 @@ struct ServoConfig {
 };
 
 // Stepper-specific configuration
+// Note: Stepper Config will be realigned with hardware timer instead of LEDC
 struct StepperConfig {
     LEDCConfig ledc {
         .pin = 2, // See leg_pin_init_table: "Stepper_STEP"
