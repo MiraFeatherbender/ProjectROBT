@@ -104,17 +104,17 @@ struct StepperConfig {
         .channel = 1,
         .timer = 1,
         .frequency = 0,
-        .resolution_bits = 8
+        .resolution_bits = 8 //only affects PWM duty cycle
     };
 
     uint32_t freq_min = 0;
-    uint32_t freq_max = 36000;
+    uint32_t freq_max = 6667; // Corresponds to 1.7 m/s with current mech. config
 
-    uint16_t microsteps_per_rev = 1600;
+    uint16_t microsteps_per_rev = 400;
     float gear_ratio = 4.0f;               // 20T to 80T
     float wheel_diameter_mm = 130.0f;
 
-    float max_velocity_mps = 2.3f;
+    float max_velocity_mps = 1.7f;
 };
 
 #endif //DRIVE_CONFIG_H

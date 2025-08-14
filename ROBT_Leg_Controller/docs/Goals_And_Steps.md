@@ -7,16 +7,16 @@
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
-Complete: 51% | In Progress: 23% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
+Complete: 49% | In Progress: 25% | Not Started: 25%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
 Complete: 33% | In Progress: 33% | Not Started: 33%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 53% | In Progress: 23% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 50% | In Progress: 25% | Not Started: 25%
 
 ## Task State Legend
 
@@ -94,18 +94,10 @@ Complete: 53% | In Progress: 23% | Not Started: 25%
     - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
     - [🧩] Integrate servo and stepper motion into custom AT command interface
     - [⏳] Implement stepper controller module
-      - [x] Validate step/dir signal timing and pulse width (≥2.5μs) per DM542T manual
-        - [x] Set LEDC frequency to 37,500 Hz for 2.3m/s drive rate
-        - [x] LEDC frequency granularity and velocity error (REF_TICK, 8–16 bits):
-          - **8 bits:** 1.247 mm/s per step, ±0.624 mm/s error, ~1,844 steps
-          - **9 bits:** 0.623 mm/s per step, ±0.312 mm/s error, ~3,692 steps
-          - **10 bits:** 0.312 mm/s per step, ±0.156 mm/s error, ~7,372 steps
-          - **11 bits:** 0.156 mm/s per step, ±0.078 mm/s error, ~14,744 steps
-          - **12 bits:** 0.078 mm/s per step, ±0.039 mm/s error, ~29,487 steps
-          - **13 bits:** 0.039 mm/s per step, ±0.019 mm/s error, ~58,974 steps
-          - **14 bits:** 0.019 mm/s per step, ±0.010 mm/s error, ~117,948 steps
-          - **15 bits:** 0.010 mm/s per step, ±0.005 mm/s error, ~235,896 steps
-          - **16 bits:** 0.005 mm/s per step, ±0.002 mm/s error, ~471,792 steps
+      - [⏳] Validate step/dir signal timing and pulse width (≥2.5μs) per DM542T manual
+        - [⏳] Set LEDC frequency to 6,6667 Hz for 1.7m/s drive rate
+        - [⏳] LEDC frequency granularity and velocity error (REF_TICK, 8–16 bits):
+
       - [ ] Link DM542T troubleshooting/FAQ table to hardware test workflow
       - [ ] Document DM542T DIP switch settings for microstep and current
       - [ ] Confirm and record standstill current DIP switch (SW4) setting
