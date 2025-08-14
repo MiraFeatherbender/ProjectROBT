@@ -8,7 +8,7 @@
 
 **Total Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 50% | In Progress: 26% | Not Started: 24%
+Complete: 49% | In Progress: 26% | Not Started: 25%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
@@ -16,7 +16,7 @@ Complete: 33% | In Progress: 33% | Not Started: 33%
 
 **Next Steps Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 51% | In Progress: 26% | Not Started: 23%
+Complete: 50% | In Progress: 26% | Not Started: 24%
 
 ## Task State Legend
 
@@ -49,6 +49,7 @@ Complete: 51% | In Progress: 26% | Not Started: 23%
 <summary>For: Complete Servo Calibration Pipeline</summary>
 
 - [ ] Document calibration workflow
+- [ ] Enable Hall Sensor Module power control
 
 </details>
 
@@ -107,13 +108,12 @@ Complete: 51% | In Progress: 26% | Not Started: 23%
     - [🧩] Integrate servo and stepper motion into custom AT command interface
     - [⏳] Implement stepper controller module
       - [⏳] Validate step/dir signal timing and pulse width (≥2.5μs) per DM542T manual
-        - Set LEDC frequency to 6,6667 Hz for 1.7m/s drive rate
+        - [ ]Set PPS to 6,6667 Hz for 1.7m/s drive rate
         - [⏳] Hardware timer setup: Select and configure ESP32 hardware timer (timerBegin, timerAttachInterrupt, timerAlarmWrite) for step pulse generation.
-        - [⏳] Pulse interval calculation: Use $\text{pulse\_interval\_us} = \frac{1{,}000{,}000}{\text{PPS}}$ to set timer for desired step rate. Reference DM542T driver PPS requirements and minimum pulse width (≥2.5μs).
+        - [⏳] Pulse interval calculation: Use $\text{alarm\_value} = \frac{1{,}000{,}000}{\text{PPS}}$ to set timer for desired step rate. Reference DM542T driver PPS requirements and minimum pulse width (≥2.5μs).
         - [⏳] Reference ESP32 Arduino Core timer documentation and DM542T manual for timing, interrupt, and reliability best practices.
+        - [⏳] Implement PPS based control of velocity/acceleration etc. for linear relationship. 
       - [ ] Link DM542T troubleshooting/FAQ table to hardware test workflow
-      - [x] Document DM542T DIP switch settings for microstep and current
-      - [x] Confirm and record standstill current DIP switch (SW4) setting
 
 </details>
 
@@ -270,6 +270,8 @@ Complete: 51% | In Progress: 26% | Not Started: 23%
 - Implement stepper controller module
   - [x] Verify power supply voltage and current rating before powering up
   - [x] Physically check and document signal/motor wire separation for noise immunity
+  - [x] Document DM542T DIP switch settings for microstep and current
+  - [x] Confirm and record standstill current DIP switch (SW4) setting
 
 </details>
 

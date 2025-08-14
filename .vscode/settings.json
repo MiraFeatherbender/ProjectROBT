@@ -10,7 +10,7 @@
     "ServoCalibration.cpp": "ServoCalibration.h,FlashStorageTypes.cpp,FlashStorageTypes.h,NVSManager.h",
     "CommandFactory.cpp": "CommandFactory.h,CommandParser.cpp,CommandParser.h,CommandDispatcher.cpp,CommandDispatcher.h,CommandInfo.h,ParsedCommand.h,SerialInputHandler.cpp,SerialInputHandler.h",
     "LegSupervisor.cpp": "LegSupervisor.h,ROBT_Leg_Controller.ino",
-    "DriveConfig.h": "ServoController.cpp,ServoController.h,StepperController.cpp,StepperController.h,HallSensorHandler.cpp,HallSensorHandler.h"
+    "DriveConfig.h": "StepperTimerTemplate.cpp,ServoController.cpp,ServoController.h,StepperController.cpp,StepperController.h,HallSensorHandler.cpp,HallSensorHandler.h"
   },
   "explorer.sortOrder": "foldersNestsFiles"
 }
