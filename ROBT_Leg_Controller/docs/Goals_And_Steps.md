@@ -127,7 +127,7 @@ Complete: 43% | In Progress: 19% | Not Started: 38%
           - [ ] DRV_STATUS  — Driver status and diagnostics (reports errors, stall, overtemperature, short detection)
           - [ ] PWMCONF  — PWM mode configuration (controls PWM amplitude, gradient, and switching)
           - [ ] SGTHRS  — StallGuard threshold (sets sensitivity for stall detection and load measurement)
-        - [ ] Prioritize register study: 
+        - [ ] Prioritize register study:
           - [ ] GCONF
           - [ ] IHOLD_IRUN
           - [ ] CHOPCONF
@@ -141,7 +141,7 @@ Complete: 43% | In Progress: 19% | Not Started: 38%
         - [ ] Document pinout changes in README and schematic
       - [ ] Tier 3: Firmware Boot & SPI Initialization
         - [ ] Implement SPI initialization in firmware (set SPI mode, speed, CS polarity)
-        - [ ] On boot, write safe defaults to 
+        - [ ] On boot, write safe defaults to
           - [ ] GCONF
           - [ ] IHOLD_IRUN
           - [ ] CHOPCONF
