@@ -34,19 +34,20 @@ Provides robust, safe, and precise steering and drive control with automatic cal
 
 ## Pinout
 
-| Function                | GPIO Pin | Notes                                 |
-|-------------------------|----------|---------------------------------------|
-| Servo PWM Output        | 0        | LEDC PWM output to servo signal wire  |
-| Servo potentiometer     | 1        | ADC input                             |
-| Stepper_DIR             | 2        | Output, low                           |
-| Stepper_STEP            | 3        | Output, low                           |
-| Hall_Module_PWR         | 4        | Output, high                          |
-| Hall_North              | 5        | Input, pull-up                        |
-| Hall_South              | 6        | Input, pull-up                        |
-| Hall_Module_Indicator   | 7        | Output, high                          |
-| Address 1               | 10       | Input, pull-up (MSB)                  |
-| Address 2               | 20       | Input, pull-up                        |
-| Address 3               | 21       | Input, pull-up (LSB)                  |
+| Function                | GPIO Pin | Notes                                 | New Function         | New GPIO Pin | New Notes                       |
+|-------------------------|----------|---------------------------------------|----------------------|--------------|----------------------------------|
+| Servo PWM Output        | 0        | LEDC PWM output to servo signal wire  |                      |              |                                  |
+| Servo potentiometer     | 1        | ADC input                             |                      |              |                                  |
+| Stepper_DIR             | 2        | Output, low                           | SPI SCK              | 2            | SPI Clock                        |
+| Stepper_STEP            | 3        | Output, low                           | SPI MOSI             | 3            | SPI Master Out Slave In           |
+| Hall_Module_PWR         | 4        | Output, high                          | SPI MISO             | 4            | SPI Master In Slave Out           |
+| Hall_North              | 5        | Input, pull-up                        |                      |              |                                  |
+| Hall_South              | 6        | Input, pull-up                        |                      |              |                                  |
+| Hall_Module_Indicator   | 7        | Output, high                          |                      |              |                                  |
+| Address 1               | 10       | Input, pull-up (MSB)                  |                      |              |                                  |
+| Address 2               | 20       | Input, pull-up                        |                      |              |                                  |
+| Address 3               | 21       | Input, pull-up (LSB)                  |                      |              |                                  |
+|                        |          |                                       | SPI CS               | 9            | SPI Chip Select                   |
 
 ---
 

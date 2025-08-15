@@ -1,22 +1,22 @@
 # Goals & Steps (Phase-Aligned)
 <!-- markdownlint-disable-file MD033 -->
-**Version:** 2025-08-12
+**Version:** 2025-08-15
 
 ---
 
 ## Project Progress Overview
 
 **Total Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 49% | In Progress: 26% | Not Started: 25%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 43% | In Progress: 19% | Not Started: 38%
 
 **Goals Progress:**  
 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
 Complete: 33% | In Progress: 33% | Not Started: 33%
 
 **Next Steps Progress:**  
-🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜  
-Complete: 50% | In Progress: 26% | Not Started: 24%
+🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟨🟨🟨🟨🟨🟨⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  
+Complete: 43% | In Progress: 19% | Not Started: 38%
 
 ## Task State Legend
 
@@ -49,16 +49,15 @@ Complete: 50% | In Progress: 26% | Not Started: 24%
 <summary>For: Complete Servo Calibration Pipeline</summary>
 
 - [ ] Document calibration workflow
-- [ ] Enable Hall Sensor Module power control
 
 </details>
 
 <details>
 <summary>For: Finalize Command System Implementation</summary>
 
-- [⏳] Command System Core
-  - [⏳] Maintain a central documentation standard for each command
-  - [ ] Add missing command definitions
+- [x] Command System Core
+
+- [ ] Add missing command definitions
 - [⏳] Command Handlers
   - [⏳] Add query support:
     - [⏳] MOVE
@@ -77,6 +76,7 @@ Complete: 50% | In Progress: 26% | Not Started: 24%
     - [⏳] CAL documentation
     - [⏳] NODE documentation
     - [⏳] OTA documentation
+  - [⏳] Maintain a central documentation standard for each command
 
 </details>
 
@@ -107,14 +107,56 @@ Complete: 50% | In Progress: 26% | Not Started: 24%
     - [ ] Ensure Drive Coordinator project implements angular steering velocity safety checks
     - [🧩] Integrate servo and stepper motion into custom AT command interface
     - [⏳] Implement stepper controller module
-      - [⏳] Validate step/dir signal timing and pulse width (≥2.5μs) per DM542T manual
+      - [⏳] Validate signal timing and pulse width
         - [ ]Set PPS to <=8000 Hz for 1.2m/s drive rate
-        - [⏳] Hardware timer setup: Select and configure ESP32 hardware timer (timerBegin, timerAttachInterrupt, timerAlarmWrite) for step pulse generation.
-        - [⏳] Pulse interval calculation: Use $\text{alarm\_value} = \frac{1{,}000{,}000}{\text{PPS}}$ to set timer for desired step rate. Reference DM542T driver PPS requirements and minimum pulse width (≥2.5μs).
-        - [⏳] Reference ESP32 Arduino Core timer documentation and DM542T manual for timing, interrupt, and reliability best practices.
         - [⏳] Implement PPS based control of velocity/acceleration etc. for linear relationship.
         - [x] Perform advanced mathematical analysis for movement requirements.
-      - [ ] Link DM542T troubleshooting/FAQ table to hardware test workflow
+    - [⏳] Implement MKS-TMC2160-OC (SPI Mode)
+      - [⏳] Tier 1: Planning, Documentation & Study
+        - [x] Compare DM542T and TMC2160 for torque, braking, and control modes
+        - [x] Document pin budgeting and SPI requirements for TMC2160
+        - [x] Expand pinout table to show legacy and repurposed SPI assignments
+        - [x] Analyze passive vs. active braking modes and document engineering context
+        - [x] Clarify DIP switch vs. SPI register precedence
+        - [x] Reference TMC2160 datasheet for register map and SPI protocol
+        - [ ] Review TMC2160 datasheet and MKS board schematic
+        - [ ] Identify and document all relevant SPI registers
+          - [ ] GCONF  — Global configuration register (enables/disables core features, sets interface modes)
+          - [ ] IHOLD_IRUN  — Motor current control (sets run/hold currents and timings)
+          - [ ] CHOPCONF  — Chopper configuration (controls microstepping, spreadCycle/stealthChop, blank time, etc.)
+          - [ ] DRV_STATUS  — Driver status and diagnostics (reports errors, stall, overtemperature, short detection)
+          - [ ] PWMCONF  — PWM mode configuration (controls PWM amplitude, gradient, and switching)
+          - [ ] SGTHRS  — StallGuard threshold (sets sensitivity for stall detection and load measurement)
+        - [ ] Prioritize register study: 
+          - [ ] GCONF
+          - [ ] IHOLD_IRUN
+          - [ ] CHOPCONF
+          - [ ] DRV_STATUS
+          - [ ] others as needed
+      - [ ] Tier 2: Hardware Rewiring & Pin Assignment
+        - [x] Map ESP32-C3 Super Mini pins for SPI (MOSI, MISO, SCK, CS)
+        - [ ] Desolder/remove Step/Dir-related MOSFETs, transistors, and resistors as needed
+        - [ ] Verify PCB traces for SPI signal integrity
+        - [ ] Add connector/wiring for each SPI pin (JST or secure Dupont + strain relief)
+        - [ ] Document pinout changes in README and schematic
+      - [ ] Tier 3: Firmware Boot & SPI Initialization
+        - [ ] Implement SPI initialization in firmware (set SPI mode, speed, CS polarity)
+        - [ ] On boot, write safe defaults to 
+          - [ ] GCONF
+          - [ ] IHOLD_IRUN
+          - [ ] CHOPCONF
+        - [ ] Read back DRV_STATUS to confirm communication
+        - [ ] Log all SPI transactions for debugging
+      - [ ] Tier 4: Feature Enablement & Safety
+        - [ ] Enable key features after boot (microstepping, current control, SpreadCycle/StealthChop, StallGuard)
+        - [ ] Implement error handling and fallback to DIP switch defaults if SPI fails
+        - [ ] Validate braking and motion profile logic with new driver
+      - [ ] Tier 5: Testing, Documentation, & Milestones
+        - [ ] Test SPI communication and driver response (read/write registers)
+        - [ ] Validate stepper motion, torque, and braking performance
+        - [ ] Update documentation and onboarding guides for new hardware and firmware
+        - [ ] Add troubleshooting steps for SPI wiring, register settings, and driver faults
+        - [ ] Milestone: "MKS-TMC2160-OC SPI migration complete, validated, and documented"
 
 </details>
 
