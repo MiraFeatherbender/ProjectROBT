@@ -5,6 +5,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>GCONF (0x00)</b></summary>
+R/W: Read/Write | Bits: 32
 
 - **TMC2160_RECALIBRATE_FIELD**:  
   1 = Zero crossing recalibration during driver disable (via ENN or via TOFF setting)
@@ -51,6 +52,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>GSTAT (0x01)</b></summary>
+R/W: Read/Write | Bits: 3
 
 - **TMC2160_RESET_FIELD**:  
   1 = Indicates that the IC has been reset. All registers have been cleared to reset values.
@@ -66,6 +68,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>IOIN/OUTPUT (0x04)</b></summary>
+R/W: Read | Bits: 8 (0–7) + 8 (24–31)
 
 - **TMC2160_STEP_FIELD**:  
   STEP input pin
@@ -88,6 +91,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>X_COMPARE (0x05)</b></summary>
+R/W: Write | Bits: 20
 
 - TMC2160_X_COMPARE_FIELD
 
@@ -95,6 +99,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>OTP_PROG (0x06)</b></summary>
+R/W: Write | Bits: 8
 
 - TMC2160_OTPBIT_FIELD
 - TMC2160_OTPBYTE_FIELD
@@ -104,6 +109,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>OTP_READ (0x07)</b></summary>
+R/W: Read | Bits: 8
 
 - TMC2160_OTP_TBL_FIELD
 - TMC2160_OTP_BBM_FIELD
@@ -114,6 +120,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>FACTORY_CONF (0x08)</b></summary>
+R/W: Write | Bits: 5
 
 - TMC2160_FCLKTRIM_FIELD
 
@@ -121,6 +128,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>SHORT_CONF (0x09)</b></summary>
+R/W: Write | Bits: 19
 
 - TMC2160_S2VS_LEVEL_FIELD
 - TMC2160_S2GND_LEVEL_FIELD
@@ -131,6 +139,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>DRV_CONF (0x0A)</b></summary>
+R/W: Write | Bits: 22
 
 - **TMC2160_BBMTIME_FIELD**:  
   BBMTIME: Break-Before make delay  
@@ -172,6 +181,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>GLOBAL_SCALER (0x0B)</b></summary>
+R/W: Write | Bits: 8
 
 - **TMC2160_GLOBAL_SCALER_FIELD**:  
   Global scaling of Motor current. This value is multiplied to the current scaling in order to adapt a drive to a certain motor type. This value should be chosen before tuning other settings, because it also influences chopper hysteresis.  
@@ -185,6 +195,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>OFFSET_READ (0x0C)</b></summary>
+R/W: Read | Bits: 16
 
 - **TMC2160_OFFSET_READ_A_FIELD**:  
   Offset calibration result phase A (signed)
@@ -195,6 +206,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>IHOLD_IRUN (0x10)</b></summary>
+R/W: Write | Bits: 5 (IHOLD) + 5 (IRUN) + 4 (IHOLDDELAY)
 
 - **TMC2160_IHOLD_FIELD**:  
   Standstill current (0=1/32...31=32/32). In combination with stealthChop mode, setting IHOLD=0 allows to choose freewheeling or coil short circuit for motor stand still.
@@ -209,6 +221,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>TPOWERDOWN (0x11)</b></summary>
+R/W: Write | Bits: 8
 
 - **TMC2160_TPOWERDOWN_FIELD**:  
   Sets the delay time after stand still (sts) of the motor to motor current power down. Time range is about 0 to 4 seconds.  
@@ -220,6 +233,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>TSTEP (0x12)</b></summary>
+R/W: Write | Bits: 20
 
 - **TMC2160_TSTEP_FIELD**:  
   Actual measured time between two 1/256 microsteps derived from the step input frequency in units of 1/fCLK. Measured value is (2^20)-1 in case of overflow or stand still.  
@@ -232,6 +246,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>TPWMTHRS (0x13)</b></summary>
+R/W: Write | Bits: 20
 
 - **TMC2160_TPWMTHRS_FIELD**:  
   This is the upper velocity for stealthChop voltage PWM mode.  
@@ -243,6 +258,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>TCOOLTHRS (0x14)</b></summary>
+R/W: Write | Bits: 20
 
 - **TMC2160_TCOOLTHRS_FIELD**:  
   This is the lower threshold velocity for switching on smart energy coolStep and stallGuard feature (unsigned).  
@@ -258,6 +274,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>THIGH (0x15)</b></summary>
+R/W: Write | Bits: 20
 
 - **TMC2160_THIGH_FIELD**:  
   This velocity setting allows velocity dependent switching into a different chopper mode and fullstepping to maximize torque (unsigned). The stall detection feature becomes switched off for 2-3 electrical periods whenever passing THIGH threshold to compensate for the effect of switching modes.  
@@ -271,6 +288,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>XDIRECT (0x2D)</b></summary>
+R/W: Read/Write | Bits: 9 (coil A current) + 9 (coil B current)
 
 - **TMC2160_XDIRECT_FIELD**:  
   This register is used in direct coil current mode, only (direct_mode = 1). It bypasses the internal sequencer. Specifies signed coil A current (bits 8..0) and coil B current (bits 24..16). In this mode, the current is scaled by IHOLD setting. Velocity based current regulation of stealthChop is not available in this mode. The automatic stealthChop current regulation will work only for low stepper motor velocities.  
@@ -280,6 +298,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>VDCMIN (0x33)</b></summary>
+R/W: Write | Bits: 23 (bits 0–22; only bits 22–8 used for value/comparison)
 
 - **TMC2160_VDCMIN_FIELD**:  
   Automatic commutation dcStep minimum velocity. Enable dcStep by DCEN pin.  
@@ -291,6 +310,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>MSLUT__ (0x60)</b></summary>
+R/W: Write | Bits: 32
 <ul>
 <!-- Add field macros and descriptions here -->
 </ul>
@@ -298,6 +318,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>MSLUTSEL (0x68)</b></summary>
+R/W: Write | Bits: 32
 <ul>
 <!-- Add field macros and descriptions here -->
 </ul>
@@ -305,6 +326,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>MSLUTSTART (0x69)</b></summary>
+R/W: Write | Bits: 8 + 8
 <ul>
 <!-- Add field macros and descriptions here -->
 </ul>
@@ -312,6 +334,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>MSCNT (0x6A)</b></summary>
+R/W: Read | Bits: 10
 <ul>
 <!-- Add field macros and descriptions here -->
 </ul>
@@ -319,6 +342,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>MSCURACT (0x6B)</b></summary>
+R/W: Read | Bits: 9 + 9
 <ul>
 <!-- Add field macros and descriptions here -->
 </ul>
@@ -326,6 +350,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>CHOPCONF (0x6C)</b></summary>
+R/W: Read/Write | Bits: 32
 
 - **TMC2160_DISS2VS_FIELD**:  
   Short to supply protection disable. 0: Short to VS protection is on, 1: Short to VS protection is disabled.
@@ -367,6 +392,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 </details>
 <details>
 <summary><b>COOLCONF (0x6D)</b></summary>
+R/W: Write | Bits: 25
 
 - **TMC2160_SFILT_FIELD**:  
   stallGuard2 filter enable. 0: Standard mode, high time resolution for stallGuard2. 1: Filtered mode, stallGuard2 signal updated for each four fullsteps (resp. six fullsteps for 3 phase motor) only to compensate for motor pole tolerances.
@@ -387,6 +413,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>DCCTRL (0x6E)</b></summary>
+R/W: Write | Bits: 24
 
 - **TMC2160_DCCTRL_FIELD**:  
   dcStep (DC) automatic commutation configuration register (enable via pin DCEN or via VDCMIN):  
@@ -401,6 +428,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>DRV_STATUS (0x6F)</b></summary>
+R/W: Read | Bits: 32
 
 - **TMC2160_STST_FIELD**:  
   Standstill indicator. This flag indicates motor stand still in each operation mode. This occurs 2^20 clocks after the last step pulse.
@@ -435,6 +463,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>PWMCONF (0x70)</b></summary>
+R/W: Write | Bits: 22
 
 - **TMC2160_PWMCONF_FIELD**:  
   Voltage PWM mode chopper configuration.  
@@ -445,6 +474,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>PWM_SCALE (0x71)</b></summary>
+R/W: Read | Bits: 9 + 8
 
 - **TMC2160_PWM_SCALE_SUM_FIELD**:  
   Actual PWM duty cycle. This value is used for scaling the values CUR_A and CUR_B read from the sine wave table. (0...255)
@@ -455,6 +485,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>PWM_AUTO (0x72)</b></summary>
+R/W: Read | Bits: 8 + 8
 
 - **TMC2160_PWM_OFS_AUTO_FIELD**:  
   Automatically determined offset value (0...255)
@@ -465,6 +496,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 
 <details>
 <summary><b>LOST_STEPS (0x73)</b></summary>
+R/W: Read | Bits: 20
 
 - **TMC2160_LOST_STEPS_FIELD**:  
   Number of input steps skipped due to higher load in dcStep operation, if step input does not stop when DC_OUT is low. This counter wraps around after 2^20 steps. Counts up or down depending on direction. Only with SDMODE=1.

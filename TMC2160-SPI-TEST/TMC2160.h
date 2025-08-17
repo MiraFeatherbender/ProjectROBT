@@ -221,4 +221,4 @@ static inline void tmc2160_fieldWrite(uint16_t icID, TMC2160RegisterField field,
 // #endif
 // #endif
 // /***************************************************************************************************************************************************/
-// #endif /* TMC_IC_TMC2160_H_ */
+ #endif /* TMC_IC_TMC2160_H_ */
