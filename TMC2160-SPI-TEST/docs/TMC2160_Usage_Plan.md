@@ -16,7 +16,7 @@ This document outlines the minimal initialization steps and register settings re
 2. **IHOLD_IRUN (0x10):**  
    Set motor current:
    - `IHOLD_FIELD`: Standstill current (e.g., 8–16 for low power)
-   - `IRUN_FIELD`: Run current (e.g., 16–31 for normal operation)
+   - `IRUN_FIELD`: Run current (e.g., 16–31 for normal operation) (motor current 2.8A/phase, iRun 19 = 2.703A)
    - `IHOLDDELAY_FIELD`: Delay before power-down (e.g., 8)
 
 3. **CHOPCONF (0x6C):**  
