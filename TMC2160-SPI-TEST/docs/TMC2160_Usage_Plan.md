@@ -10,7 +10,7 @@ This document outlines the minimal initialization steps and register settings re
    Send test read and attempt to print response to serial.  
    If no response, try backup:
 
-2. **DRV_STATUS:**  
+2. **DRV_STATUS (0x6F):**  
    Send test read and attempt to print response to serial if GSTAT (0x01) failed.  
    Print pass or fail to serial
 

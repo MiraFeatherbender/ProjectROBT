@@ -5,10 +5,23 @@
 
 void setup(){
     HWCDCSerial.begin(115200);
-    delay(5000);
-    HWCDCSerial.println("TMC2160 SPI Test");
+    pinMode(0, 0x03);
+    digitalWrite(0, 0x0);
 }
 
 void loop(){
-    // Main loop code
+    // Example usage of TMC2160 API
+    uint16_t icID = 0; // Assuming a single IC for simplicity
+    uint8_t address = 0x6F; // Example register address
+    int32_t value = tmc2160_readRegister(icID, address);
+
+    HWCDCSerial.print("Read value from register 0x");
+    HWCDCSerial.print(address, 16);
+    HWCDCSerial.print(": ");
+    HWCDCSerial.println(value, 16);
+
+    // // Write a value to a register
+    // tmc2160_writeRegister(icID, address, 0x12345678);
+
+    delay(1000); // Delay for demonstration purposes
 }
