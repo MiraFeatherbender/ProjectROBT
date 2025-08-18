@@ -5,7 +5,8 @@
     "array": "cpp",
     "string": "cpp",
     "string_view": "cpp",
-    "span": "cpp"
+    "span": "cpp",
+    "tmc2160.h": "c"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "vscord.app.name": "Visual Studio Code",

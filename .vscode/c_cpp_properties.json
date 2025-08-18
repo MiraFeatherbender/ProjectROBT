@@ -27,11 +27,11 @@
             ],
             "intelliSenseMode": "gcc-x64",
             "includePath": [
-                "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\ROBT_Leg_Controller",
+                "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\TMC2160-SPI-TEST",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp32-arduino-libs\\idf-release_v5.5-b66b5448-v1\\esp32c3\\qio_qspi\\include",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\cores\\esp32",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini",
-                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\Preferences\\src",
+                "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\SPI\\src",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411\\riscv32-esp-elf\\include\\c++\\14.2.0",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411\\riscv32-esp-elf\\include\\c++\\14.2.0\\riscv32-esp-elf",
                 "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\esp-rv32\\2411\\riscv32-esp-elf\\include\\c++\\14.2.0\\backward",

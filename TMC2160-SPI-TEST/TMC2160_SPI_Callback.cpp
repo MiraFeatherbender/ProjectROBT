@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "TMC2160_SPI_Callback.h"
 
 // SPIClass instance for TMC2160
@@ -11,7 +12,7 @@ static void TMC2160_SPI_init()
 
 
 // SPI callback implementation
-extern "C" void tmc2160_readWriteSPI(uint16_t icID, uint8_t *data, size_t dataLength)
+extern void tmc2160_readWriteSPI(uint16_t icID, uint8_t *data, size_t dataLength)
 {
     static bool spi_initialized = false;
     if (!spi_initialized) {

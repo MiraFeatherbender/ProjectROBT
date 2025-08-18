@@ -10,62 +10,27 @@
     "Includepath": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\variants\\nologo_esp32c3_super_mini"
   },
   {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ROBT_Leg_Controller.ino.cpp",
-    "Include": "Preferences.h",
-    "Includepath": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\Preferences\\src"
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\TMC2160-SPI-TEST.ino.cpp",
+    "Include": "SPI.h",
+    "Includepath": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\SPI\\src"
   },
   {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ROBT_Leg_Controller.ino.cpp",
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\TMC2160-SPI-TEST.ino.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandDispatcher.cpp",
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\TMC2160.c",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandFactory.cpp",
+    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\TMC2160_SPI_Callback.cpp",
     "Include": "",
     "Includepath": null
   },
   {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\CommandParser.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\FlashStorageTypes.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\HallSensorHandler.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\LegSupervisor.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\SerialInputHandler.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoCalibration.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\OneDrive\\Old Documents\\GitHub\\ProjectROBT\\build\\sketch\\ServoController.cpp",
-    "Include": "",
-    "Includepath": null
-  },
-  {
-    "Sourcefile": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\Preferences\\src\\Preferences.cpp",
+    "Sourcefile": "C:\\Users\\jonat\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\3.3.0\\libraries\\SPI\\src\\SPI.cpp",
     "Include": "",
     "Includepath": null
   }

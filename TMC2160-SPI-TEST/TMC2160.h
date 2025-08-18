@@ -28,15 +28,15 @@
 // To enable the cache mechanism in order to keep the copy of all registers, set TMC2160_CACHE to '1'.
 // With this mechanism the value of write-only registers could be read from their shadow copies.
 #ifndef TMC2160_CACHE
-#define TMC2160_CACHE  1
-//#define TMC2160_CACHE   0
+//#define TMC2160_CACHE  1
+#define TMC2160_CACHE   0
 #endif
 
 // To use the caching mechanism already implemented by the TMC-API, set TMC2160_ENABLE_TMC_CACHE to '1'.
 // Set TMC2160_ENABLE_TMC_CACHE to '0' if one wants to have their own cache implementation.
 #ifndef TMC2160_ENABLE_TMC_CACHE
-#define TMC2160_ENABLE_TMC_CACHE   1
-//#define TMC2160_ENABLE_TMC_CACHE   0
+//#define TMC2160_ENABLE_TMC_CACHE   1
+#define TMC2160_ENABLE_TMC_CACHE   0
 #endif
 
 /******************************************************************************/
@@ -103,32 +103,32 @@ static inline void tmc2160_fieldWrite(uint16_t icID, TMC2160RegisterField field,
 // #if TMC2160_CACHE == 1
 // #ifdef TMC2160_ENABLE_TMC_CACHE
 
-// // By default, support one IC in the cache
-// #ifndef TMC2160_IC_CACHE_COUNT
-// #define TMC2160_IC_CACHE_COUNT 1
-// #endif
+// By default, support one IC in the cache
+#ifndef TMC2160_IC_CACHE_COUNT
+#define TMC2160_IC_CACHE_COUNT 1
+#endif
 
-// typedef enum {
-//    TMC2160_CACHE_READ,
-//    TMC2160_CACHE_WRITE,
-//    // Special operation: Put content into the cache without marking the entry as dirty.
-//    // Only used to initialize the cache with hardware defaults. This will allow reading
-//    // from write-only registers that have a value inside them on reset. When using this
-//    // operation, a restore will *not* rewrite that filled register!
-//    TMC2160_CACHE_FILL_DEFAULT,
-// } TMC2160CacheOp;
+typedef enum {
+   TMC2160_CACHE_READ,
+   TMC2160_CACHE_WRITE,
+   // Special operation: Put content into the cache without marking the entry as dirty.
+   // Only used to initialize the cache with hardware defaults. This will allow reading
+   // from write-only registers that have a value inside them on reset. When using this
+   // operation, a restore will *not* rewrite that filled register!
+   TMC2160_CACHE_FILL_DEFAULT,
+} TMC2160CacheOp;
 
-// typedef struct{
-//     uint8_t address;
-//     uint32_t value;
-// } TMC2160RegisterConstants;
+typedef struct{
+    uint8_t address;
+    uint32_t value;
+} TMC2160RegisterConstants;
 
 
-// #define TMC2160_ACCESS_DIRTY       0x08  // Register has been written since reset -> shadow register is valid for restore
-// #define TMC2160_ACCESS_READ        0x01
-// #define TMC2160_ACCESS_W_PRESET    0x42
-// #define TMC2160_IS_READABLE(x)     ((x) & TMC2160_ACCESS_READ)
-// #define ARRAY_SIZE(x)              (sizeof(x)/sizeof(x[0]))
+#define TMC2160_ACCESS_DIRTY       0x08  // Register has been written since reset -> shadow register is valid for restore
+#define TMC2160_ACCESS_READ        0x01
+#define TMC2160_ACCESS_W_PRESET    0x42
+#define TMC2160_IS_READABLE(x)     ((x) & TMC2160_ACCESS_READ)
+#define ARRAY_SIZE(x)              (sizeof(x)/sizeof(x[0]))
 
 // // Default Register values
 // #define R10 0x00070A03  // IHOLD_IRUN

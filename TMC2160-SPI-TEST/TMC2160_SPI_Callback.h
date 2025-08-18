@@ -23,6 +23,6 @@
 // } TMC2160_SPIStatus;
 
 // Callback returns status bits from last SPI response
-extern "C" void tmc2160_readWriteSPI(uint16_t icID, uint8_t *data, size_t dataLength);
+extern void tmc2160_readWriteSPI(uint16_t icID, uint8_t *data, size_t dataLength);
 
 #endif // TMC2160_SPI_CALLBACK_H_
