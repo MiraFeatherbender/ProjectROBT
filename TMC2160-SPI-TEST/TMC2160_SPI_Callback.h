@@ -6,10 +6,10 @@
 #include "SPI.h"
 
 // Placeholder macros for custom SPI pin assignment
-#define TMC2160_SPI_MOSI_PIN   23
-#define TMC2160_SPI_MISO_PIN   19
-#define TMC2160_SPI_SCK_PIN    18
-#define TMC2160_SPI_CS_PIN     5
+#define TMC2160_SPI_MOSI_PIN   8
+#define TMC2160_SPI_MISO_PIN   5
+#define TMC2160_SPI_SCK_PIN    7
+#define TMC2160_SPI_CS_PIN     6
 
 
 // SPI status bits struct (bits 39-32)

@@ -1,7 +1,7 @@
 {
     "configuration": "USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none",
     "board": "esp32:esp32:nologo_esp32c3_super_mini",
-    "port": "COM4",
+    "port": "COM6",
     "programmer": "esptool",
     "sketch": "ROBT_Leg_Controller\\ROBT_Leg_Controller.ino",
     "output": ".\\build"

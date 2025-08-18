@@ -4,6 +4,16 @@ This document outlines the minimal initialization steps and register settings re
 
 ---
 
+## Minial Communication Step
+
+1. **GSTAT (0x01):**  
+   Send test read and attempt to print response to serial.  
+   If no response, try backup:
+
+2. **DRV_STATUS:**  
+   Send test read and attempt to print response to serial if GSTAT (0x01) failed.  
+   Print pass or fail to serial
+
 ## Minimal Initialization Steps
 
 1. **GCONF (0x00):**  
