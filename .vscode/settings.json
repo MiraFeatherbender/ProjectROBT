@@ -1,7 +1,11 @@
 {
   "files.associations": {
     "ostream": "cpp",
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp",
+    "span": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "vscord.app.name": "Visual Studio Code",
