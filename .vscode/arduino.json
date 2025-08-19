@@ -1,7 +1,7 @@
 {
     "configuration": "USBMode=hwcdc,JTAGAdapter=default,CDCOnBoot=default,PartitionScheme=default,CPUFreq=160,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none,EraseFlash=none",
     "board": "esp32:esp32:nologo_esp32c3_super_mini",
-    "port": "COM6",
+    "port": "COM5",
     "programmer": "esptool",
     "sketch": "TMC2160-SPI-TEST\\TMC2160-SPI-TEST.ino",
     "output": ".\\build"

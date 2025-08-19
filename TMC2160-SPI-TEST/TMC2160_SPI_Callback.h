@@ -3,13 +3,13 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "SPI.h"
+#include <SPI.h>
 
-// Placeholder macros for custom SPI pin assignment
-#define TMC2160_SPI_MOSI_PIN   8
-#define TMC2160_SPI_MISO_PIN   5
-#define TMC2160_SPI_SCK_PIN    7
-#define TMC2160_SPI_CS_PIN     6
+// Macros for custom SPI pin assignment
+#define TMC2160_SPI_MOSI_PIN   5
+#define TMC2160_SPI_MISO_PIN   10
+#define TMC2160_SPI_SCK_PIN    6
+#define TMC2160_SPI_CS_PIN     7
 
 
 // SPI status bits struct (bits 39-32)
