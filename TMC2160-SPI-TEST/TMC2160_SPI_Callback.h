@@ -7,7 +7,7 @@
 
 // Macros for custom SPI pin assignment
 #define TMC2160_SPI_MOSI_PIN   5
-#define TMC2160_SPI_MISO_PIN   10
+#define TMC2160_SPI_MISO_PIN   8
 #define TMC2160_SPI_SCK_PIN    6
 #define TMC2160_SPI_CS_PIN     7
 
