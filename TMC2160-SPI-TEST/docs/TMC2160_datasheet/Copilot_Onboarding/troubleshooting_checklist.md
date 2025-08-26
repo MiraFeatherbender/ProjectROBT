@@ -2,48 +2,47 @@
 
 A modular checklist for error flags, configuration issues, and workflow validation.
 
-
 ---
 
 ## Error Flag Checklist
 
 - Check `DRV_STATUS` for:
-	- `otpw`, `ot` (overtemperature)
-	- `stallGuard` (stall detection)
-	- `s2ga`, `s2gb` (short to ground)
-	- `olb`, `ola` (open load)
+  - `otpw`, `ot` (overtemperature)
+  - `stallGuard` (stall detection)
+  - `s2ga`, `s2gb` (short to ground)
+  - `olb`, `ola` (open load)
 
 ## Configuration Validation
 
 - Verify `CHOPCONF` settings for:
-	- Microstep resolution (`MRES`)
-	- Decay (`TOFF`, `TPFD`)
-	- Hysteresis (`HEND`, `HSTRT`)
+  - Microstep resolution (`MRES`)
+  - Decay (`TOFF`, `TPFD`)
+  - Hysteresis (`HEND`, `HSTRT`)
 - Ensure `IHOLD_IRUN` and `TPOWERDOWN` are set within recommended ranges.
 - Cross-reference workflow steps with register values.
 
 ## Calibration & Tuning Issues
 
 - For calibration issues:
-	- Re-run offset calibration workflow
-	- Check `OFFSET_READ` values
+  - Re-run offset calibration workflow
+  - Check `OFFSET_READ` values
 - For PWM amplitude problems:
-	- Retune `PWMCONF`
-	- Verify `PWM_SCALE` feedback
+  - Retune `PWMCONF`
+  - Verify `PWM_SCALE` feedback
 
 ## Advanced Diagnostics
 
 - For short circuit errors (`s2ga`, `s2gb`):
-	- Verify MOSFETs and sense resistors
-	- Inspect PCB layout and connections
+  - Verify MOSFETs and sense resistors
+  - Inspect PCB layout and connections
 - For open load detection (`olb`, `ola`):
-	- Check wiring and phase connections
+  - Check wiring and phase connections
 - For overtemperature flags (`otpw`, `ot`):
-	- Reduce current
-	- Improve cooling and airflow
+  - Reduce current
+  - Improve cooling and airflow
 - If stallGuard is unreliable:
-	- Adjust `COOLCONF` sensitivity
-	- Check mechanical load and motor condition
+  - Adjust `COOLCONF` sensitivity
+  - Check mechanical load and motor condition
 
 ## Onboarding Notes
 
