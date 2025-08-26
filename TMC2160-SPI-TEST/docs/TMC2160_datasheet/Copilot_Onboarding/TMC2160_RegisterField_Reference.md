@@ -17,36 +17,36 @@ R/W: Read/Write | Bits: 32
   0 = Normal time: 2^20 clocks
   
 - *TMC2160_EN_PWM_MODE_FIELD*:  
-  1 = stealthChop voltage PWM mode enabled (depending on velocity thresholds).  
-  Switch from off to on state while in stand-still and at IHOLD = nominal IRUN current, only.  
+  1 = `stealthChop` voltage PWM mode enabled (depending on velocity thresholds).  
+  Switch from off to on state while in stand-still and at `IHOLD = nominal IRUN` current, only.  
   
 - *TMC2160_MULTISTEP_FILT_FIELD*:  
-  1 = Enable step input filtering for stealthChop optimization with external step source (default = 1)
+  1 = Enable step input filtering for `stealthChop` optimization with external step source (default = 1)
   
 - *TMC2160_SHAFT_FIELD*:  
   1 = Inverse motor direction
   
 - *TMC2160_DIAG0_ERROR__ONLY_WITH_SD_MODE_1__FIELD*:  
-  1 = Enable DIAG0 active on driver errors: Over temperature (ot), short to GND (s2g), undervoltage chargepump (uv_cp).  
+  1 = Enable DIAG0 active on driver errors: Over temperature (`ot`), short to GND (`s2g`), undervoltage chargepump (`uv_cp`).  
   DIAG0 always shows the reset-status, i.e. is active low during reset condition.  
   
 - *TMC2160_DIAG0_OTPW__ONLY_WITH_SD_MODE_1__FIELD*:  
-  1 = Enable DIAG0 active on driver over temperature prewarning (otpw)
+  1 = Enable DIAG0 active on driver over temperature prewarning (`otpw`)
   
 - *TMC2160_DIAG0_STALL_FIELD*:  
-  1 = Enable DIAG0 active on motor stall (set TCOOLTHRS before using this feature)
+  1 = Enable DIAG0 active on motor stall (set `TCOOLTHRS` before using this feature)
   
 - *TMC2160_DIAG1_STALL_FIELD*:  
-  1 = Enable DIAG1 active on motor stall (set TCOOLTHRS before using this feature)
+  1 = Enable DIAG1 active on motor stall (set `TCOOLTHRS` before using this feature)
   
 - *TMC2160_DIAG1_INDEX_FIELD*:  
-  1 = Enable DIAG1 active on index position (microstep look up table position 0)
+  1 = Enable DIAG1 active on index position (microstep look up table position `0`)
   
 - *TMC2160_DIAG1_ONSTATE_FIELD*:  
-  1 = Enable DIAG1 active when chopper is on (for the coil which is in the second half of the fullstep)
+  1 = Enable DIAG1 active when `chopper` is on (for the coil which is in the second half of the `fullstep`)
   
 - *TMC2160_DIAG1_STEPS_SKIPPED_FIELD*:  
-  1 = Enable output toggle when steps are skipped in dcStep mode (increment of LOST_STEPS).  
+  1 = Enable output toggle when steps are skipped in `dcStep` mode (increment of `LOST_STEPS`).  
   Do not enable in conjunction with other DIAG1 options.  
   
 - *TMC2160_DIAG0_INT_PUSHPULL_FIELD*:  
@@ -58,7 +58,7 @@ R/W: Read/Write | Bits: 32
   1 = Enable DIAG1 push pull output (active high)  
   
 - *TMC2160_SMALL_HYSTERESIS_FIELD*:  
-  Modifies TSTEP threshold hysteresis from 1/16 to 1/32 for finer velocity thresholding.  
+  Modifies `TSTEP` threshold hysteresis from `1/16` to `1/32` for finer velocity thresholding.  
   Use for applications requiring reduced jitter sensitivity.  
   
 - *TMC2160_STOP_ENABLE_FIELD*:  
@@ -66,8 +66,8 @@ R/W: Read/Write | Bits: 32
   1 = Stop motor on stall event, 0 = Ignore stall event for stopping.  
   
 - *TMC2160_DIRECT_MODE_FIELD*:  
-  Enables direct coil current mode.  
-  1 = Bypass sequencer, use XDIRECT register for coil currents.  
+  Enables `direct coil current mode`.  
+  1 = Bypass sequencer, use `XDIRECT` register for coil currents.  
   0 = Normal sequencer operation.  
   
 - *TMC2160_TEST_MODE_FIELD*:  
@@ -258,14 +258,14 @@ R/W: Write | Bits: 5 (IHOLD) + 5 (IRUN) + 4 (IHOLDDELAY)
 
 - *TMC2160_IHOLD_FIELD*:  
   Standstill current (0=1/32...31=32/32).  
-  In combination with stealthChop mode, setting IHOLD=0 allows to choose freewheeling or coil short circuit for motor stand still.  
+  In combination with `stealthChop` mode, setting IHOLD=0 allows to choose freewheeling or coil short circuit for motor stand still.  
   
 - *TMC2160_IRUN_FIELD*:  
   Motor run current (0=1/32...31=32/32).  
   _Hint:_ Choose sense resistors in a way, that normal IRUN is 16 to 31 for best microstep performance.  
   
 - *TMC2160_IHOLDDELAY_FIELD*:  
-  Controls the number of clock cycles for motor power down after a motion as soon as standstill is detected (sts=1) and TPOWERDOWN has expired.  
+  Controls the number of clock cycles for motor power down after a motion as soon as `stst=1` and `TPOWERDOWN` has expired.  
   The smooth transition avoids a motor jerk upon power down.  
   0: instant power down  
   1..15: Delay per current reduction step in multiple of 2^18 clocks
@@ -277,11 +277,11 @@ R/W: Write | Bits: 5 (IHOLD) + 5 (IRUN) + 4 (IHOLDDELAY)
 R/W: Write | Bits: 8
 
 - *TMC2160_TPOWERDOWN_FIELD*:  
-  Sets the delay time after stand still (sts) of the motor to motor current power down.  
+  Sets the delay time after stand still (`stst`) of the motor to motor current power down.  
   Time range is about 0 to 4 seconds.  
-  *Attention:* A minimum setting of 2 is required to allow automatic tuning of stealthChop PWM_OFFS_AUTO.  
+  *Attention:* A minimum setting of 2 is required to allow automatic tuning of `stealthChop` `PWM_OFFS_AUTO`.  
   _(Reset Default = 10)_  
-  0...((2^8)-1) * 2^18 t_CLK
+  0...((2^8)-1) * 2^18 `t_CLK`
 
 </details>
 
@@ -290,13 +290,13 @@ R/W: Write | Bits: 8
 R/W: Write | Bits: 20
 
 - *TMC2160_TSTEP_FIELD*:  
-  Actual measured time between two 1/256 microsteps derived from the step input frequency in units of 1/fCLK.  
+  Actual measured time between two 1/256 microsteps derived from the step input frequency in units of 1/`fCLK`.  
   Measured value is (2^20)-1 in case of overflow or stand still.  
-  All TSTEP related thresholds use a hysteresis of 1/16 of the compare value to compensate for jitter in the clock or the step frequency.  
-  The flag _small_hysteresis_ modifies the hysteresis to a smaller value of 1/32.  
-  (Txxx*15/16)-1 or (Txxx*31/32)-1 is used as a second compare value for each comparison value.  
+  All `TSTEP` related thresholds use a hysteresis of `1/16` of the compare value to compensate for jitter in the clock or the step frequency.  
+  The flag `_small_hysteresis_` modifies the hysteresis to a smaller value of `1/32`.  
+  (`Txxx*15/16`)-1 or (`Txxx*31/32`)-1 is used as a second compare value for each comparison value.  
   This means, that the lower switching velocity equals the calculated setting, but the upper switching velocity is higher as defined by the hysteresis setting.  
-  In dcStep mode TSTEP will not show the mean velocity of the motor, but the velocities for each microstep, which may not be stable and thus does not represent the real motor velocity in case it runs slower than the target velocity.  
+  In `dcStep` mode `TSTEP` will not show the mean velocity of the motor, but the velocities for each microstep, which may not be stable and thus does not represent the real motor velocity in case it runs slower than the target velocity.  
 
 </details>
 
@@ -305,10 +305,10 @@ R/W: Write | Bits: 20
 R/W: Write | Bits: 20
 
 - *TMC2160_TPWMTHRS_FIELD*:  
-  This is the upper velocity for stealthChop voltage PWM mode.  
-  TSTEP ≥ TPWMTHRS  
-  - stealthChop PWM mode is enabled, if configured  
-  - dcStep is disabled
+  This is the upper velocity for `stealthChop` voltage PWM mode.  
+  `TSTEP ≥ TPWMTHRS`  
+  - `stealthChop` PWM mode is enabled, if configured  
+  - `dcStep` is disabled
 
 </details>
 
@@ -317,7 +317,7 @@ R/W: Write | Bits: 20
 R/W: Write | Bits: 20
 
 - *TMC2160_TCOOLTHRS_FIELD*:  
-  This is the lower threshold velocity for switching on smart energy coolStep and stallGuard feature (unsigned).  
+  This is the lower threshold velocity for switching on smart energy `coolStep` and `stallGuard` feature (unsigned).  
   Set this parameter to disable coolStep at low speeds, where it cannot work reliably.  
   The stop on stall function (enable with sg_stop when using internal motion controller) and the stall output signal become enabled when exceeding this velocity.  
   In non-dcStep mode, it becomes disabled again once the velocity falls below this threshold.  
