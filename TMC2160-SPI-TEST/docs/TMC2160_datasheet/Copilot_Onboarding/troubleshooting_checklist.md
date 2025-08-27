@@ -48,7 +48,8 @@ A modular checklist for error flags, configuration issues, and workflow validati
 
 - Each troubleshooting step is cross-linked to relevant workflows and register documentation.
 - For detailed procedures, see [Workflow Index](workflow_index.md).
-- For register details, see [Register Index](register_index.md).
+- For stepwise configuration, see [Quick Config Workflows](TMC2160_Quick_Config_Workflows.md).
+- For register details, see [Register Index](register_index.md) and [Register Field Reference](TMC2160_RegisterField_Reference.md).
 - For math-based validation, see [Math Formulas](math_formulas.md).
 
 ---

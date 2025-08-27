@@ -14,6 +14,8 @@ A modular, cross-referenced guide for understanding and using the TMC2160 steppe
 - Each section cross-links to relevant registers, workflows, and formulas
 - Register and field names are highlighted with backticks
 - Technical chapters and datasheet segments are referenced for deeper dives
+- For stepwise configuration, see [Quick Config Workflows](TMC2160_Quick_Config_Workflows.md)
+- For detailed register field info, see [Register Field Reference](TMC2160_RegisterField_Reference.md)
 
 (Expand with onboarding notes, technical summaries, and practical integration advice.)
 
@@ -92,11 +94,28 @@ A modular, cross-referenced guide for understanding and using the TMC2160 steppe
 
 ---
 
+## Datasheet Reference Sections (Advanced)
+
+- For advanced troubleshooting, hardware integration, and final detail, see:
+  - [Diagnostics & Protection (split-11)](TMC2160_datasheet-split-11.PDF)
+  - [stallGuard2, coolStep, Tuning (split-12)](TMC2160_datasheet-split-12.PDF)
+  - [Microstepping, DIAG Outputs, dcStep (split-13)](TMC2160_datasheet-split-13.PDF)
+  - [LUT, Emergency Stop (split-14)](TMC2160_datasheet-split-14.PDF)
+  - [Standalone Operation, Pin Config (split-15)](TMC2160_datasheet-split-15.PDF)
+  - [Clock, Electrical, Thermal Characteristics (split-16)](TMC2160_datasheet-split-16.PDF)
+  - [Timing, Layout, Thermal Management (split-17)](TMC2160_datasheet-split-17.PDF)
+  - [Layout, Package, References (split-18)](TMC2160_datasheet-split-18.PDF)
+
+---
+
 ## Cross-Reference Summary
 
 - [Register Index](register_index.md): All register addresses, bit fields, and functions.
 - [Workflow Index](workflow_index.md): Stepwise procedures, configuration flows, and advanced workflows.
+- [Quick Config Workflows](TMC2160_Quick_Config_Workflows.md): Practical stepwise configuration for common use cases.
+- [Register Field Reference](TMC2160_RegisterField_Reference.md): Detailed field-level register info for technical reference.
 - [Math Formulas](math_formulas.md): Current scaling, timing, microstepping, and validation equations.
 - [Troubleshooting Checklist](troubleshooting_checklist.md): Error flags, diagnostics, and recovery steps.
+- [Datasheet Reference Sections (Advanced)](#datasheet-reference-sections-advanced): For advanced troubleshooting, hardware integration, and final detail.
 
 ---

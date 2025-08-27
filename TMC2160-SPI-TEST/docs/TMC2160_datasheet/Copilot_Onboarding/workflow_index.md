@@ -128,6 +128,8 @@ A cross-referenced index of stepwise procedures, configuration flows, and techni
 ### Cross-Reference Summary
 
 - [Register Index](register_index.md): All register addresses, bit fields, and functions.
+- [Quick Config Workflows](TMC2160_Quick_Config_Workflows.md): Stepwise configuration procedures for common use cases.
+- [Register Field Reference](TMC2160_RegisterField_Reference.md): Detailed field-level register info for technical reference.
 - [Math Formulas](math_formulas.md): Current scaling, timing, microstepping, and validation equations.
 - [Troubleshooting Checklist](troubleshooting_checklist.md): Error flags, diagnostics, and recovery steps.
 - [Onboarding Guide](onboarding_guide.md): Central navigation, onboarding notes, and integration advice.
