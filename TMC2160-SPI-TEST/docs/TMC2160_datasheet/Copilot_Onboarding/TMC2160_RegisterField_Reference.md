@@ -9,7 +9,7 @@ Below is a navigable reference for TMC2160 register fields, grouped by register.
 R/W: Read/Write | Bits: 32
 
 - *TMC2160_RECALIBRATE_FIELD*:  
-  1 = Zero crossing recalibration during driver disable (via ENN or via TOFF setting)  
+  1 = Zero crossing recalibration during driver disable (via `ENN` or via `TOFF` setting)  
   
 - *TMC2160_FASTSTANDSTILL_FIELD*:  
   Timeout for step execution until standstill detection.  
@@ -27,35 +27,35 @@ R/W: Read/Write | Bits: 32
   1 = Inverse motor direction
   
 - *TMC2160_DIAG0_ERROR__ONLY_WITH_SD_MODE_1__FIELD*:  
-  1 = Enable DIAG0 active on driver errors: Over temperature (`ot`), short to GND (`s2g`), undervoltage chargepump (`uv_cp`).  
-  DIAG0 always shows the reset-status, i.e. is active low during reset condition.  
+  1 = Enable `DIAG0` active on driver errors: Over temperature (`ot`), short to GND (`s2g`), undervoltage chargepump (`uv_cp`).  
+  `DIAG0` always shows the reset-status, i.e. is active low during reset condition.  
   
 - *TMC2160_DIAG0_OTPW__ONLY_WITH_SD_MODE_1__FIELD*:  
-  1 = Enable DIAG0 active on driver over temperature prewarning (`otpw`)
+  1 = Enable `DIAG0` active on driver over temperature prewarning (`otpw`)
   
 - *TMC2160_DIAG0_STALL_FIELD*:  
-  1 = Enable DIAG0 active on motor stall (set `TCOOLTHRS` before using this feature)
+  1 = Enable `DIAG0` active on motor stall (set `TCOOLTHRS` before using this feature)
   
 - *TMC2160_DIAG1_STALL_FIELD*:  
-  1 = Enable DIAG1 active on motor stall (set `TCOOLTHRS` before using this feature)
+  1 = Enable `DIAG1` active on motor stall (set `TCOOLTHRS` before using this feature)
   
 - *TMC2160_DIAG1_INDEX_FIELD*:  
-  1 = Enable DIAG1 active on index position (microstep look up table position `0`)
+  1 = Enable `DIAG1` active on index position (microstep look up table position `0`)
   
 - *TMC2160_DIAG1_ONSTATE_FIELD*:  
-  1 = Enable DIAG1 active when `chopper` is on (for the coil which is in the second half of the `fullstep`)
+  1 = Enable `DIAG1` active when `chopper` is on (for the coil which is in the second half of the `fullstep`)
   
 - *TMC2160_DIAG1_STEPS_SKIPPED_FIELD*:  
   1 = Enable output toggle when steps are skipped in `dcStep` mode (increment of `LOST_STEPS`).  
-  Do not enable in conjunction with other DIAG1 options.  
+  Do not enable in conjunction with other `DIAG1` options.  
   
 - *TMC2160_DIAG0_INT_PUSHPULL_FIELD*:  
-  0 = DIAG0 is open collector output (active low)  
-  1 = Enable DIAG0 push pull output (active high)  
+  0 = `DIAG0` is open collector output (active low)  
+  1 = Enable `DIAG0` push pull output (active high)  
   
 - *TMC2160_DIAG1_POSCOMP_PUSHPULL_FIELD*:  
-  0 = DIAG1 is open collector output (active low)  
-  1 = Enable DIAG1 push pull output (active high)  
+  0 = `DIAG1` is open collector output (active low)  
+  1 = Enable `DIAG1` push pull output (active high)  
   
 - *TMC2160_SMALL_HYSTERESIS_FIELD*:  
   Modifies `TSTEP` threshold hysteresis from `1/16` to `1/32` for finer velocity thresholding.  
@@ -66,7 +66,7 @@ R/W: Read/Write | Bits: 32
   1 = Stop motor on stall event, 0 = Ignore stall event for stopping.  
   
 - *TMC2160_DIRECT_MODE_FIELD*:  
-  Enables `direct coil current mode`.  
+  Enables direct coil current mode.  
   1 = Bypass sequencer, use `XDIRECT` register for coil currents.  
   0 = Normal sequencer operation.  
   
@@ -85,7 +85,7 @@ R/W: Read/Write | Bits: 3
   
 - *TMC2160_DRV_ERR_FIELD*:  
   1 = Indicates that the driver has been shut down due to overtemperature or short circuit detection.  
-  Read DRV_STATUS for details.  
+  Read `DRV_STATUS` for details.  
   The flag can only be cleared when the temperature is below the limit again.  
   
 - *TMC2160_UV_CP_FIELD*:  
@@ -103,25 +103,25 @@ R/W: Read/Write | Bits: 3
 R/W: Read | Bits: 8 (0–7) + 8 (24–31)
 
 - *TMC2160_STEP_FIELD*:  
-  STEP input pin
+  `STEP` input pin
   
 - *TMC2160_DIR_FIELD*:  
-  DIR input pin
+  `DIR` input pin
   
 - *TMC2160_DCEN_CFG4_FIELD*:  
-  DCEN_CFG4 input pin
+  `DCEN_CFG4` input pin
   
 - *TMC2160_DCIN_CFG5_FIELD*:  
-  DCIN_CFG5 input pin
+  `DCIN_CFG5` input pin
   
 - *TMC2160_DRV_ENN_FIELD*:  
-  DRV_ENN input pin
+  `DRV_ENN` input pin
   
 - *TMC2160_DCO_CFG6_FIELD*:  
-  DCO_CFG6 input pin
+  `DCO_CFG6` input pin
   
 - *TMC2160_VERSION_FIELD*:  
-  VERSION: 0x30 = first version of the IC
+  `VERSION`: 0x30 = first version of the IC
   
 - *TMC2160_OUTPUT_PIN_POLARITY_FIELD*:  
   Identical numbers mean full digital compatibility.  
@@ -183,7 +183,7 @@ R/W: Write | Bits: 22
 - *TMC2160_BBMTIME_FIELD*:  
   BBMTIME: Break-Before make delay  
   0=shortest (100ns) ... 16 (200ns) ... 24=longest (375ns)  
-  >24 not recommended, use BBMCLKS instead  
+  >24 not recommended, use `BBMCLKS` instead  
 
   _Hint:_ Choose the lowest setting safely covering the switching event in order to avoid bridge cross-conduction.  
   Add roughly 30% of reserve.  
@@ -191,7 +191,7 @@ R/W: Write | Bits: 22
   
 - *TMC2160_BBMCLKS_FIELD*:  
   BBMCLKS: Digital BBM time in clock cycles (typ. 83ns).  
-  0..15: The longer setting rules (BBMTIME vs. BBMCLKS).  
+  0..15: The longer setting rules (`BBMTIME vs. BBMCLKS`).  
   _(Reset Default: OTP 4 or 2)_
   
 - *TMC2160_OTSELECT_FIELD*:  
@@ -258,11 +258,11 @@ R/W: Write | Bits: 5 (IHOLD) + 5 (IRUN) + 4 (IHOLDDELAY)
 
 - *TMC2160_IHOLD_FIELD*:  
   Standstill current (0=1/32...31=32/32).  
-  In combination with `stealthChop` mode, setting IHOLD=0 allows to choose freewheeling or coil short circuit for motor stand still.  
+  In combination with `stealthChop` mode, setting `IHOLD=0` allows to choose freewheeling or coil short circuit for motor stand still.  
   
 - *TMC2160_IRUN_FIELD*:  
   Motor run current (0=1/32...31=32/32).  
-  _Hint:_ Choose sense resistors in a way, that normal IRUN is 16 to 31 for best microstep performance.  
+  _Hint:_ Choose sense resistors in a way, that normal `IRUN` is 16 to 31 for best microstep performance.  
   
 - *TMC2160_IHOLDDELAY_FIELD*:  
   Controls the number of clock cycles for motor power down after a motion as soon as `stst=1` and `TPOWERDOWN` has expired.  
@@ -320,13 +320,13 @@ R/W: Write | Bits: 20
   This is the lower threshold velocity for switching on smart energy `coolStep` and `stallGuard` feature (unsigned).  
   Set this parameter to disable coolStep at low speeds, where it cannot work reliably.  
   The stop on stall function (enable with sg_stop when using internal motion controller) and the stall output signal become enabled when exceeding this velocity.  
-  In non-dcStep mode, it becomes disabled again once the velocity falls below this threshold.  
-  TCOOLTHRS ≥ TSTEP ≥ THIGH:  
+  In non-`dcStep` mode, it becomes disabled again once the velocity falls below this threshold.  
+  `TCOOLTHRS` ≥ `TSTEP` ≥ `THIGH`:  
   - coolStep is enabled, if configured  
   - stealthChop voltage PWM mode is disabled  
-  TCOOLTHRS ≥ TSTEP  
+  `TCOOLTHRS` ≥ `TSTEP`  
   - Stop on stall is enabled, if configured  
-  - Stall output signal (DIAG0/1) is enabled, if configured
+  - Stall output signal (`DIAG0/1`) is enabled, if configured
 
 </details>
 
@@ -336,12 +336,12 @@ R/W: Write | Bits: 20
 
 - *TMC2160_THIGH_FIELD*:  
   This velocity setting allows velocity dependent switching into a different chopper mode and fullstepping to maximize torque (unsigned).  
-  The stall detection feature becomes switched off for 2-3 electrical periods whenever passing THIGH threshold to compensate for the effect of switching modes.  
-  TSTEP ≤ THIGH:  
-  - coolStep is disabled (motor runs with normal current scale)  
-  - stealthChop voltage PWM mode is disabled  
-  - If vhighchm is set, the chopper switches to chm=1 with TFD=0 (constant off time with slow decay, only).  
-  - If vhighfs is set, the motor operates in fullstep mode and the stall detection becomes switched over to dcStep stall detection.  
+  The stall detection feature becomes switched off for 2-3 electrical periods whenever passing `THIGH` threshold to compensate for the effect of switching modes.  
+  `TSTEP` ≤ `THIGH`:  
+  - `coolStep` is disabled (motor runs with normal current scale)  
+  - `stealthChop` voltage PWM mode is disabled  
+  - If `vhighchm` is set, the chopper switches to `chm=1` with `TFD=0` (constant off time with slow decay, only).  
+  - If `vhighfs` is set, the motor operates in fullstep mode and the stall detection becomes switched over to dcStep stall detection.  
 
 </details>
 
@@ -350,11 +350,11 @@ R/W: Write | Bits: 20
 R/W: Read/Write | Bits: 9 (coil A current) + 9 (coil B current)
 
 - *TMC2160_XDIRECT_FIELD*:  
-  This register is used in direct coil current mode, only (direct_mode = 1).  
+  This register is used in direct coil current mode, only (`direct_mode = 1`).  
   It bypasses the internal sequencer. Specifies signed coil A current (bits 8..0) and coil B current (bits 24..16).  
-  In this mode, the current is scaled by IHOLD setting.  
-  Velocity based current regulation of stealthChop is not available in this mode.  
-  The automatic stealthChop current regulation will work only for low stepper motor velocities.  
+  In this mode, the current is scaled by `IHOLD` setting.  
+  Velocity based current regulation of `stealthChop` is not available in this mode.  
+  The automatic `stealthChop` current regulation will work only for low stepper motor velocities.  
   2x -255...+255
 
 </details>
@@ -364,10 +364,10 @@ R/W: Read/Write | Bits: 9 (coil A current) + 9 (coil B current)
 R/W: Write | Bits: 23 (bits 0–22; only bits 22–8 used for value/comparison)
 
 - *TMC2160_VDCMIN_FIELD*:  
-  Automatic commutation dcStep minimum velocity. Enable dcStep by DCEN pin.  
+  Automatic commutation dcStep minimum velocity. Enable dcStep by `DCEN` pin.  
   In this mode, the actual position is determined by the sensorless motor commutation and becomes fed back to the external motion controller.  
-  In case the motor becomes heavily loaded, VDCMIN is used as the minimum step velocity.  
-  _Hint:_ Also set DCCTRL parameters in order to operate dcStep.  
+  In case the motor becomes heavily loaded, `VDCMIN` is used as the minimum step velocity.  
+  _Hint:_ Also set `DCCTRL` parameters in order to operate dcStep.  
   (Only bits 22...8 are used for value and for comparison)
 
 </details>
@@ -450,13 +450,13 @@ R/W: Read/Write | Bits: 32
 
 - *TMC2160_VHIGHCHM_FIELD*:  
   High velocity chopper mode.  
-  This bit enables switching to chm=1 and fd=0, when VHIGH is exceeded.  
-  This way, a higher velocity can be achieved. Can be combined with vhighfs=1.  
+  This bit enables switching to chm=1 and fd=0, when `VHIGH` is exceeded.  
+  This way, a higher velocity can be achieved. Can be combined with `vhighfs=1`.  
   If set, the TOFF setting automatically becomes doubled during high velocity operation in order to avoid doubling of the chopper frequency.  
 
 - *TMC2160_VHIGHFS_FIELD*:  
   High velocity fullstep selection.  
-  This bit enables switching to fullstep, when VHIGH is exceeded.  
+  This bit enables switching to fullstep, when `VHIGH` is exceeded.  
   Switching takes place only at 45° position.  
   The fullstep target current uses the current value from the microstep table at the 45° position.  
 
@@ -517,16 +517,16 @@ R/W: Read/Write | Bits: 32
 R/W: Write | Bits: 25
 
 - *TMC2160_SFILT_FIELD*:  
-  stallGuard2 filter enable.  
-  0: Standard mode, high time resolution for stallGuard2.  
-  1: Filtered mode, stallGuard2 signal updated for each four fullsteps (resp. six fullsteps for 3 phase motor) only to compensate for motor pole tolerances.  
+  `stallGuard2` filter enable.  
+  0: Standard mode, high time resolution for `stallGuard2`.  
+  1: Filtered mode, `stallGuard2` signal updated for each four fullsteps (resp. six fullsteps for 3 phase motor) only to compensate for motor pole tolerances.  
   
 - *TMC2160_SGT_FIELD*:  
-  stallGuard2 threshold value.  
-  This signed value controls stallGuard2 level for stall output and sets the optimum measurement range for readout.  
+  `stallGuard2` threshold value.  
+  This signed value controls `stallGuard2` level for stall output and sets the optimum measurement range for readout.  
   A lower value gives a higher sensitivity.  
   Zero is the starting value working with most motors.  
-  -64 to +63: A higher value makes stallGuard2 less sensitive and requires more torque to indicate a stall.  
+  -64 to +63: A higher value makes `stallGuard2` less sensitive and requires more torque to indicate a stall.  
   
 - *TMC2160_SEIMIN_FIELD*:  
   minimum current for smart current control.  
@@ -534,19 +534,19 @@ R/W: Write | Bits: 25
   
 - *TMC2160_SEDN_FIELD*:  
   current down step speed.  
-  %00: For each 32 stallGuard2 values decrease by one.  
-  %01: For each 8 stallGuard2 values decrease by one.  
-  %10: For each 2 stallGuard2 values decrease by one.  
-  %11: For each stallGuard2 value decrease by one.  
+  %00: For each 32 `stallGuard2` values decrease by one.  
+  %01: For each 8 `stallGuard2` values decrease by one.  
+  %10: For each 2 `stallGuard2` values decrease by one.  
+  %11: For each `stallGuard2` value decrease by one.  
   
 - *TMC2160_SEMAX_FIELD*:  
-  stallGuard2 hysteresis value for smart current control.  
-  If the stallGuard2 result is equal to or above (SEMIN+SEMAX+1)*32, the motor current becomes decreased to save energy.  
+  `stallGuard2` hysteresis value for smart current control.  
+  If the `stallGuard2` result is equal to or above (SEMIN+SEMAX+1)*32, the motor current becomes decreased to save energy.  
   %0000 ... %1111: 0 ... 15.  
   
 - *TMC2160_SEUP_FIELD*:  
   current up step width.  
-  Current increment steps per measured stallGuard2 value.  
+  Current increment steps per measured `stallGuard2` value.  
   %00 ... %11: 1, 2, 4, 8.  
   
 - *TMC2160_SEMIN_FIELD*:  
@@ -562,16 +562,16 @@ R/W: Write | Bits: 25
 R/W: Write | Bits: 24
 
 - *TMC2160_DCCTRL_FIELD*:  
-  dcStep (DC) automatic commutation configuration register (enable via pin DCEN or via VDCMIN):  
-  bit 9...0: *DC_TIME*: Upper PWM on time limit for commutation (DC_TIME 1/fCLK).  
+  dcStep (DC) automatic commutation configuration register (enable via pin `DCEN` or via VDCMIN):  
+  bit 9...0: *DC_TIME*: Upper PWM on time limit for commutation (`DC_TIME` 1/fCLK).  
   Set slightly above effective blank time TBL.  
-  bit 23...16: *DC_SG*: Max. PWM on time for step loss detection using dcStep stallGuard2 in dcStep mode.  
-  (DC_SG 16/fCLK)  
-  Set slightly higher than DC_TIME16  
+  bit 23...16: *DC_SG*: Max. PWM on time for step loss detection using dcStep `stallGuard2` in dcStep mode (`DC_SG`).  
+  (`DC_SG` 16/fCLK)  
+  Set slightly higher than `DC_TIME16`  
   0=disable  
-  _Hint:_ Using a higher microstep resolution or interpolated operation, dcStep delivers a better stallGuard signal.  
-  DC_SG is also available above VHIGH if vhighfs is activated.  
-  For best result also set vhighchm.  
+  _Hint:_ Using a higher microstep resolution or interpolated operation, dcStep delivers a better `stallGuard2` signal.  
+  `DC_SG` is also available above `VHIGH` if `vhighfs` is activated.  
+  For best result also set `vhighchm`.  
 
 </details>
 
@@ -620,16 +620,16 @@ R/W: Read | Bits: 32
 - *TMC2160_OT_FIELD*:  
    Overtemperature flag.  
     1: Overtemperature limit has been reached.  
-    Drivers become disabled until otpw is also cleared due to cooling down of the IC.  
+    Drivers become disabled until `otpw` is also cleared due to cooling down of the IC.  
     The overtemperature flag is common for both bridges.  
   
 - *TMC2160_STALLGUARD_FIELD*:  
-   stallGuard2 status.  
+   `stallGuard2` status.  
     1: Motor stall detected (SG_RESULT=0) or dcStep stall in dcStep mode.  
   
 - *TMC2160_CS_ACTUAL_FIELD*:  
    Actual motor current / smart energy current.  
-    Actual current control scaling, for monitoring smart energy current scaling controlled via settings in register COOLCONF, or for monitoring the function of the automatic current scaling.  
+  Actual current control scaling, for monitoring smart energy current scaling controlled via settings in register `COOLCONF`, or for monitoring the function of the automatic current scaling.  
   
 - *TMC2160_FSACTIVE_FIELD*:  
    Full step active indicator.  
@@ -654,16 +654,16 @@ R/W: Read | Bits: 32
     Sense resistor voltage drop is included in the measurement!
   
 - *TMC2160_SG_RESULT_FIELD*:  
-   stallGuard2 result respectively PWM on time for coil A in standstill for motor temperature detection.  
-    Mechanical load measurement: The stallGuard2 result gives a means to measure mechanical motor load.  
+   `stallGuard2` result respectively PWM on time for coil A in standstill for motor temperature detection.  
+    Mechanical load measurement: The `stallGuard2` result gives a means to measure mechanical motor load.  
     A higher value means lower mechanical load.  
     A value of 0 signals highest load.  
     With optimum SGT setting, this is an indicator for a motor stall.  
     The stall detection compares SG_RESULT to 0 in order to detect a stall.  
     SG_RESULT is used as a base for coolStep operation, by comparing it to a programmable upper and a lower limit.  
     It is not applicable in stealthChop mode.  
-    stallGuard2 works best with microstep operation or dcStep.  
-    Temperature measurement: In standstill, no stallGuard2 result can be obtained.  
+    `stallGuard2` works best with microstep operation or dcStep.  
+    Temperature measurement: In standstill, no `stallGuard2` result can be obtained.  
     SG_RESULT shows the chopper on-time for motor coil A instead.  
     Move the motor to a determined microstep position at a certain current setting to get a rough estimation of motor temperature by a reading the chopper on-time.  
     As the motor heats up, its coil resistance rises, resulting in longer chopper on-time intervals.  
